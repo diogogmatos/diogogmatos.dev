@@ -19,6 +19,7 @@ const config: Config = {
       },
     },
   },
+  safelist: ["animate-pulse"],
   plugins: [],
 };
 export default config;
