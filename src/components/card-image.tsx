@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/legacy/image";
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 
 interface CardImageProps extends ComponentProps<"div"> {
   className?: string;
@@ -8,6 +10,8 @@ interface CardImageProps extends ComponentProps<"div"> {
 }
 
 const CardImage = ({ src, alt, className }: CardImageProps) => {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
   return (
     <div className={`relative size-full -z-20 ${className}`}>
       <Image
@@ -16,8 +20,11 @@ const CardImage = ({ src, alt, className }: CardImageProps) => {
         layout="fill"
         objectFit="cover"
         className="rounded-xl opacity-80"
+        onLoad={() => setIsLoaded(true)}
       />
-      <div className="absolute size-full bg-gradient-to-br from-white/10 to-transparent rounded-xl backdrop-blur-[0.3px]" />
+      <div
+        className={`absolute size-full bg-gradient-to-br from-white/10 to-transparent rounded-xl backdrop-blur-[0.3px] ${!isLoaded && "animate-pulse"}`}
+      />
     </div>
   );
 };

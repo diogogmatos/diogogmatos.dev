@@ -280,7 +280,7 @@ export default function Home() {
           </div>
         </Card>
       </div>
-      <footer className="w-full flex justify-center text-white/50 col-span-2 space-x-2 items-center text-center">
+      <footer className="w-full flex justify-center text-white/50 text-sm sm:text-base col-span-2 space-x-2 items-center text-center">
         <p>
           proudly developed and designed by me{" "}
           <PaintBrush size={18} className="inline-flex mb-1" />
