@@ -50,6 +50,14 @@ export default function RootLayout({
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#7b7b7b" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" content="#000000" />
+        <meta property="og:image" content="/images/highlight.png" />
+        <meta property="og:title" content="Diogo Matos - Portfolio" />
+        <meta
+          property="og:description"
+          content="Welcome to my little corner of the internet."
+        />
+        <meta property="og:url" content="https://diogogmatos.dev" />
+        <meta property="og:type" content="website" />
       </head>
       <body
         className={`${spaceMono.variable} ${inter.variable} font-mono antialiased relative`}
