@@ -7,7 +7,6 @@ import {
   Mailbox,
   PaintBrush,
 } from "@phosphor-icons/react/dist/ssr";
-import styles from "./styles.module.css";
 import CardTitle from "@/components/card-title";
 import ExperienceList from "@/components/experience";
 import CardBody from "@/components/card-body";
@@ -15,9 +14,7 @@ import CardImage from "@/components/card-image";
 
 export default function Home() {
   return (
-    <div className="p-6 sm:p-12 relative min-h-screen flex flex-col gap-6 sm:gap-12 md:px-24 lg:px-32 xl:px-40">
-      <div className={styles.gradient} />
-      <div className={styles.pattern} />
+    <div className="p-6 sm:p-12 min-h-screen flex flex-col gap-6 sm:gap-12 md:px-24 lg:px-32 xl:px-40">
       <header className="space-y-4">
         <h1 className="font-bold text-4xl sm:text-5xl">Diogo Matos</h1>
         <p className="sm:text-lg">
