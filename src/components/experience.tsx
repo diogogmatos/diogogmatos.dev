@@ -16,7 +16,7 @@ const ExperienceList = ({ experiences }: ExperienceListProps) => {
     <ul className="list-disc pl-4 space-y-2">
       {experiences.map((e, i) => (
         <li key={"e" + i}>
-          <span className="w-full flex justify-between items-center">
+          <span className="w-full flex justify-between gap-6 items-center">
             <a
               href={e.link ? e.link : ""}
               target="_blank"

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Space_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import styles from "./styles.module.css";
+import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
+import BottomGradient from "@/components/bottom-gradient";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -60,11 +62,32 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
       </head>
       <body
-        className={`${spaceMono.variable} ${inter.variable} font-mono antialiased relative`}
+        className={`${spaceMono.variable} ${inter.variable} font-mono antialiased relative flex flex-col gap-6 sm:gap-12 p-6 sm:p-12 min-h-screen md:px-14 xl:px-40`}
       >
         <div className={styles.gradient} />
         <div className={styles.pattern} />
+        <BottomGradient />
+        <header className="space-y-4">
+          <h1 className="font-bold text-4xl sm:text-5xl">Diogo Matos</h1>
+          <p className="sm:text-lg">
+            software engineering @{" "}
+            <a
+              className="font-bold hover:underline"
+              href="https://www.uminho.pt"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              uminho
+            </a>
+          </p>
+        </header>
         {children}
+        <footer className="w-full flex justify-center text-white/50 text-sm sm:text-base col-span-2 space-x-2 items-center text-center">
+          <p>
+            proudly developed and designed by me{" "}
+            <PaintBrush size={18} className="inline-flex mb-1" />
+          </p>
+        </footer>
       </body>
     </html>
   );
