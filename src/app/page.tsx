@@ -15,13 +15,24 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-6 sm:gap-12">
       <main>
-        <div className="space-y-6">
-          <div className="flex lg:flex-row gap-6 flex-col-reverse">
-            <div className="space-y-6 w-full">
+        <div className="space-y-4 sm:space-y-6">
+          <div className="flex lg:flex-row gap-4 sm:gap-6 flex-col-reverse">
+            {/* Experience & Education */}
+            <div className="space-y-4 sm:space-y-6 w-full">
               <Card>
                 <CardTitle>Experience</CardTitle>
                 <ExperienceList
                   experiences={[
+                    {
+                      title: "CeSIUM",
+                      position: [
+                        "Co-Director - Open Source Department",
+                        "Collaborator - Open Source Department",
+                        "Collaborator - Marketing Department",
+                      ],
+                      period: "Oct'22 - present",
+                      link: "https://cesium.pt",
+                    },
                     {
                       title: "YariLabs",
                       position: ["Frontend Developer - Summer Internship"],
@@ -29,21 +40,12 @@ export default function Home() {
                       link: "https://www.yarilabs.com/",
                     },
                     {
-                      title: "CeSIUM",
-                      position: [
-                        "Co-Director of Open Source Department",
-                        "Collaborator at Open Source and Marketing Departments",
-                      ],
-                      period: "Oct'22 - present",
-                      link: "https://cesium.pt",
-                    },
-                    {
-                      title: "CoderDojo Braga",
+                      title: "CoderDojo",
                       position: [
                         "Python Mentor",
-                        "Collaborator at Technology and Development Department",
+                        "Collaborator - Technology Department",
                       ],
-                      period: "Oct'22 - present",
+                      period: "Oct'22 - Oct'24",
                       link: "https://coderdojobraga.org/",
                     },
                   ]}
@@ -66,7 +68,8 @@ export default function Home() {
                 />
               </Card>
             </div>
-            <div className="space-y-6 flex flex-col">
+            {/* About */}
+            <div className="space-y-4 sm:space-y-6 flex flex-col">
               <Card
                 className="lg:size-full lg:min-h-0 min-h-48"
                 innerClassName="py-2 px-2"
@@ -94,6 +97,7 @@ export default function Home() {
               </Card>
             </div>
           </div>
+          {/* Contacts / Socials */}
           <Card>
             <div className="grid xl:grid-cols-3 grid-flow-row xl:grid-flow-col gap-3 w-full sm:text-lg">
               <span className="flex space-x-2 items-center justify-center xl:justify-start">
@@ -127,8 +131,8 @@ export default function Home() {
           </Card>
         </div>
       </main>
-      <h1 className="font-bold text-2xl sm:text-3xl">Projects</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <h1 className="font-bold text-2xl sm:text-3xl pl-2">Projects</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
         <ProjectCard
           image={{
             src: "/images/calendarium.png",
