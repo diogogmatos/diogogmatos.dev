@@ -62,12 +62,12 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
       </head>
       <body
-        className={`${spaceMono.variable} ${inter.variable} font-mono antialiased relative flex flex-col gap-6 sm:gap-12 p-6 sm:p-12 min-h-screen md:px-14 xl:px-40`}
+        className={`${spaceMono.variable} ${inter.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-6 sm:gap-12 p-4 sm:p-12 min-h-screen md:px-14 xl:px-40`}
       >
         <div className={styles.gradient} />
         <div className={styles.pattern} />
         <BottomGradient />
-        <header className="space-y-4">
+        <header className="space-y-4 pl-2">
           <h1 className="font-bold text-4xl sm:text-5xl">Diogo Matos</h1>
           <p className="sm:text-lg">
             software engineering @{" "}

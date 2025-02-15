@@ -50,7 +50,7 @@ const ProjectCard = ({
             <h3 className="sm:text-lg font-bold">{title}</h3>
           )}
         </CardTitle>
-        <CardBody className="line-clamp-4" id="markdown">
+        <CardBody className="line-clamp-3" id="markdown">
           <Markdown>{description}</Markdown>
         </CardBody>
         <CardFooter>{footer}</CardFooter>

@@ -7,7 +7,7 @@ interface CardBodyProps extends ComponentProps<"span"> {
 const CardBody = ({ children, className, ...props }: CardBodyProps) => {
   return (
     <span
-      className={`text-justify space-y-2 pb-1 text-sm sm:text-base ${className}`}
+      className={`text-left space-y-2 pb-1 text-sm sm:text-base ${className}`}
       {...props}
     >
       {children}
