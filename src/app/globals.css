@@ -20,6 +20,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+::-moz-selection {
+  /* Code for Firefox */
+  background: rgba(255, 255, 255, 0.2);
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

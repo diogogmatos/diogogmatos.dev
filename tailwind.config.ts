@@ -6,6 +6,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/mdx-components.tsx",
   ],
   theme: {
     extend: {
@@ -15,7 +16,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", ...fontFamily.sans],
-        mono: ["var(--font-space-mono)", ...fontFamily.mono],
+        mono: ["var(--font-jetbrains)", ...fontFamily.mono],
       },
     },
   },
