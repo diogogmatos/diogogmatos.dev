@@ -1,3 +1,5 @@
+"use client";
+
 import Card from "./card";
 import CardImage from "./card-image";
 import CardTitle from "./card-title";
@@ -13,6 +15,7 @@ interface ProjectCardProps {
   };
   title: string;
   link?: string;
+  slug?: string;
   description: string;
   footer?: string;
 }
@@ -21,17 +24,18 @@ const ProjectCard = ({
   image,
   title,
   link,
+  slug,
   description,
   footer,
 }: ProjectCardProps) => {
   return (
-    <Card innerClassName="py-2 px-2" clickable>
+    <Card innerClassName="py-2 px-2" slug={slug}>
       {image && (
         <div className="h-40">
           <CardImage src={image.src} alt={image.alt} />
         </div>
       )}
-      <div className="p-4">
+      <div className="p-4" onClick={(e) => e.stopPropagation()}>
         <CardTitle>
           {link ? (
             <a

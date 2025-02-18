@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { Space_Mono, Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import styles from "./styles.module.css";
 import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
 import BottomGradient from "@/components/bottom-gradient";
+import Link from "next/link";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
 });
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  style: "normal",
+const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-space-mono",
+  variable: "--font-jetbrains",
 });
 
 export const metadata: Metadata = {
@@ -62,13 +61,15 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
       </head>
       <body
-        className={`${spaceMono.variable} ${inter.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-6 sm:gap-12 p-4 sm:p-12 min-h-screen md:px-14 xl:px-40`}
+        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-6 sm:gap-12 p-4 sm:p-12 min-h-screen md:px-14 xl:px-52`}
       >
         <div className={styles.gradient} />
         <div className={styles.pattern} />
         <BottomGradient />
         <header className="space-y-4 pl-2">
-          <h1 className="font-bold text-4xl sm:text-5xl">Diogo Matos</h1>
+          <Link href="/" className="font-bold text-4xl sm:text-5xl">
+            Diogo Matos
+          </Link>
           <p className="sm:text-lg">
             software engineering @{" "}
             <a

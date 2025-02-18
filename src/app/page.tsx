@@ -150,8 +150,20 @@ export default function Home() {
           }}
           title="UniShare"
           link="https://github.com/diogogmatos/EngWeb2024-Projeto"
+          slug="UniShare"
           description="Web app with the main goal of being a hub for study support materials for the entire academic community, regardless of course or subject."
-          footer="Next.js TypeScript Tailwind MongoDB"
+          footer="Next.js TypeScript Tailwind MongoDB Docker"
+        />
+        <ProjectCard
+          image={{
+            src: "/images/picturas.png",
+            alt: "PictuRAS Logo",
+          }}
+          title="PictuRAS"
+          link="https://github.com/diogogmatos/PictuRAS"
+          slug="PictuRAS"
+          description="Web app with the main goal of providing a powerful and easy to use image editing platform, with support for bulk editing, advanced AI-powered features and user accounts with different subscription levels."
+          footer="Next.js TypeScript Tailwind TanStackQuery Socket.IO MongoDB RabbitMQ MinIO Docker"
         />
         <ProjectCard
           image={{
