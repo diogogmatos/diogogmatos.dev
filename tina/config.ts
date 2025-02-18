@@ -35,7 +35,7 @@ export default defineConfig({
           {
             type: "rich-text",
             name: "body",
-            label: "Body",
+            label: "Post",
             isBody: true,
           },
         ],
@@ -45,5 +45,10 @@ export default defineConfig({
         },
       },
     ],
+  },
+  search: {
+    tina: {
+      indexerToken: process.env.TINA_SEARCH_TOKEN,
+    },
   },
 });
