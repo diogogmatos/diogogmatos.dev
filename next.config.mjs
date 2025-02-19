@@ -10,9 +10,9 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "github.com",
+        hostname: "assets.tina.io",
         port: "",
-        pathname: "/user-attachments/assets/**",
+        pathname: "/**",
         search: "",
       },
     ],
