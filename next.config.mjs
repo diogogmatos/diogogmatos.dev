@@ -15,6 +15,13 @@ const nextConfig = {
         pathname: "/user-attachments/assets/**",
         search: "",
       },
+      {
+        protocol: "https",
+        hostname: "assets.tina.io",
+        port: "",
+        pathname: "/**",
+        search: "",
+      },
     ],
   },
 };
