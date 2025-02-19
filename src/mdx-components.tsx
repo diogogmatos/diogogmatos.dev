@@ -50,39 +50,46 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: ({ children }) => (
       <h3 className="text-lg font-medium mb-4 mt-6">{children}</h3>
     ),
-    p: ({ children }) => <p className="text-sm mt-4 mb-6">{children}</p>,
+    p: ({ children }) => <p className="text-sm my-4">{children}</p>,
     a: ({ children, href }) => (
       <Link
         href={href ?? "/"}
-        className="text-sm hover:underline cursor-pointer font-medium inline-flex items-center py-0.5 px-1 rounded-full bg-white/10"
+        className="text-sm hover:underline cursor-pointer font-medium items-center py-0.5 px-1 rounded-lg bg-white/10 leading-loose"
         target="_blank"
         rel="noopener noreferrer"
       >
-        {children}
-        <ArrowUpRight size="1.2em" className="ml-1 translate-y-[0.05rem]" />
+        {children}{" "}
+        <ArrowUpRight
+          size="1.2em"
+          className="inline-flex -translate-y-[0.05rem]"
+        />
       </Link>
     ),
-    hr: () => <hr className="border-white/30" />,
+    hr: () => <hr className="border-white/30 my-4" />,
     img: (props) => (
       <Image
         height={1000}
         width={1000}
-        className="w-full rounded-lg overflow-hidden"
+        className="rounded-lg overflow-hidden"
         {...(props as ImageProps)}
         alt={props.alt ?? "Image"}
       />
     ),
     ul: ({ children }) => (
-      <ul className="list-disc pl-6 text-sm">{children}</ul>
+      <ul className="list-disc pl-6 text-sm my-4">{children}</ul>
     ),
     ol: ({ children }) => (
       <ol className="list-decimal pl-8 text-sm">{children}</ol>
     ),
     li: ({ children }) => <li className="my-1">{children}</li>,
     pre: ({ children }) => (
-      <pre className="rounded-md bg-white/10 p-2 text-sm relative">
-        <CopyButton text={Children.onlyText(children)} />
-        <code>{Children.onlyText(children)}</code>
+      <pre className="flex justify-between gap-2 rounded-md bg-white/10 p-2 text-sm w-full">
+        <code className="flex overflow-x-scroll items-center">
+          {Children.onlyText(children)}
+        </code>
+        <div className="h-full min-w-fit">
+          <CopyButton text={Children.onlyText(children)} />
+        </div>
       </pre>
     ),
     code: ({ children }) => (
@@ -90,7 +97,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     blockquote: ({ children }) => (
       <blockquote
-        className={`${Children.onlyText(children).includes("[!NOTE]") ? "bg-blue-500/20 p-1 px-3 rounded-md border-blue-500/30 border mt-4 mb-6" : "border-l-4 border-white/20 pl-2"}`}
+        className={`${Children.onlyText(children).includes("[!NOTE]") ? "bg-blue-500/20 p-1 px-3 rounded-md border-blue-500/30 border my-4" : "border-l-4 border-white/20 pl-2"}`}
       >
         {Children.onlyText(children).includes("[!NOTE]") ? (
           <>
@@ -114,7 +121,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </blockquote>
     ),
     table: ({ children }) => (
-      <div className="rounded-lg border border-white/10 bg-white/5 mt-4 mb-6 py-2">
+      <div className="rounded-lg border border-white/10 bg-white/5 my-4 py-2">
         <table className="">{children}</table>
       </div>
     ),

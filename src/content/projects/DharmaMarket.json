@@ -1,0 +1,10 @@
+{
+  "image": "/images/dharma-market.png",
+  "alt": "Dharma Market Logo",
+  "title": "Dharma Market",
+  "link": "https://market.mydharma.network/",
+  "description": "Collaborated with an awesome team to take the project to the next level, implementing a whole new merchandise system and a suite of improvements.",
+  "stack": "Vue.js TypeScript Tailwind Meilisearch",
+  "relevance": 4,
+  "post": ""
+}

@@ -14,7 +14,7 @@ export default function CopyButton({ text }: { text: string }) {
 
   return (
     <button
-      className="absolute top-1.5 right-1.5 size-6 flex items-center justify-center bg-white/10 rounded-sm hover:bg-white/20 transition-colors"
+      className="size-6 flex items-center justify-center bg-white/10 rounded-sm hover:bg-white/20 transition-colors"
       title="Copy"
       onClick={handleCopy}
     >

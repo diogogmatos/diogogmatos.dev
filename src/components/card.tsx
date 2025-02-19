@@ -20,12 +20,12 @@ const Card = ({
   return (
     <div
       onClick={() => (slug ? router.push(slug) : {})}
-      className={`grid w-full backdrop-blur-md bg-white/5 rounded-2xl shadow-sm ${slug && "hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer"} ${className}`}
+      className={`grid grid-cols-1 w-full backdrop-blur-md bg-white/5 rounded-2xl shadow-sm ${slug && "hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer"} ${className}`}
       {...props}
     >
       <div className="col-start-1 row-start-1 box-border rounded-2xl border border-white/10" />
       <div
-        className={`col-start-1 row-start-1 size-full ${innerClassName === undefined || !(innerClassName.includes("px") || innerClassName.includes("py")) ? "py-4 px-6" : ""} ${innerClassName}`}
+        className={`col-start-1 row-start-1 ${innerClassName === undefined || !(innerClassName.includes("px") || innerClassName.includes("py") || innerClassName.includes("p")) ? "py-4 px-6" : ""} ${innerClassName}`}
       >
         {children}
       </div>

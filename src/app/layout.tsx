@@ -61,7 +61,7 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
       </head>
       <body
-        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-6 sm:gap-12 p-4 sm:p-12 min-h-screen md:px-14 xl:px-52`}
+        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-4 sm:gap-12 px-2 pt-6 pb-2 sm:p-12 min-h-screen md:px-14 xl:px-52`}
       >
         <div className={styles.gradient} />
         <div className={styles.pattern} />
@@ -83,7 +83,7 @@ export default function RootLayout({
           </p>
         </header>
         {children}
-        <footer className="w-full flex justify-center text-white/50 text-sm sm:text-base col-span-2 space-x-2 items-center text-center">
+        <footer className="w-full justify-center text-white/50 text-sm sm:text-base items-center text-center">
           <p>
             proudly developed and designed by me{" "}
             <PaintBrush size={18} className="inline-flex mb-1" />

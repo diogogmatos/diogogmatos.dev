@@ -22,7 +22,7 @@ export default async function Blog({
   return (
     <div className="flex flex-col gap-4">
       <BackButton />
-      <Card>
+      <Card innerClassName="p-3 sm:p-6">
         <Post />
       </Card>
     </div>

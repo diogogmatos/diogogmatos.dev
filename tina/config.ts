@@ -1,6 +1,5 @@
 import { defineConfig } from "tinacms";
 
-// Your hosting provider likely exposes this as an environment variable
 const branch =
   process.env.GITHUB_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
@@ -23,7 +22,6 @@ export default defineConfig({
       publicFolder: "public",
     },
   },
-  // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
   schema: {
     collections: [
       {
@@ -35,13 +33,127 @@ export default defineConfig({
           {
             type: "rich-text",
             name: "body",
-            label: "Post",
+            label: "Body",
             isBody: true,
+            required: true,
+          },
+        ],
+      },
+      {
+        name: "project",
+        label: "Projects",
+        path: "src/content/projects",
+        format: "json",
+        fields: [
+          {
+            type: "image",
+            name: "image",
+            label: "Image",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "alt",
+            label: "Image Alt",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "link",
+            label: "Link",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "stack",
+            label: "Stack",
+            required: true,
+          },
+          {
+            type: "number",
+            name: "relevance",
+            label: "Relevance",
+            required: true,
+          },
+          {
+            type: "reference",
+            collections: ["post"],
+            name: "post",
+            label: "Post",
+            required: false,
           },
         ],
         ui: {
-          // This is an DEMO router. You can remove this to fit your site
-          router: ({ document }) => `/${document._sys.filename}`,
+          router: () => "/",
+        },
+      },
+      {
+        name: "experience",
+        label: "Experience",
+        path: "src/content/experience",
+        format: "json",
+        fields: [
+          {
+            type: "boolean",
+            name: "isEducation",
+            label: "Education Position?",
+          },
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            required: true,
+          },
+          {
+            type: "object",
+            list: true,
+            name: "positions",
+            label: "Positions",
+            required: true,
+            fields: [
+              {
+                type: "string",
+                name: "title",
+                label: "Position Title",
+                required: true,
+              },
+            ],
+            ui: {
+              itemProps: (item) => ({ label: item.title }),
+            },
+          },
+          {
+            type: "string",
+            name: "period",
+            label: "Period",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "link",
+            label: "Link",
+          },
+          {
+            type: "string",
+            name: "relevance",
+            label: "Relevance",
+            required: true,
+          },
+        ],
+        ui: {
+          router: () => "/",
         },
       },
     ],

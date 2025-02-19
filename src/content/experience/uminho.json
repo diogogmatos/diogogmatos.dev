@@ -1,0 +1,15 @@
+{
+  "isEducation": true,
+  "title": "UMinho",
+  "positions": [
+    {
+      "title": "M.S. in Software Engineering"
+    },
+    {
+      "title": "B.S. in Software Engineering"
+    }
+  ],
+  "period": "Oct'21 - present",
+  "link": "https://www.uminho.pt/",
+  "relevance": "1"
+}
