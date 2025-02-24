@@ -22,7 +22,7 @@ export async function generateMetadata({
   const slug = (await params).slug;
   const projects = (await client.queries.projectConnection()).data;
   const project = projects.projectConnection.edges?.filter(
-    (p) => p?.node?.post?._sys.filename === slug
+    (p) => p?.node?.post?._sys.filename === slug,
   )[0]?.node;
 
   return {

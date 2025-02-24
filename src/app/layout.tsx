@@ -5,6 +5,7 @@ import styles from "./styles.module.css";
 import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
 import BottomGradient from "@/components/bottom-gradient";
 import Link from "next/link";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -128,6 +129,7 @@ export default function RootLayout({
           </p>
         </header>
         {children}
+        <Analytics />
         <footer className="w-full justify-center text-white/50 text-sm sm:text-base items-center text-center">
           <p>
             proudly developed and designed by me{" "}
