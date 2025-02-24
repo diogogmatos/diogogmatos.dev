@@ -11,6 +11,53 @@ import CardBody from "@/components/card-body";
 import CardImage from "@/components/card-image";
 import client from "../../tina/__generated__/client";
 import ProjectList from "@/components/project-list";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Diogo Matos | Software Engineer",
+  description: "Welcome to my little corner of the internet!",
+  keywords: [
+    "software engineer",
+    "developer",
+    "diogo matos",
+    "portfolio",
+    "cv",
+    "projects",
+    "education",
+    "experience",
+    "contact",
+  ],
+  openGraph: {
+    url: "https://diogogmatos.dev",
+    type: "website",
+    title: "Diogo Matos | Software Engineer",
+    description: "Welcome to my little corner of the internet!",
+    images: [
+      {
+        url: "https://diogogmatos.dev/images/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "diogogmatos.dev",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Diogo Matos | Software Engineer",
+    description: "Welcome to my little corner of the internet!",
+    images: [
+      {
+        url: "https://diogogmatos.dev/images/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "diogogmatos.dev",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://diogogmatos.dev",
+  },
+};
 
 export default async function Home() {
   const projectProps = await client.queries.projectConnection({
