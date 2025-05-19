@@ -11,4 +11,4 @@ Built using **Next.js**, **TypeScript** and **TailwindCSS**.
 ## 🛠️ Tools
 
 - [Phosphor Icons](https://phosphoricons.com)
-- [Space Mono Font](https://fonts.google.com/specimen/Space+Mono)
+- [TinaCMS](https://tina.io/)
