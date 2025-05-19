@@ -6,6 +6,7 @@ import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
 import BottomGradient from "@/components/bottom-gradient";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -85,7 +86,6 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -97,22 +97,14 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="msapplication-TileColor" content="#000000" />
-        {/* <meta property="og:image" content="/images/og.png" />
-        <meta property="og:title" content="Diogo Matos - Portfolio" />
-        <meta
-          property="og:description"
-          content="Welcome to my little corner of the internet."
-        />
-        <meta property="og:url" content="https://diogogmatos.dev" />
-        <meta property="og:type" content="website" /> */}
       </head>
       <body
-        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-4 sm:gap-12 px-2 pt-6 pb-2 sm:p-12 min-h-screen md:px-14 xl:px-52`}
+        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-6 sm:gap-12 px-2 pt-6 pb-2 sm:p-12 min-h-screen md:px-14 xl:px-52`}
       >
         <div className={styles.gradient} />
         <div className={styles.pattern} />
         <BottomGradient />
-        <header className="space-y-4 pl-2">
+        <header className="flex flex-col gap-2 sm:gap-4 pl-2">
           <Link href="/" className="font-bold text-4xl sm:text-5xl">
             Diogo Matos
           </Link>
@@ -127,6 +119,7 @@ export default function RootLayout({
               uminho
             </a>
           </p>
+          <Navbar />
         </header>
         {children}
         <Analytics />

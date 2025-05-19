@@ -1,7 +1,6 @@
-import BackButton from "@/components/back-button";
 import Card from "@/components/card";
 import { Metadata } from "next";
-import client from "../../../tina/__generated__/client";
+import client from "../../../../tina/__generated__/client";
 import fs from "fs";
 import path from "path";
 
@@ -33,7 +32,7 @@ export async function generateMetadata({
       title: `${project?.title || slug} | ${project ? "Projects" : "Post"} | Diogo Matos`,
       description: project?.description || undefined,
       type: "article",
-      url: `https://diogogmatos.dev/${slug}`,
+      url: `https://diogogmatos.dev/blog/${slug}`,
       tags: project?.stack.split(" ") || undefined,
       images: project
         ? [
@@ -58,7 +57,7 @@ export async function generateMetadata({
         : undefined,
     },
     alternates: {
-      canonical: `https://diogogmatos.dev/${slug}`,
+      canonical: `https://diogogmatos.dev/blog/${slug}`,
     },
   };
 }
@@ -72,7 +71,7 @@ export default async function Blog({
   const { default: Post } = await import(`@/content/posts/${slug}.mdx`);
   return (
     <div className="flex flex-col gap-4">
-      <BackButton />
+      {/* <BackButton /> */}
       <Card innerClassName="p-3 sm:p-6">
         <Post />
       </Card>
