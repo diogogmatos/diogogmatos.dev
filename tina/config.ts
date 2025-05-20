@@ -162,6 +162,13 @@ export default defineConfig({
             label: "Relevance",
             required: true,
           },
+          {
+            type: "reference",
+            collections: ["post"],
+            name: "post",
+            label: "Post",
+            required: false,
+          }
         ],
         ui: {
           router: () => "/",
