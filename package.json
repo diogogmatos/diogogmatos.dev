@@ -25,7 +25,7 @@
     "react-dom": "^18",
     "rehype-starry-night": "^2.2.0",
     "remark-gfm": "^4.0.1",
-    "tinacms": "^2.6.4"
+    "tinacms": "^2.7.7"
   },
   "devDependencies": {
     "@tinacms/cli": "^1.8.4",
