@@ -5,5 +5,6 @@
   "link": "https://github.com/diogogmatos/EngWeb2024-Projeto",
   "description": "Web app with the main goal of being a hub for study support materials for the entire academic community, regardless of course or subject.",
   "stack": "Next.js TypeScript Tailwind MongoDB Docker",
-  "relevance": 3
+  "relevance": 3,
+  "post": "src/content/posts/UniShare.json"
 }
