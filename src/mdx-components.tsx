@@ -38,23 +38,25 @@ const replaceTextInElement = (
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="text-2xl font-bold my-4 border-b border-white/20 pb-2">
+      <h1 className="text-2xl sm:text-3xl font-bold mt-10 mb-4 border-b border-white/20 pb-2 scroll-mt-20">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-xl font-semibold mb-4 mt-12 border-b border-white/20 pb-2">
+      <h2 className="text-xl sm:text-2xl font-semibold mt-8 mb-2 border-b border-white/20 pb-2 scroll-mt-20">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-lg font-medium mb-4 mt-6">{children}</h3>
+      <h3 className="text-lg sm:text-xl font-semibold mt-6 mb-1 scroll-mt-20">
+        {children}
+      </h3>
     ),
-    p: ({ children }) => <p className="text-sm my-4">{children}</p>,
+    p: ({ children }) => <p className="my-4">{children}</p>,
     a: ({ children, href }) => (
       <Link
         href={href ?? "/"}
-        className="text-sm hover:underline cursor-pointer font-medium items-center py-0.5 px-1 rounded-lg bg-white/10 leading-loose"
+        className="hover:underline cursor-pointer font-medium px-1 py-0.5 rounded-md transition-colors duration-200 bg-white/10"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -65,26 +67,24 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         />
       </Link>
     ),
-    hr: () => <hr className="border-white/30 my-4" />,
+    hr: () => <hr className="border-white/30 my-6" />,
     img: (props) => (
       <Image
         height={1000}
         width={1000}
-        className="rounded-lg overflow-hidden"
+        className="rounded-lg overflow-hidden my-4"
         {...(props as ImageProps)}
         alt={props.alt ?? "Image"}
       />
     ),
-    ul: ({ children }) => (
-      <ul className="list-disc pl-6 text-sm my-4">{children}</ul>
-    ),
+    ul: ({ children }) => <ul className="list-disc pl-6 my-4">{children}</ul>,
     ol: ({ children }) => (
-      <ol className="list-decimal pl-8 text-sm">{children}</ol>
+      <ol className="list-decimal pl-8 my-4">{children}</ol>
     ),
-    li: ({ children }) => <li className="my-1">{children}</li>,
+    li: ({ children }) => <li className="mb-1.5">{children}</li>,
     pre: ({ children }) => (
-      <pre className="flex justify-between gap-2 rounded-md bg-white/10 p-2 text-sm w-full">
-        <code className="flex overflow-x-scroll items-center">
+      <pre className="flex justify-between gap-2 rounded-md bg-white/10 p-3 w-full overflow-x-auto">
+        <code className="flex items-center text-[0.95em] leading-relaxed whitespace-pre">
           {Children.onlyText(children)}
         </code>
         <div className="h-full min-w-fit">
@@ -93,42 +93,58 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </pre>
     ),
     code: ({ children }) => (
-      <code className="bg-white/10 px-0.5 rounded-sm">{children}</code>
+      <code className="bg-white/10 px-1 py-[1px] rounded-sm text-[0.95em]">
+        {children}
+      </code>
     ),
-    blockquote: ({ children }) => (
-      <blockquote
-        className={`${Children.onlyText(children).includes("[!NOTE]") ? "bg-blue-500/20 p-1 px-3 rounded-md border-blue-500/30 border my-4" : "border-l-4 border-white/20 pl-2"}`}
-      >
-        {Children.onlyText(children).includes("[!NOTE]") ? (
-          <>
-            {Children.deepMap(
-              Children.deepMap(children, (child) =>
-                replaceTextInElement(child as ReactElement, "[!NOTE]", ""),
-              ),
-              (child) =>
-                (child as ReactElement).type === "br" ? (
-                  <span className="flex items-center font-medium mb-2 text-base">
-                    <Info className="inline-flex mr-1" /> Note
-                  </span>
-                ) : (
-                  child
+    blockquote: ({ children }) => {
+      const isNote = Children.onlyText(children).includes("[!NOTE]");
+      return (
+        <blockquote
+          className={
+            isNote
+              ? "bg-blue-500/20 px-4 rounded-md border-blue-500/30 border my-4"
+              : "border-l-4 border-white/20 pl-4 my-4 text-white/80 italic"
+          }
+        >
+          {isNote ? (
+            <>
+              {Children.deepMap(
+                Children.deepMap(children, (child) =>
+                  replaceTextInElement(child as ReactElement, "[!NOTE]", ""),
                 ),
-            )}
-          </>
-        ) : (
-          children
-        )}
-      </blockquote>
-    ),
+                (child) =>
+                  (child as ReactElement).type === "br" ? (
+                    <span className="flex items-center font-medium mb-2 text-base">
+                      <Info className="inline-flex mr-1" /> Note
+                    </span>
+                  ) : (
+                    child
+                  ),
+              )}
+            </>
+          ) : (
+            children
+          )}
+        </blockquote>
+      );
+    },
     table: ({ children }) => (
-      <div className="rounded-lg border border-white/10 bg-white/5 my-4 py-2">
-        <table className="">{children}</table>
+      <div className="rounded-lg border border-white/10 bg-white/5 my-4 overflow-x-auto">
+        <table className="w-full text-left text-sm leading-relaxed">
+          {children}
+        </table>
       </div>
     ),
-    th: ({ children }) => (
-      <th className="border-b border-white/20 pb-2 text-sm">{children}</th>
+    tr: ({ children }) => (
+      <tr className="divide-x divide-white/20">{children}</tr>
     ),
-    td: ({ children }) => <td className="px-2 pt-2">{children}</td>,
+    th: ({ children }) => (
+      <th className="border-b border-white/20 px-3 py-2 text-left font-medium">
+        {children}
+      </th>
+    ),
+    td: ({ children }) => <td className="px-3 py-2 align-top">{children}</td>,
     ...components,
   };
 }

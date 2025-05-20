@@ -71,7 +71,6 @@ export default async function Blog({
   const { default: Post } = await import(`@/content/posts/${slug}.mdx`);
   return (
     <div className="flex flex-col gap-4">
-      {/* <BackButton /> */}
       <Card innerClassName="p-3 sm:p-6">
         <Post />
       </Card>

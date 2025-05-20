@@ -19,7 +19,7 @@ const Card = ({
   const router = useRouter();
   return (
     <div
-      onClick={() => (slug ? router.push(slug) : {})}
+      onClick={() => (slug ? router.push("/blog/" + slug) : {})}
       className={`grid grid-cols-1 w-full backdrop-blur-md bg-white/5 rounded-2xl shadow-sm ${slug && "hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer"} ${className}`}
       {...props}
     >
