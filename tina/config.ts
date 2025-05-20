@@ -35,12 +35,19 @@ export default defineConfig({
             collections: ["project"],
             name: "project",
             label: "Project",
+            description: "If linked to a project, its description and tags will automatically be added to the post",
             required: false,
           },
           {
             type: "image",
             name: "image",
             label: "Image",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "alt",
+            label: "Image Alt",
             required: true,
           },
           {
@@ -94,6 +101,13 @@ export default defineConfig({
               itemProps: (item) => ({ label: item.title }),
             },
           },
+          {
+            type: "string",
+            name: "tags",
+            label: "Tags",
+            description: "Space separated list of tags",
+            required: false,
+          }
         ],
         ui: {
           router: (item) => "/blog/" + item.document._sys.filename,
@@ -154,12 +168,14 @@ export default defineConfig({
             type: "string",
             name: "stack",
             label: "Stack",
+            description: "Space separated list of technologies",
             required: true,
           },
           {
             type: "number",
             name: "relevance",
             label: "Relevance",
+            description: "Dictates the order in which the projects are displayed",
             required: true,
           },
           {
@@ -167,6 +183,7 @@ export default defineConfig({
             collections: ["post"],
             name: "post",
             label: "Post",
+            description: "This will be used to link the project to the associated post",
             required: false,
           }
         ],

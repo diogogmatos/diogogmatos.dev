@@ -8,13 +8,13 @@
 
 ### Dashboard
 
-![Dashboard](/assets/UniShare/full_page.png)
+![Dashboard](/assets/unishare/full_page.png)
 
 The central focus of the platform is the dashboard, where users can search, filter, and add resources, as well as easily navigate to any other page or dialog in the system. All the most important information is contained on the dashboard's main page.
 
 ### Navbar
 
-![Navbar](/assets/UniShare/navbar.png)
+![Navbar](/assets/unishare/navbar.png)
 
 The navbar allows users to navigate between different views on the main dashboard page.
 
@@ -26,13 +26,13 @@ Additionally, the navbar allows users to access their profile page by clicking t
 
 ### Favorites
 
-![Favorites](/assets/UniShare/favorites.png)
+![Favorites](/assets/unishare/favorites.png)
 
 The favorites page allows authenticated users to view the resources they have favorited over time.
 
 ### Search Bar
 
-![SearhBar](/assets/UniShare/searchbar.png)
+![SearhBar](/assets/unishare/searchbar.png)
 
 The search bar allows users to search the large set of visible resources on the screen using keywords. Users can search by any word in any main field of a resource, including its title, description, hashtags, course, subject, type, creation date, user, and even document format (PDF, ZIP, etc.).
 
@@ -40,13 +40,13 @@ The search bar allows users to search the large set of visible resources on the 
 
 | Default                                  | Search by Course                                    | Search by Subject                                  |
 | ---------------------------------------- | --------------------------------------------------- | -------------------------------------------------- |
-| ![Filters](/assets/UniShare/filters.png) | ![FiltersCurso](/assets/UniShare/filter_search.png) | ![FiltersUC](/assets/UniShare/subjects_filter.png) |
+| ![Filters](/assets/unishare/filters.png) | ![FiltersCurso](/assets/unishare/filter_search.png) | ![FiltersUC](/assets/unishare/subjects_filter.png) |
 
 Filters allow easy and quick filtering of presented resources by type, course, or subject. Users can easily search for the course or subject in the selection menu for each.
 
 ### Add Resource
 
-![AddResource](/assets/UniShare/resource_dialog.png)
+![AddResource](/assets/unishare/resource_dialog.png)
 
 The **Add Resource** button takes authenticated users to a dialog where they can easily submit their resource and fill in the necessary information. Here too, the course and subject selection fields allow for searching options.
 
@@ -54,7 +54,7 @@ An **admin** user can add new resource types, courses, or subjects in this dialo
 
 ### Resource Card
 
-![ResourceCard](/assets/UniShare/card.png)
+![ResourceCard](/assets/unishare/card.png)
 
 A resource card acts as a gateway to a set of user interactions. It compactly presents all essential information about the resource and the community's interaction with it. It also allows users to easily interact with the resource and access its settings.
 
@@ -77,51 +77,51 @@ There are a variety of possible interactions with a resource:
 
 | Standard User                            | Admin                                               |
 | ---------------------------------------- | --------------------------------------------------- |
-| ![Actions](/assets/UniShare/actions.png) | ![AdminActions](/assets/UniShare/actions_admin.png) |
+| ![Actions](/assets/unishare/actions.png) | ![AdminActions](/assets/unishare/actions_admin.png) |
 
 If the user owns the resource, they have access to a set of options: **Edit**, **Archive**, or **Delete**. If they are a system admin, they also have the option to **Lock** the resource, preventing its visibility from being changed.
 
-![Hover](/assets/UniShare/hover.png)
+![Hover](/assets/unishare/hover.png)
 
 Finally, users can easily see details about the resource publisher by hovering over their name.
 
 ### Comments
 
-![Comment](/assets/UniShare/comment.png)
+![Comment](/assets/unishare/comment.png)
 
 Clicking on a resource's comment icon takes users to a dialog where they can join a discussion about the resource in the comments or simply leave a thank you message.
 
 ### Resource Page
 
-![ResourcePage](/assets/UniShare/resourcepage.png)
+![ResourcePage](/assets/unishare/resourcepage.png)
 
 The resource page allows users an expanded view of the resource's information, with access to the full list of comments and even a preview of the file's content for compatible formats (PDF, PNG, JPEG, or JPG).
 
 ### Edit Resources
 
-![Edit](/assets/UniShare/edit_resource.png)
+![Edit](/assets/unishare/edit_resource.png)
 
 Clicking the edit icon in a resource's submenu takes users to a dialog where they can easily edit the main information of their published resource through a familiar interface, though it is not possible to edit the published file, only the associated meta information.
 
 ### Profile Page
 
-![Profile](/assets/UniShare/profile.png)
+![Profile](/assets/unishare/profile.png)
 
 Users can access their profile page or any other user's profile by clicking their name anywhere in the interface. This page shows the resources the user has published, their favorites, the comments they have made, and the resources they have upvoted.
 
-![ProfileComments](/assets/UniShare/profile_comments.png)
+![ProfileComments](/assets/unishare/profile_comments.png)
 
 If the user is viewing their own profile, they also have the option to edit the profile or access account settings.
 
 | Edit Profile                                      | Account Settings                                          |
 | ------------------------------------------------- | --------------------------------------------------------- |
-| ![EditProfile](/assets/UniShare/edit_profile.png) | ![AccountSettings](/assets/UniShare/account_settings.png) |
+| ![EditProfile](/assets/unishare/edit_profile.png) | ![AccountSettings](/assets/unishare/account_settings.png) |
 
 ### Pagination
 
 To handle a potentially high number of resources, all resource-listing pages implement pagination at the API level, where only the resources on the current page are displayed. This solution helps maintain platform efficiency in contexts with large database entries.
 
-![Pagination](/assets/UniShare/pagination.png)
+![Pagination](/assets/unishare/pagination.png)
 
 The page size is defined by a number of resources and can be configured by the user in [lib/config.ts](/lib/config.ts).
 
@@ -129,7 +129,7 @@ The page size is defined by a number of resources and can be configured by the u
 
 | Sign in                                | Sign up                                |
 | -------------------------------------- | -------------------------------------- |
-| ![Signin](/assets/UniShare/signin.png) | ![Signup](/assets/UniShare/signup.png) |
+| ![Signin](/assets/unishare/signin.png) | ![Signup](/assets/unishare/signup.png) |
 
 Users can sign up using an email and password or an external service like GitHub.
 
@@ -139,7 +139,7 @@ Passwords are securely stored using hashing with the help of the npm package bcr
 
 | Light Mode                                   | Dark Mode                                  |
 | -------------------------------------------- | ------------------------------------------ |
-| ![LightMode](/assets/UniShare/full_page.png) | ![DarkMode](/assets/UniShare/darkmode.png) |
+| ![LightMode](/assets/unishare/full_page.png) | ![DarkMode](/assets/unishare/darkmode.png) |
 
 The platform also offers a choice between a light or dark appearance mode that extends throughout the system.
 
@@ -179,7 +179,7 @@ A guest user is only a consumer of all resources, being able to download them an
 
 Users are encouraged to authenticate themselves when attempting to access exclusive features.
 
-![NoPermission](/assets/UniShare/nopermission.png)
+![NoPermission](/assets/unishare/nopermission.png)
 
 All these access levels extend to the developed API, which includes session checks to ensure user authentication and the protection of sensitive endpoints.
 

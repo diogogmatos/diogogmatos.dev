@@ -90,7 +90,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </pre>
     ),
     code: ({ children }) => (
-      <code className="bg-white/10 backdrop-blur-md px-1 py-[1px] rounded-sm text-[0.95em]">
+      <code className="bg-white/10 backdrop-blur-md px-1 py-[1px] rounded-[4px] text-[0.95em]">
         {children}
       </code>
     ),

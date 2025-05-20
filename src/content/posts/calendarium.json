@@ -1,6 +1,7 @@
 {
-  "project": "src/content/projects/Calendarium.json",
-  "image": "/assets/Calendarium/calendarium.png",
+  "project": "src/content/projects/calendarium.json",
+  "image": "/assets/calendarium/calendarium.png",
+  "alt": "Calendarium Logo",
   "title": "🗓️ Calendarium",
   "description": "x",
   "author": "Diogo Matos",

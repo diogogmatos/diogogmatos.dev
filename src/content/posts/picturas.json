@@ -1,6 +1,7 @@
 {
-  "project": "src/content/projects/PictuRAS.json",
-  "image": "/assets/PictuRAS/picturas.png",
+  "project": "src/content/projects/picturas.json",
+  "image": "/assets/picturas/picturas.png",
+  "alt": "PictuRAS Logo",
   "title": "🖌️ PictuRAS",
   "description": "x",
   "author": "Diogo Matos",

@@ -1,6 +1,7 @@
 {
-  "project": "src/content/projects/UniShare.json",
-  "image": "/assets/Calendarium/unishare.png",
+  "project": "src/content/projects/unishare.json",
+  "image": "/assets/calendarium/unishare.png",
+  "alt": "UniShare Logo",
   "title": "🎓 UniShare",
   "description": "x",
   "author": "Diogo Matos",

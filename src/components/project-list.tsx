@@ -33,7 +33,7 @@ export default function ProjectList({
                 footer={project.node.stack}
                 slug={project.node.post?._sys.filename}
               />
-            )
+            ),
         )}
     </>
   );
