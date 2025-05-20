@@ -5,6 +5,5 @@
   "link": "https://github.com/diogogmatos/PictuRAS",
   "description": "Web app with the main goal of providing a powerful and easy to use image editing platform, with support for bulk editing, advanced AI-powered features and user accounts with different subscription levels.",
   "stack": "Next.js TypeScript Tailwind TanStackQuery Socket.IO MongoDB RabbitMQ MinIO Docker",
-  "relevance": 2,
-  "post": "src/content/posts/PictuRAS.mdx"
+  "relevance": 2
 }

@@ -26,7 +26,82 @@ export default defineConfig({
     collections: [
       {
         name: "post",
-        label: "Posts",
+        label: "Blog Posts",
+        path: "src/content/posts",
+        format: "json",
+        fields: [
+          {
+            type: "reference",
+            collections: ["project"],
+            name: "project",
+            label: "Project",
+            required: false,
+          },
+          {
+            type: "image",
+            name: "image",
+            label: "Image",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "author",
+            label: "Author",
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            required: true,
+            ui: {
+              timeFormat: "HH:mm",
+            },
+          },
+          {
+            type: "object",
+            name: "links",
+            label: "Links",
+            list: true,
+            required: false,
+            fields: [
+              {
+                type: "string",
+                name: "title",
+                label: "Title",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "link",
+                label: "Link",
+                required: true,
+              },
+            ],
+            ui: {
+              itemProps: (item) => ({ label: item.title }),
+            },
+          },
+        ],
+        ui: {
+          router: (item) => "/blog/" + item.document._sys.filename,
+        },
+      },
+      {
+        name: "bodys",
+        label: "Blog Post Bodys",
         path: "src/content/posts",
         format: "mdx",
         fields: [
@@ -86,13 +161,6 @@ export default defineConfig({
             name: "relevance",
             label: "Relevance",
             required: true,
-          },
-          {
-            type: "reference",
-            collections: ["post"],
-            name: "post",
-            label: "Post",
-            required: false,
           },
         ],
         ui: {

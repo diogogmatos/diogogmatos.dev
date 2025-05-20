@@ -99,36 +99,36 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#000000" />
       </head>
       <body
-        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-6 sm:gap-12 px-2 pt-6 pb-2 sm:p-12 min-h-screen md:px-14 xl:px-52`}
+        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative min-h-screen`}
       >
-        <div className={styles.gradient} />
-        <div className={styles.pattern} />
-        <BottomGradient />
-        <header className="flex flex-col gap-2 sm:gap-4 pl-2">
-          <Link href="/" className="font-bold text-4xl sm:text-5xl">
-            Diogo Matos
-          </Link>
-          <p className="sm:text-lg">
-            software engineering @{" "}
-            <a
-              className="font-bold hover:underline"
-              href="https://www.uminho.pt"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              uminho
-            </a>
-          </p>
-          <Navbar />
-        </header>
-        {children}
-        <Analytics />
-        <footer className="w-full justify-center text-white/50 text-sm sm:text-base items-center text-center">
-          <p>
+        <div className="flex flex-col gap-6 sm:gap-12 px-2 py-6 sm:py-12 sm:px-12 md:px-14 xl:px-52">
+          <div className={styles.gradient} />
+          <div className={styles.pattern} />
+          <BottomGradient />
+          <header className="flex flex-col gap-2 sm:gap-4 pl-2">
+            <Link href="/" className="font-bold text-4xl sm:text-5xl">
+              Diogo Matos
+            </Link>
+            <p className="sm:text-lg">
+              software engineering @{" "}
+              <a
+                className="font-bold hover:underline"
+                href="https://www.uminho.pt"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                uminho
+              </a>
+            </p>
+            <Navbar />
+          </header>
+          {children}
+          <Analytics />
+          <footer className="text-white/50 text-sm sm:text-base text-center">
             proudly developed and designed by me{" "}
             <PaintBrush size={18} className="inline-flex mb-1" />
-          </p>
-        </footer>
+          </footer>
+        </div>
       </body>
     </html>
   );

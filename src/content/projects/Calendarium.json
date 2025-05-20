@@ -5,6 +5,5 @@
   "link": "https://github.com/cesium/calendarium",
   "description": "Open-source *Next.js* web app with the goal of providing easy access to academic events, schedules, and activities to our students.",
   "stack": "Next.js TypeScript Tailwind GoogleAPI",
-  "relevance": 1,
-  "post": "src/content/posts/Calendarium.mdx"
+  "relevance": 1
 }

@@ -31,7 +31,7 @@ export default function ProjectList({
                 link={project.node.link}
                 description={project.node.description}
                 footer={project.node.stack}
-                slug={project.node.post?._sys.filename}
+                slug={project.node.title}
               />
             ),
         )}

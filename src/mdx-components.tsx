@@ -1,10 +1,11 @@
 import { ArrowUpRight, Info } from "@phosphor-icons/react/dist/ssr";
 import type { MDXComponents } from "mdx/types";
-import Image, { ImageProps } from "next/image";
+import type { ImageProps } from "next/image";
 import CopyButton from "./components/copy-button";
 import Children from "react-children-utilities";
 import Link from "next/link";
 import { cloneElement, ReactElement, isValidElement } from "react";
+import SkeletonImage from "./components/skeleton-image";
 
 const replaceTextInElement = (
   element: ReactElement,
@@ -52,11 +53,15 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </h3>
     ),
-    p: ({ children }) => <p className="my-4">{children}</p>,
+    p: (props) => (
+      <p className="my-4" key={props.key}>
+        {props.children}
+      </p>
+    ),
     a: ({ children, href }) => (
       <Link
         href={href ?? "/"}
-        className="hover:underline cursor-pointer font-medium px-1 py-0.5 rounded-md transition-colors duration-200 bg-white/10"
+        className="hover:underline cursor-pointer font-medium px-1 py-0.5 rounded-md transition-colors duration-200 bg-white/10 backdrop-blur-md"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -68,22 +73,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </Link>
     ),
     hr: () => <hr className="border-white/30 my-6" />,
-    img: (props) => (
-      <Image
-        height={1000}
-        width={1000}
-        className="rounded-lg overflow-hidden my-4"
-        {...(props as ImageProps)}
-        alt={props.alt ?? "Image"}
-      />
-    ),
+    img: (props) => <SkeletonImage {...(props as ImageProps)} />,
     ul: ({ children }) => <ul className="list-disc pl-6 my-4">{children}</ul>,
     ol: ({ children }) => (
       <ol className="list-decimal pl-8 my-4">{children}</ol>
     ),
     li: ({ children }) => <li className="mb-1.5">{children}</li>,
     pre: ({ children }) => (
-      <pre className="flex justify-between gap-2 rounded-md bg-white/10 p-3 w-full overflow-x-auto">
+      <pre className="flex justify-between gap-2 rounded-md bg-white/10 backdrop-blur-md p-3 w-full overflow-x-auto">
         <code className="flex items-center text-[0.95em] leading-relaxed whitespace-pre">
           {Children.onlyText(children)}
         </code>
@@ -93,7 +90,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </pre>
     ),
     code: ({ children }) => (
-      <code className="bg-white/10 px-1 py-[1px] rounded-sm text-[0.95em]">
+      <code className="bg-white/10 backdrop-blur-md px-1 py-[1px] rounded-sm text-[0.95em]">
         {children}
       </code>
     ),
@@ -102,9 +99,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <blockquote
           className={
-            isNote
+            (isNote
               ? "bg-blue-500/20 px-4 rounded-md border-blue-500/30 border my-4"
-              : "border-l-4 border-white/20 pl-4 my-4 text-white/80 italic"
+              : "border-l-4 border-white/20 pl-4 my-4 text-white/80 italic") +
+            " backdrop-blur-md"
           }
         >
           {isNote ? (
@@ -130,7 +128,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     table: ({ children }) => (
-      <div className="rounded-lg border border-white/10 bg-white/5 my-4 overflow-x-auto">
+      <div className="rounded-lg border border-white/10 bg-white/5 backdrop-blur-md my-4 overflow-x-auto">
         <table className="w-full text-left text-sm leading-relaxed">
           {children}
         </table>
