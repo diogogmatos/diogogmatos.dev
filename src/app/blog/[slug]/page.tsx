@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import client from "../../../../tina/__generated__/client";
 import fs from "fs";
 import path from "path";
-import Image from "next/image";
 import { Link } from "@phosphor-icons/react/dist/ssr";
 import Markdown from "react-markdown";
+import SkeletonImage from "@/components/skeleton-image";
 
 export const dynamicParams = false;
 
@@ -30,10 +30,10 @@ export async function generateMetadata({
     .then((res) => res.data.post);
 
   return {
-    title: `${post?.title || slug} | ${post ? "Projects" : "Post"} | Diogo Matos`,
+    title: `${post?.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
     description: post?.description || undefined,
     openGraph: {
-      title: `${post?.title || slug} | ${post ? "Projects" : "Post"} | Diogo Matos`,
+      title: `${post?.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
       description: post?.description || undefined,
       type: "article",
       url: `https://diogogmatos.dev/blog/${slug}`,
@@ -51,7 +51,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post?.title || slug} | ${post ? "Projects" : "Post"} | Diogo Matos`,
+      title: `${post?.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
       description: post?.description || undefined,
       images: post
         ? [
@@ -68,7 +68,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Blog({
+export default async function BlogPost({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -151,12 +151,10 @@ export default async function Blog({
             </p>
           </span>
         </span>
-        <Image
+        <SkeletonImage
           src={postInfo.project?.image || postInfo.image}
           alt={postInfo.alt}
-          height={2000}
-          width={2000}
-          className="rounded-lg overflow-hidden lg:max-w-prose h-full object-cover"
+          className="rounded-lg overflow-hidden lg:max-w-prose h-full object-cover shadow-sm"
         />
       </div>
       <div className="max-w-prose">

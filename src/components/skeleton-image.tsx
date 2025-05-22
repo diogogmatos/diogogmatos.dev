@@ -13,7 +13,10 @@ export default function SkeletonImage(props: ImageProps) {
       width={1500}
       onLoadingComplete={() => setIsLoading(false)}
       className={clsx(
-        "rounded-lg overflow-hidden w-full my-4 transition-colors duration-500",
+        clsx(
+          props.className || "rounded-lg overflow-hidden w-full my-4 shadow-sm",
+          "transition-colors duration-500",
+        ),
         isLoading ? "bg-white/20 animate-pulse" : "",
       )}
       {...(props as ImageProps)}
