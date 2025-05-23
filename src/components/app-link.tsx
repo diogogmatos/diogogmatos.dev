@@ -1,4 +1,5 @@
 import Link from "next/link";
+import clsx from "clsx";
 
 export default function AppLink({
   href,
@@ -13,7 +14,10 @@ export default function AppLink({
 }) {
   return (
     <Link
-      className={`relative inline-flex items-center after:absolute after:w-full after:bottom-0 after:border-b after:border-white after:opacity-0 ${active ? "after:opacity-100" : "hover:after:opacity-100"} after:transition-opacity cursor-pointer w-fit text-lg`}
+      className={clsx(
+        "relative inline-flex items-center after:absolute after:w-full after:bottom-0 after:border-b after:border-white after:opacity-0 after:transition-opacity cursor-pointer w-fit text-lg",
+        active ? "after:opacity-100" : "hover:after:opacity-50",
+      )}
       href={href}
       {...props}
     >

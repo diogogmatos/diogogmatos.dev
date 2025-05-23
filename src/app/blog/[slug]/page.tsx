@@ -85,8 +85,8 @@ export default async function BlogPost({
       <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 border-b border-white/20 pb-3 scroll-mt-20 max-w-prose">
         {postInfo.title}
       </h1>
-      <div className="flex flex-col lg:flex-row-reverse gap-8 items-start w-full lg:h-[350px] pb-2">
-        <span className="flex flex-col gap-3 justify-between h-full w-full">
+      <div className="flex flex-col lg:flex-row-reverse gap-6 lg:gap-8 w-full">
+        <span className="flex flex-col gap-3 justify-between h-fit w-full">
           <div className="flex flex-col gap-3">
             {postInfo.links && (
               <div className="flex gap-4 items-center pb-1">
@@ -151,14 +151,18 @@ export default async function BlogPost({
             </p>
           </span>
         </span>
-        <SkeletonImage
-          src={postInfo.project?.image || postInfo.image}
-          alt={postInfo.alt}
-          className="rounded-lg overflow-hidden lg:max-w-prose h-full object-cover shadow-sm"
-        />
-      </div>
-      <div className="max-w-prose">
-        <Post />
+        <div className="w-full lg:min-w-max">
+          <div className="pb-2 w-full">
+            <SkeletonImage
+              src={postInfo.project?.image || postInfo.image}
+              alt={postInfo.alt}
+              className="rounded-lg overflow-hidden w-full lg:max-w-prose lg:max-h-[24rem] object-cover shadow-sm"
+            />
+          </div>
+          <div className="max-w-prose">
+            <Post />
+          </div>
+        </div>
       </div>
     </article>
   );
