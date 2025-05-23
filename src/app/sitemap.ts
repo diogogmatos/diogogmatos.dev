@@ -2,16 +2,15 @@ import type { MetadataRoute } from "next";
 import client from "../../tina/__generated__/client";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const projects = (await client.queries.projectConnection()).data
-    .projectConnection.edges;
-  const posts = projects
-    ? projects
+  const posts = (await client.queries.postConnection()).data.postConnection
+    .edges;
+  const links = posts
+    ? posts
         .map((p) => {
-          const project = p?.node;
-          if (project && project.post)
+          const post = p?.node;
+          if (post)
             return {
-              url: `https://diogogmatos.dev/${project.post._sys.filename}`,
-              priority: 1 - (project.relevance - 1) / (projects.length - 1),
+              url: `https://diogogmatos.dev/blog/${post._sys.filename}`,
             };
         })
         .filter((p) => p !== undefined)
@@ -21,6 +20,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: "https://diogogmatos.dev",
     },
-    ...posts,
+    ...links,
   ];
 }

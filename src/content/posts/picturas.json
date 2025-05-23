@@ -1,0 +1,15 @@
+{
+  "project": "src/content/projects/picturas.json",
+  "image": "/assets/picturas/picturas.png",
+  "alt": "PictuRAS Logo",
+  "title": "🖌️ PictuRAS",
+  "description": "x",
+  "author": "Diogo Matos",
+  "date": "2025-05-19T23:00:00.000Z",
+  "links": [
+    {
+      "title": "github",
+      "link": "https://github.com/diogogmatos/PictuRAS"
+    }
+  ]
+}

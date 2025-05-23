@@ -18,6 +18,9 @@ const config: Config = {
         sans: ["var(--font-inter)", ...fontFamily.sans],
         mono: ["var(--font-jetbrains)", ...fontFamily.mono],
       },
+      boxShadow: {
+        flush: "0 0px 50px -12px rgb(0 0 0 / 0.25)",
+      },
     },
   },
   safelist: ["animate-pulse"],

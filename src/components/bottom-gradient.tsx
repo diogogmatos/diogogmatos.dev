@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const BottomGradient = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +19,7 @@ const BottomGradient = () => {
 
     // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
 
     // Initial check
     handleScroll();
@@ -29,7 +30,7 @@ const BottomGradient = () => {
 
   return (
     <div
-      className={`${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full pointer-events-none"} transition-all duration-300 ease-in-out fixed bottom-0 left-0 right-0 h-32 sm:h-40 md:h-48 pointer-events-none [backdrop-filter:blur(2px)] [mask:linear-gradient(transparent,black_70%)] z-50`}
+      className={`${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full pointer-events-none"} transition-all duration-300 ease-in-out fixed bottom-0 left-0 right-0 h-32 sm:h-40 md:h-48 pointer-events-none [backdrop-filter:blur(2px)] [mask:linear-gradient(transparent,black_70%)] z-40`}
     />
   );
 };

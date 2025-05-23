@@ -68,7 +68,7 @@ export default async function Home() {
   });
 
   return (
-    <div className="flex flex-col gap-6 sm:gap-12">
+    <div className="flex flex-col gap-6 sm:gap-8">
       <main>
         <div className="space-y-4 sm:space-y-6">
           <div className="flex lg:flex-row gap-4 sm:gap-6 flex-col-reverse">
