@@ -30,17 +30,20 @@ export async function generateMetadata({
     .then((res) => res.data.post);
 
   return {
-    title: `${post?.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
-    description: post?.description || undefined,
+    metadataBase: new URL("https://diogogmatos.dev"),
+    title: `${post.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
+    description: post.description || undefined,
+    keywords: post.tags?.split(" "),
+    authors: [{ name: post.author }],
     openGraph: {
-      title: `${post?.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
-      description: post?.description || undefined,
+      title: `${post.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
+      description: post.project?.description || post.description,
       type: "article",
-      url: `https://diogogmatos.dev/blog/${slug}`,
-      authors: [post?.author || "Diogo Matos"],
-      publishedTime: post?.date,
-      tags: post?.tags?.split(" "),
-      images: post
+      url: `/blog/${slug}`,
+      authors: [post.author || "Diogo Matos"],
+      publishedTime: post.date,
+      tags: post.tags?.split(" "),
+      images: post.image
         ? [
             {
               url: post.image,
@@ -51,9 +54,9 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post?.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
-      description: post?.description || undefined,
-      images: post
+      title: `${post.title || slug} | ${post.project ? "Projects" : "Blog"} | Diogo Matos`,
+      description: post.description || undefined,
+      images: post.image
         ? [
             {
               url: post.image,
@@ -63,7 +66,7 @@ export async function generateMetadata({
         : undefined,
     },
     alternates: {
-      canonical: `https://diogogmatos.dev/blog/${slug}`,
+      canonical: `/blog/${slug}`,
     },
   };
 }

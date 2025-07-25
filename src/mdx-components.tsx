@@ -54,7 +54,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </h3>
     ),
     p: (props) => (
-      <p className="my-4" key={props.key}>
+      <p className="my-4" key={props.children?.toString()}>
         {props.children}
       </p>
     ),

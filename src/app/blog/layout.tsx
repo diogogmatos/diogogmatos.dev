@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 export function generateMetadata(): Metadata {
   return {
+    metadataBase: new URL("https://diogogmatos.dev"),
     title: "Blog | Diogo Matos",
     description: "Check out blog posts about my projects and other topics.",
     keywords: [
@@ -13,13 +14,13 @@ export function generateMetadata(): Metadata {
       "diogo matos",
     ],
     openGraph: {
-      url: "https://diogogmatos.dev/blog",
+      url: "/blog",
       type: "website",
       title: "Blog | Diogo Matos",
       description: "Check out blog posts about my projects and other topics.",
       images: [
         {
-          url: "https://diogogmatos.dev/images/og.jpg",
+          url: "/images/og.jpg",
           width: 1200,
           height: 630,
           alt: "diogogmatos.dev",
@@ -32,7 +33,7 @@ export function generateMetadata(): Metadata {
       description: "Check out blog posts about my projects and other topics.",
       images: [
         {
-          url: "https://diogogmatos.dev/images/og.jpg",
+          url: "/images/og.jpg",
           width: 1200,
           height: 630,
           alt: "diogogmatos.dev",
@@ -40,7 +41,7 @@ export function generateMetadata(): Metadata {
       ],
     },
     alternates: {
-      canonical: "https://diogogmatos.dev/blog",
+      canonical: "/blog",
     },
   };
 }

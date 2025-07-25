@@ -25,7 +25,7 @@ const Card = ({
     >
       <div className="col-start-1 row-start-1 box-border rounded-2xl border border-white/10" />
       <div
-        className={`col-start-1 row-start-1 ${innerClassName === undefined || !(innerClassName.includes("px") || innerClassName.includes("py") || innerClassName.includes("p")) ? "py-4 px-6" : ""} ${innerClassName}`}
+        className={`col-start-1 row-start-1 ${innerClassName === undefined || !(innerClassName.includes("px") || innerClassName.includes("py") || innerClassName.includes("p")) ? "py-4 px-5" : ""} ${innerClassName}`}
       >
         {children}
       </div>

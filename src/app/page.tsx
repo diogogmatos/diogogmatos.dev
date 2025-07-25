@@ -17,6 +17,7 @@ import Link from "next/link";
 import BlogPostList from "@/components/blog-post-list";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://diogogmatos.dev"),
   title: "Diogo Matos | Software Engineer",
   description: "Welcome to my little corner of the internet!",
   keywords: [
@@ -31,13 +32,13 @@ export const metadata: Metadata = {
     "contact",
   ],
   openGraph: {
-    url: "https://diogogmatos.dev",
+    url: "/",
     type: "website",
     title: "Diogo Matos | Software Engineer",
     description: "Welcome to my little corner of the internet!",
     images: [
       {
-        url: "https://diogogmatos.dev/images/og.jpg",
+        url: "/images/og.jpg",
         width: 1200,
         height: 630,
         alt: "diogogmatos.dev",
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     description: "Welcome to my little corner of the internet!",
     images: [
       {
-        url: "https://diogogmatos.dev/images/og.jpg",
+        url: "/images/og.jpg",
         width: 1200,
         height: 630,
         alt: "diogogmatos.dev",
@@ -58,7 +59,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://diogogmatos.dev",
+    canonical: "/",
   },
 };
 
@@ -67,8 +68,7 @@ export default async function Home() {
     sort: "relevance",
   });
   const projectProps = await client.queries.projectConnection({
-    sort: "relevance",
-    // first: 3,
+    filter: { featured: { eq: true } },
   });
   const postProps = await client.queries.postConnection({
     first: 3,
@@ -154,22 +154,18 @@ export default async function Home() {
         </div>
       </main>
       <div className="flex items-center justify-between gap-4 w-full pb-4 border-b border-white/20 mt-2">
-        <h1 className="font-bold text-2xl sm:text-3xl pl-2">Recent projects</h1>
-        <Link className="button" href="/blog?onlyProjects=true">
+        <h1 className="font-bold text-2xl sm:text-3xl pl-2">Projects</h1>
+        {/* <Link className="button" href="/blog?onlyProjects=true">
           View all{" "}
           <ArrowRight
             size="1.2em"
             className="inline-flex group-hover:translate-x-1 transition-transform"
           />
-        </Link>
+        </Link> */}
       </div>
-      <ul className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-        <ProjectList props={projectProps} />
-      </ul>
+      <ProjectList props={projectProps} />
       <div className="flex items-center justify-between gap-4 w-full pb-4 border-b border-white/20 mt-2">
-        <h1 className="font-bold text-2xl sm:text-3xl pl-2">
-          Recent blog posts
-        </h1>
+        <h1 className="font-bold text-2xl sm:text-3xl pl-2">Blog posts</h1>
         <Link className="button" href="/blog">
           View all{" "}
           <ArrowRight

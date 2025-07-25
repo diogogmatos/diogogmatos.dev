@@ -1,10 +1,11 @@
 {
   "image": "/images/unishare.png",
   "alt": "UniShare Logo",
-  "title": "UniShare",
+  "title": "🎓 UniShare",
   "link": "https://github.com/diogogmatos/EngWeb2024-Projeto",
   "description": "Web app with the main goal of being a hub for study support materials for the entire academic community, regardless of course or subject.",
   "stack": "Next.js TypeScript Tailwind MongoDB Docker",
-  "relevance": 3,
+  "featured": true,
+  "date": "2024-07-02T17:00:00.000Z",
   "post": "src/content/posts/unishare.json"
 }

@@ -16,18 +16,19 @@ export default function BlogPostList({
     data: props.data,
   });
 
+  const posts = (data.postConnection.edges ?? [])
+    .filter((r) => r !== null && r.node && !r.node.project)
+    .map((r) => r?.node as Post)
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
+
   return (
     <>
-      {data.postConnection.edges &&
-        data.postConnection.edges
-          .filter((r) => r !== null && r.node)
-          .map((r) => r?.node as Post)
-          .sort((a, b) => (a.date < b.date ? 1 : -1))
-          .map((post, idx) => (
-            <li key={idx}>
-              <BlogPostCard post={post} />
-            </li>
-          ))}
+      {posts.length > 0 &&
+        posts.map((post, idx) => (
+          <li key={idx}>
+            <BlogPostCard post={post} />
+          </li>
+        ))}
     </>
   );
 }

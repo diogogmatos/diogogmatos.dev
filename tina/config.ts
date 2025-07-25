@@ -172,11 +172,20 @@ export default defineConfig({
             required: true,
           },
           {
-            type: "number",
-            name: "relevance",
-            label: "Relevance",
-            description: "Dictates the order in which the projects are displayed",
+            type: "boolean",
+            name: "featured",
+            label: "Featured",
+            description: "Dictates if the project is featured in the home page",
             required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            required: true,
+            ui: {
+              timeFormat: "HH:mm",
+            },
           },
           {
             type: "reference",

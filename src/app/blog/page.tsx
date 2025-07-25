@@ -15,6 +15,7 @@ import clsx from "clsx";
 import BlogPostCard from "@/components/blog-post-card";
 import SearchBar from "@/components/search-bar";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getArrayColumn } from "@/lib/utils";
 
 function searchPosts(posts: Post[], searchQuery: string) {
   if (
@@ -42,12 +43,6 @@ function searchPosts(posts: Post[], searchQuery: string) {
     });
   }
   return posts;
-}
-
-function filterArrayByPosition<T>(arr: T[], includeOdd: boolean): T[] {
-  return arr.filter((_, index) =>
-    includeOdd ? index % 2 !== 0 : index % 2 === 0
-  );
 }
 
 const placeholders = [
@@ -110,7 +105,7 @@ function ControlBar({
           onlyProjects
             ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
             : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-          "min-w-fit px-4 py-3 text-sm sm:text-base rounded-2xl backdrop-blur-md border border-white/10 active:scale-95 font-medium hover:shadow-lg transition-all"
+          "min-w-fit px-4 py-3 text-sm sm:text-base rounded-2xl backdrop-blur-md border border-white/10 active:scale-95 font-medium hover:shadow-lg transition-all",
         )}
       >
         Projects <Joystick size="1.2em" className="inline-flex" />
@@ -121,7 +116,7 @@ function ControlBar({
             !gridView
               ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
               : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-            "p-[0.55rem] rounded-xl transition-colors"
+            "p-[0.55rem] rounded-xl transition-colors",
           )}
           onClick={() => setGridView(false)}
         >
@@ -132,7 +127,7 @@ function ControlBar({
             gridView
               ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
               : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-            "p-[0.55rem] rounded-xl transition-colors"
+            "p-[0.55rem] rounded-xl transition-colors",
           )}
           onClick={() => setGridView(true)}
         >
@@ -172,7 +167,7 @@ export default function Blog() {
   useEffect(() => {
     if (onlyProjects)
       setFilteredPosts(
-        searchPosts(posts, searchQuery).filter((post) => post.project)
+        searchPosts(posts, searchQuery).filter((post) => post.project),
       );
     else setFilteredPosts(searchPosts(posts, searchQuery));
   }, [searchQuery, posts, onlyProjects]);
@@ -224,7 +219,7 @@ export default function Blog() {
         {gridView && filteredPosts.length > 0 && (
           <>
             <div className="flex flex-col gap-4">
-              {filterArrayByPosition(filteredPosts, false).map((post, idx) => (
+              {getArrayColumn(filteredPosts, 0, 2).map((post, idx) => (
                 <motion.li
                   key={idx}
                   initial={{ scale: 0.9, opacity: 0 }}
@@ -236,7 +231,7 @@ export default function Blog() {
               ))}
             </div>
             <div className="flex flex-col gap-4">
-              {filterArrayByPosition(filteredPosts, true).map((post, idx) => (
+              {getArrayColumn(filteredPosts, 1, 2).map((post, idx) => (
                 <motion.li
                   key={idx}
                   initial={{ scale: 0.9, opacity: 0 }}
