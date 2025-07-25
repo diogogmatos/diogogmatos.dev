@@ -2,8 +2,13 @@
 
 import Card from "@/components/card";
 import client from "../../../tina/__generated__/client";
-import { GridFour, Joystick, Rows } from "@phosphor-icons/react/dist/ssr";
-import { useEffect, useState } from "react";
+import {
+  GridFour,
+  Joystick,
+  Rows,
+  Spinner,
+} from "@phosphor-icons/react/dist/ssr";
+import { Suspense, useEffect, useState } from "react";
 import { Post } from "../../../tina/__generated__/types";
 import { motion } from "motion/react";
 import clsx from "clsx";
@@ -41,7 +46,7 @@ function searchPosts(posts: Post[], searchQuery: string) {
 
 function filterArrayByPosition<T>(arr: T[], includeOdd: boolean): T[] {
   return arr.filter((_, index) =>
-    includeOdd ? index % 2 !== 0 : index % 2 === 0,
+    includeOdd ? index % 2 !== 0 : index % 2 === 0
   );
 }
 
@@ -53,12 +58,21 @@ const placeholders = [
   "Search by date...",
 ];
 
-export default function Blog() {
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [onlyProjects, setOnlyProjects] = useState<boolean>(false);
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
-  const [gridView, setGridView] = useState<boolean>(false);
+function ControlBar({
+  searchQuery,
+  setSearchQuery,
+  onlyProjects,
+  setOnlyProjects,
+  gridView,
+  setGridView,
+}: {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  onlyProjects: boolean;
+  setOnlyProjects: (onlyProjects: boolean) => void;
+  gridView: boolean;
+  setGridView: (gridView: boolean) => void;
+}) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -70,7 +84,7 @@ export default function Blog() {
     setOnlyProjects(onlyProjects === "true");
     const search = searchParams.get("search") ?? "";
     setSearchQuery(search);
-  }, [searchParams]);
+  }, [searchParams, setGridView, setOnlyProjects, setSearchQuery]);
 
   // Update URL search parameters when state changes
   useEffect(() => {
@@ -82,6 +96,59 @@ export default function Blog() {
     if (searchQuery) params.set("search", searchQuery);
     router.replace(`?${params.toString()}`);
   }, [gridView, onlyProjects, searchQuery, router]);
+
+  return (
+    <div className="flex items-center gap-4 w-full">
+      <SearchBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        placeholders={placeholders}
+      />
+      <button
+        onClick={() => setOnlyProjects(!onlyProjects)}
+        className={clsx(
+          onlyProjects
+            ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
+            : "bg-white/5 hover:bg-white/10 hover:border-white/20",
+          "min-w-fit px-4 py-3 text-sm sm:text-base rounded-2xl backdrop-blur-md border border-white/10 active:scale-95 font-medium hover:shadow-lg transition-all"
+        )}
+      >
+        Projects <Joystick size="1.2em" className="inline-flex" />
+      </button>
+      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-1 hidden lg:flex items-center gap-1">
+        <button
+          className={clsx(
+            !gridView
+              ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
+              : "bg-white/5 hover:bg-white/10 hover:border-white/20",
+            "p-[0.55rem] rounded-xl transition-colors"
+          )}
+          onClick={() => setGridView(false)}
+        >
+          <Rows size="1.4em" />
+        </button>
+        <button
+          className={clsx(
+            gridView
+              ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
+              : "bg-white/5 hover:bg-white/10 hover:border-white/20",
+            "p-[0.55rem] rounded-xl transition-colors"
+          )}
+          onClick={() => setGridView(true)}
+        >
+          <GridFour size="1.4em" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default function Blog() {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [onlyProjects, setOnlyProjects] = useState<boolean>(false);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [gridView, setGridView] = useState<boolean>(false);
 
   // Fetch posts from TinaCMS on initial render
   useEffect(() => {
@@ -105,55 +172,29 @@ export default function Blog() {
   useEffect(() => {
     if (onlyProjects)
       setFilteredPosts(
-        searchPosts(posts, searchQuery).filter((post) => post.project),
+        searchPosts(posts, searchQuery).filter((post) => post.project)
       );
     else setFilteredPosts(searchPosts(posts, searchQuery));
   }, [searchQuery, posts, onlyProjects]);
 
   return (
     <main className="flex flex-col gap-4">
-      <div className="flex items-center gap-4 w-full">
-        <SearchBar
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center w-full">
+            <Spinner size="1.5em" className="animate-spin" />
+          </div>
+        }
+      >
+        <ControlBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          placeholders={placeholders}
+          onlyProjects={onlyProjects}
+          setOnlyProjects={setOnlyProjects}
+          gridView={gridView}
+          setGridView={setGridView}
         />
-        <button
-          onClick={() => setOnlyProjects(!onlyProjects)}
-          className={clsx(
-            onlyProjects
-              ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
-              : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-            "min-w-fit px-4 py-3 text-sm sm:text-base rounded-2xl backdrop-blur-md border border-white/10 active:scale-95 font-medium hover:shadow-lg transition-all",
-          )}
-        >
-          Projects <Joystick size="1.2em" className="inline-flex" />
-        </button>
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-1 hidden lg:flex items-center gap-1">
-          <button
-            className={clsx(
-              !gridView
-                ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
-                : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-              "p-[0.55rem] rounded-xl transition-colors",
-            )}
-            onClick={() => setGridView(false)}
-          >
-            <Rows size="1.4em" />
-          </button>
-          <button
-            className={clsx(
-              gridView
-                ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
-                : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-              "p-[0.55rem] rounded-xl transition-colors",
-            )}
-            onClick={() => setGridView(true)}
-          >
-            <GridFour size="1.4em" />
-          </button>
-        </div>
-      </div>
+      </Suspense>
       {filteredPosts.length === 0 && posts.length > 0 && (
         <p className="w-full text-center p-4">No results.</p>
       )}
