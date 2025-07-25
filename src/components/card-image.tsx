@@ -19,11 +19,11 @@ const CardImage = ({ src, alt, className }: CardImageProps) => {
         alt={alt}
         layout="fill"
         objectFit="cover"
-        className="rounded-xl opacity-80"
+        className="rounded-2xl opacity-80"
         onLoad={() => setIsLoaded(true)}
       />
       <div
-        className={`absolute size-full bg-gradient-to-br from-white/10 to-transparent rounded-xl backdrop-blur-[0.3px] ${!isLoaded && "animate-pulse"}`}
+        className={`absolute size-full bg-gradient-to-br from-white/10 to-transparent rounded-2xl backdrop-blur-[0.3px] ${!isLoaded && "animate-pulse"}`}
       />
     </div>
   );

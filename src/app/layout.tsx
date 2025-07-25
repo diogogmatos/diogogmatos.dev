@@ -101,7 +101,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative`}
       >
-        <div className="flex flex-col justify-between gap-6 sm:gap-8 px-4 py-6 sm:pt-12 sm:pb-8 sm:px-10 md:px-14 xl:px-52 min-h-screen">
+        <div className="flex flex-col justify-between gap-6 sm:gap-8 px-4 py-6 sm:pt-12 sm:pb-8 sm:px-10 max-w-screen-lg min-h-screen m-auto">
           <div className={styles.gradient} />
           <div className={styles.pattern} />
           <BottomGradient />

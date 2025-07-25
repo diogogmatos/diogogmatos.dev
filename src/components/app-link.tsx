@@ -15,8 +15,10 @@ export default function AppLink({
   return (
     <Link
       className={clsx(
-        "relative inline-flex items-center after:absolute after:w-full after:bottom-0 after:border-b after:border-white after:opacity-0 after:transition-opacity cursor-pointer w-fit text-lg",
-        active ? "after:opacity-100" : "hover:after:opacity-50",
+        "relative inline-flex items-center after:absolute after:bottom-0 after:border-b after:transition-all cursor-pointer w-fit text-lg",
+        active
+          ? "after:w-full after:border-white"
+          : "after:w-0 hover:after:w-full after:border-white/50",
       )}
       href={href}
       {...props}
