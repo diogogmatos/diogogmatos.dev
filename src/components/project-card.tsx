@@ -29,13 +29,13 @@ const ProjectCard = ({
   footer,
 }: ProjectCardProps) => {
   return (
-    <Card innerClassName="p-0" slug={slug}>
+    <Card innerClassName="p-0 hover:shadow-flush hover:shadow-white/15 transition-all duration-300">
       {image && (
         <div className="h-40 rounded-t-2xl overflow-hidden">
           <CardImage src={image.src} alt={image.alt} radius="none" />
         </div>
       )}
-      <span className="flex flex-col gap-3 justify-between h-full w-full p-4">
+      <span className="flex flex-col gap-3 justify-between w-full p-4">
         <div className="flex flex-col gap-3">
           <h1
             className={clsx(
@@ -47,7 +47,7 @@ const ProjectCard = ({
           {footer && (
             <div className="flex flex-wrap gap-2 items-center">
               {footer.split(" ").map((name, idx) => {
-                return <Tag key={idx}>{name}</Tag>;
+                return <Tag key={idx} name={name} />;
               })}
             </div>
           )}

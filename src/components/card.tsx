@@ -1,26 +1,25 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { ReactNode, ComponentProps } from "react";
+import clsx from "clsx";
 
 interface CardProps extends ComponentProps<"div"> {
   children?: ReactNode;
   innerClassName?: string;
-  slug?: string;
 }
 
 const Card = ({
   children,
   className,
   innerClassName,
-  slug,
   ...props
 }: CardProps = {}) => {
-  const router = useRouter();
   return (
     <div
-      onClick={() => (slug ? router.push("/blog/" + slug) : {})}
-      className={`grid grid-cols-1 w-full backdrop-blur-md bg-white/5 rounded-2xl shadow-sm ${slug && "hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer"} ${className}`}
+      className={clsx(
+        "grid grid-cols-1 w-full backdrop-blur-md bg-white/5 rounded-2xl shadow-sm",
+        className,
+      )}
       {...props}
     >
       <div className="col-start-1 row-start-1 box-border rounded-2xl border border-white/10" />

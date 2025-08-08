@@ -8,7 +8,7 @@ import {
   Rows,
   Spinner,
 } from "@phosphor-icons/react/dist/ssr";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { Post } from "../../../tina/__generated__/types";
 import { motion } from "motion/react";
 import clsx from "clsx";
@@ -16,6 +16,7 @@ import BlogPostCard from "@/components/blog-post-card";
 import SearchBar from "@/components/search-bar";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getArrayColumn } from "@/lib/utils";
+import { useWidth } from "@/providers/width-provider";
 
 function searchPosts(posts: Post[], searchQuery: string) {
   if (
@@ -60,6 +61,7 @@ function ControlBar({
   setOnlyProjects,
   gridView,
   setGridView,
+  posts,
 }: {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
@@ -67,12 +69,14 @@ function ControlBar({
   setOnlyProjects: (onlyProjects: boolean) => void;
   gridView: boolean;
   setGridView: (gridView: boolean) => void;
+  posts: Post[];
 }) {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const width = useWidth();
 
   // Initialize state based on URL search parameters
-  useEffect(() => {
+  useLayoutEffect(() => {
     const view = searchParams.get("view") ?? "list";
     setGridView(view === "grid");
     const onlyProjects = searchParams.get("onlyProjects") ?? "false";
@@ -92,6 +96,19 @@ function ControlBar({
     router.replace(`?${params.toString()}`);
   }, [gridView, onlyProjects, searchQuery, router]);
 
+  useLayoutEffect(() => {
+    if (width < 1024 && gridView) {
+      setGridView(false);
+    }
+  }, [width, gridView, setGridView]);
+
+  useLayoutEffect(() => {
+    if (width >= 1024 && !gridView && searchParams.get("view") === null) {
+      setGridView(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="flex items-center gap-4 w-full">
       <SearchBar
@@ -99,17 +116,19 @@ function ControlBar({
         setSearchQuery={setSearchQuery}
         placeholders={placeholders}
       />
-      <button
-        onClick={() => setOnlyProjects(!onlyProjects)}
-        className={clsx(
-          onlyProjects
-            ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
-            : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-          "min-w-fit px-4 py-3 text-sm sm:text-base rounded-2xl backdrop-blur-md border border-white/10 active:scale-95 font-medium hover:shadow-lg transition-all",
-        )}
-      >
-        Projects <Joystick size="1.2em" className="inline-flex" />
-      </button>
+      {posts.some((p) => !p.project) && (
+        <button
+          onClick={() => setOnlyProjects(!onlyProjects)}
+          className={clsx(
+            onlyProjects
+              ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
+              : "bg-white/5 hover:bg-white/10 hover:border-white/20",
+            "min-w-fit px-4 py-3 text-sm sm:text-base rounded-2xl backdrop-blur-md border border-white/10 active:scale-95 font-medium hover:shadow-lg transition-all",
+          )}
+        >
+          Projects <Joystick size="1.2em" className="inline-flex" />
+        </button>
+      )}
       <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-1 hidden lg:flex items-center gap-1">
         <button
           className={clsx(
@@ -188,12 +207,13 @@ export default function Blog() {
           setOnlyProjects={setOnlyProjects}
           gridView={gridView}
           setGridView={setGridView}
+          posts={posts}
         />
       </Suspense>
       {filteredPosts.length === 0 && posts.length > 0 && (
         <p className="w-full text-center p-4">No results.</p>
       )}
-      <ul className={clsx("grid gap-4", gridView && "grid-cols-2")}>
+      <ul className="grid gap-4">
         {posts.length === 0 &&
           Array.from({ length: 3 }, (_, i) => i).map((_, idx) => (
             <li key={idx}>
@@ -202,6 +222,8 @@ export default function Blog() {
               </Card>
             </li>
           ))}
+      </ul>
+      <ul className={clsx("grid gap-4", gridView && "grid-cols-2")}>
         {/* Render a list view */}
         {!gridView &&
           filteredPosts.length > 0 &&

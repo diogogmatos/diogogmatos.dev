@@ -153,30 +153,35 @@ export default async function Home() {
           </Card>
         </div>
       </main>
-      <div className="flex items-center justify-between gap-4 w-full pb-4 border-b border-white/20 mt-2">
-        <h1 className="font-bold text-2xl sm:text-3xl pl-2">Projects</h1>
-        {/* <Link className="button" href="/blog?onlyProjects=true">
-          View all{" "}
-          <ArrowRight
-            size="1.2em"
-            className="inline-flex group-hover:translate-x-1 transition-transform"
-          />
-        </Link> */}
-      </div>
-      <ProjectList props={projectProps} />
-      <div className="flex items-center justify-between gap-4 w-full pb-4 border-b border-white/20 mt-2">
-        <h1 className="font-bold text-2xl sm:text-3xl pl-2">Blog posts</h1>
-        <Link className="button" href="/blog">
-          View all{" "}
-          <ArrowRight
-            size="1.2em"
-            className="inline-flex group-hover:translate-x-1 transition-transform"
-          />
-        </Link>
-      </div>
-      <ul className="grid gap-4">
-        <BlogPostList props={postProps} />
-      </ul>
+      {projectProps.data.projectConnection.edges &&
+        projectProps.data.projectConnection.edges.length > 0 && (
+          <>
+            <div className="flex items-center justify-between gap-4 w-full pb-4 border-b border-white/20 mt-2">
+              <h1 className="font-bold text-2xl sm:text-3xl pl-2">Projects</h1>
+            </div>
+            <ProjectList props={projectProps} />
+          </>
+        )}
+      {postProps.data.postConnection.edges &&
+        postProps.data.postConnection.edges.some(
+          (r) => r !== null && r.node && !r.node.project,
+        ) && (
+          <>
+            <div className="flex items-center justify-between gap-4 w-full pb-4 border-b border-white/20 mt-2">
+              <h1 className="font-bold text-2xl sm:text-3xl pl-2">Blog</h1>
+              <Link className="button" href="/blog">
+                View all{" "}
+                <ArrowRight
+                  size="1.2em"
+                  className="inline-flex group-hover:translate-x-1 transition-transform"
+                />
+              </Link>
+            </div>
+            <ul className="grid gap-4">
+              <BlogPostList props={postProps} />
+            </ul>
+          </>
+        )}
     </div>
   );
 }

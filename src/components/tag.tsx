@@ -1,10 +1,15 @@
-export default function Tag(props?: React.HTMLProps<HTMLSpanElement>) {
+"use client";
+
+import { useRouter } from "next/navigation";
+
+export default function Tag({ name }: { name: string }) {
+  const router = useRouter();
   return (
-    <span
-      {...props}
-      className="text-xs font-light bg-white/10 backdrop-blur-md px-2 py-1 rounded-full border border-white/10 pointer-events-none select-none"
+    <button
+      onClick={() => router.push(`/blog?search=${name}`)}
+      className=" text-xs font-light bg-white/10 hover:bg-white/15 transition-colors backdrop-blur-md px-2 py-1 rounded-full border border-white/10 select-none"
     >
-      {props?.children}
-    </span>
+      {name}
+    </button>
   );
 }

@@ -7,6 +7,7 @@ import BottomGradient from "@/components/bottom-gradient";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/navbar";
+import { WidthProvider } from "@/providers/width-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -101,37 +102,39 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative`}
       >
-        <div className="flex flex-col justify-between gap-6 sm:gap-8 px-4 py-6 sm:pt-12 sm:pb-8 sm:px-10 max-w-screen-lg min-h-screen m-auto">
-          <div className={styles.gradient} />
-          <div className={styles.pattern} />
-          <BottomGradient />
-          {/* header + body */}
-          <section className="flex flex-col gap-6 sm:gap-8">
-            <header className="flex flex-col gap-2 sm:gap-4 pl-2">
-              <Link href="/" className="font-bold text-4xl sm:text-5xl">
-                Diogo Matos
-              </Link>
-              <p className="sm:text-lg">
-                software engineering @{" "}
-                <a
-                  className="font-bold hover:underline"
-                  href="https://www.uminho.pt"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  uminho
-                </a>
-              </p>
-              <Navbar />
-            </header>
-            {children}
-          </section>
-          <footer className="text-white/50 text-sm sm:text-base text-center z-50">
-            proudly developed and designed by me{" "}
-            <PaintBrush size={18} className="inline-flex mb-1" />
-          </footer>
-          <Analytics />
-        </div>
+        <WidthProvider>
+          <div className="flex flex-col justify-between gap-6 sm:gap-8 px-4 py-6 sm:pt-12 sm:pb-8 sm:px-10 max-w-screen-lg min-h-screen m-auto">
+            <div className={styles.gradient} />
+            <div className={styles.pattern} />
+            <BottomGradient />
+            {/* header + body */}
+            <section className="flex flex-col gap-6 sm:gap-8">
+              <header className="flex flex-col gap-2 sm:gap-4 pl-2">
+                <Link href="/" className="font-bold text-4xl sm:text-5xl">
+                  Diogo Matos
+                </Link>
+                <p className="sm:text-lg">
+                  software engineering @{" "}
+                  <a
+                    className="font-bold hover:underline"
+                    href="https://www.uminho.pt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    uminho
+                  </a>
+                </p>
+                <Navbar />
+              </header>
+              {children}
+            </section>
+            <footer className="text-white/50 text-sm sm:text-base text-center z-50">
+              proudly developed and designed by me{" "}
+              <PaintBrush size={18} className="inline-flex mb-1" />
+            </footer>
+            <Analytics />
+          </div>
+        </WidthProvider>
       </body>
     </html>
   );

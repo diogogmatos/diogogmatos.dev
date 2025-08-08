@@ -1,19 +1,19 @@
 import type { MetadataRoute } from "next";
-import client from "../../tina/__generated__/client";
+import fs from "fs";
+import path from "path";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = (await client.queries.postConnection()).data.postConnection
-    .edges;
-  const links = posts
-    ? posts
-        .map((p) => {
-          const post = p?.node;
-          if (post)
-            return {
-              url: `https://diogogmatos.dev/blog/${post._sys.filename}`,
-            };
-        })
-        .filter((p) => p !== undefined)
+  const posts = fs.readdirSync(path.join("src/content/posts"));
+  const postsSlugs = posts
+    .filter((filename) => filename.includes("mdx"))
+    .map((post) => post.split(".")[0]);
+
+  const links = postsSlugs
+    ? postsSlugs.map((p) => {
+        return {
+          url: `https://diogogmatos.dev/blog/${p}`,
+        };
+      })
     : [];
 
   return [

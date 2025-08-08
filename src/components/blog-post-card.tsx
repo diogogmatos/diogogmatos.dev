@@ -43,7 +43,7 @@ export default function BlogPostCard({
                     ? post.tags.split(" ")
                     : []
                 ).map((stack, idx) => {
-                  return <Tag key={idx}>{stack}</Tag>;
+                  return <Tag key={idx} name={stack} />;
                 })}
               </div>
             )}

@@ -5,6 +5,7 @@ import path from "path";
 import { Link } from "@phosphor-icons/react/dist/ssr";
 import Markdown from "react-markdown";
 import SkeletonImage from "@/components/skeleton-image";
+import Tag from "@/components/tag";
 
 export const dynamicParams = false;
 
@@ -121,14 +122,7 @@ export default async function BlogPost({
                     ? postInfo.tags.split(" ")
                     : []
                 ).map((stack, idx) => {
-                  return (
-                    <span
-                      key={idx}
-                      className="text-xs font-light bg-white/10 backdrop-blur-md px-2 py-1 rounded-full border border-white/10 pointer-events-none select-none"
-                    >
-                      {stack}
-                    </span>
-                  );
+                  return <Tag key={idx} name={stack} />;
                 })}
               </div>
             )}
