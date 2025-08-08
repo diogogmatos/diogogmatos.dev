@@ -118,7 +118,7 @@ function ControlBar({
             onlyProjects
               ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
               : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-            "min-w-fit px-4 py-3 text-sm sm:text-base rounded-2xl backdrop-blur-md border border-white/10 active:scale-95 font-medium hover:shadow-lg transition-all"
+            "min-w-fit px-4 py-3 text-sm sm:text-base rounded-2xl backdrop-blur-md border border-white/10 active:scale-95 font-medium hover:shadow-lg transition-all",
           )}
         >
           Projects <Joystick size="1.2em" className="inline-flex" />
@@ -130,7 +130,7 @@ function ControlBar({
             !gridView
               ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
               : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-            "p-[0.55rem] rounded-xl transition-colors"
+            "p-[0.55rem] rounded-xl transition-colors",
           )}
           onClick={() => setGridView(false)}
         >
@@ -141,7 +141,7 @@ function ControlBar({
             gridView
               ? "bg-blue-500/90 hover:bg-blue-500/90 hover:border-white/30"
               : "bg-white/5 hover:bg-white/10 hover:border-white/20",
-            "p-[0.55rem] rounded-xl transition-colors"
+            "p-[0.55rem] rounded-xl transition-colors",
           )}
           onClick={() => setGridView(true)}
         >
@@ -181,7 +181,7 @@ export default function Blog() {
   useEffect(() => {
     if (onlyProjects)
       setFilteredPosts(
-        searchPosts(posts, searchQuery).filter((post) => post.project)
+        searchPosts(posts, searchQuery).filter((post) => post.project),
       );
     else setFilteredPosts(searchPosts(posts, searchQuery));
   }, [searchQuery, posts, onlyProjects]);
@@ -190,7 +190,7 @@ export default function Blog() {
     <main className="flex flex-col gap-8">
       <Suspense
         fallback={
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl w-full h-[50px] animate-pulse"/>
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl w-full h-[50px] animate-pulse" />
         }
       >
         <ControlBar
