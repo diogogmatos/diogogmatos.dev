@@ -192,7 +192,7 @@ export default function Blog() {
   }, [searchQuery, posts, onlyProjects]);
 
   return (
-    <main className="flex flex-col gap-4">
+    <main className="flex flex-col gap-8">
       <Suspense
         fallback={
           <div className="flex items-center justify-center w-full">
@@ -213,16 +213,17 @@ export default function Blog() {
       {filteredPosts.length === 0 && posts.length > 0 && (
         <p className="w-full text-center p-4">No results.</p>
       )}
-      <ul className="grid gap-4">
-        {posts.length === 0 &&
-          Array.from({ length: 3 }, (_, i) => i).map((_, idx) => (
+      {posts.length === 0 && (
+        <ul className="grid gap-4">
+          {Array.from({ length: 3 }, (_, i) => i).map((_, idx) => (
             <li key={idx}>
               <Card innerClassName="p-4 sm:p-5" className="animate-pulse">
                 <div className="h-72" />
               </Card>
             </li>
           ))}
-      </ul>
+        </ul>
+      )}
       <ul className={clsx("grid gap-4", gridView && "grid-cols-2")}>
         {/* Render a list view */}
         {!gridView &&
