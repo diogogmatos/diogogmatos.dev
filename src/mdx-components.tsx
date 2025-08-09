@@ -73,7 +73,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </Link>
     ),
     hr: () => <hr className="border-white/30 my-6" />,
-    img: (props) => <SkeletonImage {...(props as ImageProps)} />,
+    img: (props) => <SkeletonImage {...(props as ImageProps)} noFilter />,
     ul: ({ children }) => <ul className="list-disc pl-6 my-4">{children}</ul>,
     ol: ({ children }) => (
       <ol className="list-decimal pl-8 my-4">{children}</ol>
