@@ -1,8 +1,8 @@
 # 🪄 diogogmatos.dev
 
-> My own personal website 🔗
+> My own personal [website](https://diogogmatos.dev) 🔗
 
-![Screenshot_20240927_194846](https://github.com/user-attachments/assets/819064df-7763-4b93-a203-f83cc34276ad)
+<img width="1542" height="1635" alt="Screenshot_20250809_160614" src="https://github.com/user-attachments/assets/b23a8171-215c-4dc5-a240-63671283caed" />
 
 ---
 
