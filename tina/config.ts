@@ -26,7 +26,96 @@ export default defineConfig({
     collections: [
       {
         name: "post",
-        label: "Posts",
+        label: "Blog Posts",
+        path: "src/content/posts",
+        format: "json",
+        fields: [
+          {
+            type: "reference",
+            collections: ["project"],
+            name: "project",
+            label: "Project",
+            description: "If linked to a project, its description and tags will automatically be added to the post",
+            required: false,
+          },
+          {
+            type: "image",
+            name: "image",
+            label: "Image",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "alt",
+            label: "Image Alt",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "author",
+            label: "Author",
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            required: true,
+            ui: {
+              timeFormat: "HH:mm",
+            },
+          },
+          {
+            type: "object",
+            name: "links",
+            label: "Links",
+            list: true,
+            required: false,
+            fields: [
+              {
+                type: "string",
+                name: "title",
+                label: "Title",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "link",
+                label: "Link",
+                required: true,
+              },
+            ],
+            ui: {
+              itemProps: (item) => ({ label: item.title }),
+            },
+          },
+          {
+            type: "string",
+            name: "tags",
+            label: "Tags",
+            description: "Space separated list of tags",
+            required: false,
+          }
+        ],
+        ui: {
+          router: (item) => "/blog/" + item.document._sys.filename,
+        },
+      },
+      {
+        name: "bodys",
+        label: "Blog Post Bodys",
         path: "src/content/posts",
         format: "mdx",
         fields: [
@@ -79,21 +168,33 @@ export default defineConfig({
             type: "string",
             name: "stack",
             label: "Stack",
+            description: "Space separated list of technologies",
             required: true,
           },
           {
-            type: "number",
-            name: "relevance",
-            label: "Relevance",
+            type: "boolean",
+            name: "featured",
+            label: "Featured",
+            description: "Dictates if the project is featured in the home page",
             required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            required: true,
+            ui: {
+              timeFormat: "HH:mm",
+            },
           },
           {
             type: "reference",
             collections: ["post"],
             name: "post",
             label: "Post",
+            description: "This will be used to link the project to the associated post",
             required: false,
-          },
+          }
         ],
         ui: {
           router: () => "/",

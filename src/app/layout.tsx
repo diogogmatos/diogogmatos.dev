@@ -6,6 +6,8 @@ import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
 import BottomGradient from "@/components/bottom-gradient";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
+import Navbar from "@/components/navbar";
+import { WidthProvider } from "@/providers/width-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -85,7 +87,6 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -97,45 +98,43 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="msapplication-TileColor" content="#000000" />
-        {/* <meta property="og:image" content="/images/og.png" />
-        <meta property="og:title" content="Diogo Matos - Portfolio" />
-        <meta
-          property="og:description"
-          content="Welcome to my little corner of the internet."
-        />
-        <meta property="og:url" content="https://diogogmatos.dev" />
-        <meta property="og:type" content="website" /> */}
       </head>
       <body
-        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative flex flex-col gap-4 sm:gap-12 px-2 pt-6 pb-2 sm:p-12 min-h-screen md:px-14 xl:px-52`}
+        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative`}
       >
-        <div className={styles.gradient} />
-        <div className={styles.pattern} />
-        <BottomGradient />
-        <header className="space-y-4 pl-2">
-          <Link href="/" className="font-bold text-4xl sm:text-5xl">
-            Diogo Matos
-          </Link>
-          <p className="sm:text-lg">
-            software engineering @{" "}
-            <a
-              className="font-bold hover:underline"
-              href="https://www.uminho.pt"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              uminho
-            </a>
-          </p>
-        </header>
-        {children}
-        <Analytics />
-        <footer className="w-full justify-center text-white/50 text-sm sm:text-base items-center text-center">
-          <p>
-            proudly developed and designed by me{" "}
-            <PaintBrush size={18} className="inline-flex mb-1" />
-          </p>
-        </footer>
+        <WidthProvider>
+          <div className="flex flex-col justify-between gap-6 sm:gap-8 px-4 py-6 sm:pt-12 sm:pb-8 sm:px-10 max-w-screen-lg min-h-screen m-auto">
+            <div className={styles.gradient} />
+            <div className={styles.pattern} />
+            <BottomGradient />
+            {/* header + body */}
+            <section className="flex flex-col gap-6 sm:gap-8">
+              <header className="flex flex-col gap-2 sm:gap-4 pl-2">
+                <Link href="/" className="font-bold text-4xl sm:text-5xl">
+                  Diogo Matos
+                </Link>
+                <p className="sm:text-lg">
+                  software engineering @{" "}
+                  <a
+                    className="font-bold hover:underline"
+                    href="https://www.uminho.pt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    uminho
+                  </a>
+                </p>
+                <Navbar />
+              </header>
+              {children}
+            </section>
+            <footer className="text-white/50 text-sm sm:text-base text-center z-50">
+              proudly developed and designed by me{" "}
+              <PaintBrush size={18} className="inline-flex mb-1" />
+            </footer>
+            <Analytics />
+          </div>
+        </WidthProvider>
       </body>
     </html>
   );

@@ -16,16 +16,19 @@
     "@phosphor-icons/react": "^2.1.7",
     "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^1.5.0",
+    "lighthouse": "^12.8.0",
     "markdown-to-jsx": "^7.5.0",
+    "motion": "^12.12.1",
     "next": "^15.1.7",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "react": "^18",
     "react-children-utilities": "^2.10.0",
     "react-dom": "^18",
+    "react-markdown": "^10.1.0",
     "rehype-starry-night": "^2.2.0",
     "remark-gfm": "^4.0.1",
-    "tinacms": "^2.6.4"
+    "tinacms": "^2.7.7"
   },
   "devDependencies": {
     "@tinacms/cli": "^1.8.4",

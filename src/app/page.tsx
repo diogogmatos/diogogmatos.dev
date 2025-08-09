@@ -1,5 +1,6 @@
 import Card from "@/components/card";
 import {
+  ArrowRight,
   GithubLogo,
   HandWaving,
   LinkedinLogo,
@@ -12,8 +13,11 @@ import CardImage from "@/components/card-image";
 import client from "../../tina/__generated__/client";
 import ProjectList from "@/components/project-list";
 import { Metadata } from "next";
+import Link from "next/link";
+import BlogPostList from "@/components/blog-post-list";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://diogogmatos.dev"),
   title: "Diogo Matos | Software Engineer",
   description: "Welcome to my little corner of the internet!",
   keywords: [
@@ -28,13 +32,13 @@ export const metadata: Metadata = {
     "contact",
   ],
   openGraph: {
-    url: "https://diogogmatos.dev",
+    url: "/",
     type: "website",
     title: "Diogo Matos | Software Engineer",
     description: "Welcome to my little corner of the internet!",
     images: [
       {
-        url: "https://diogogmatos.dev/images/og.jpg",
+        url: "/images/og.jpg",
         width: 1200,
         height: 630,
         alt: "diogogmatos.dev",
@@ -47,7 +51,7 @@ export const metadata: Metadata = {
     description: "Welcome to my little corner of the internet!",
     images: [
       {
-        url: "https://diogogmatos.dev/images/og.jpg",
+        url: "/images/og.jpg",
         width: 1200,
         height: 630,
         alt: "diogogmatos.dev",
@@ -55,20 +59,23 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://diogogmatos.dev",
+    canonical: "/",
   },
 };
 
 export default async function Home() {
-  const projectProps = await client.queries.projectConnection({
-    sort: "relevance",
-  });
   const experienceProps = await client.queries.experienceConnection({
     sort: "relevance",
   });
+  const projectProps = await client.queries.projectConnection({
+    filter: { featured: { eq: true } },
+  });
+  const postProps = await client.queries.postConnection({
+    first: 3,
+  });
 
   return (
-    <div className="flex flex-col gap-6 sm:gap-12">
+    <div className="flex flex-col gap-6 sm:gap-8">
       <main>
         <div className="space-y-4 sm:space-y-6">
           <div className="flex lg:flex-row gap-4 sm:gap-6 flex-col-reverse">
@@ -87,7 +94,7 @@ export default async function Home() {
             <div className="space-y-4 sm:space-y-6 flex flex-col">
               <Card
                 className="lg:size-full lg:min-h-0 min-h-48"
-                innerClassName="py-2 px-2"
+                innerClassName="p-0"
               >
                 <CardImage src="/images/highlight.jpg" alt="Diogo Matos" />
               </Card>
@@ -146,10 +153,35 @@ export default async function Home() {
           </Card>
         </div>
       </main>
-      <h1 className="font-bold text-2xl sm:text-3xl pl-2">Projects</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-        <ProjectList props={projectProps} />
-      </div>
+      {projectProps.data.projectConnection.edges &&
+        projectProps.data.projectConnection.edges.length > 0 && (
+          <>
+            <div className="flex items-center justify-between gap-4 w-full pb-4 border-b border-white/20 mt-2">
+              <h1 className="font-bold text-2xl sm:text-3xl pl-2">Projects</h1>
+            </div>
+            <ProjectList props={projectProps} />
+          </>
+        )}
+      {postProps.data.postConnection.edges &&
+        postProps.data.postConnection.edges.some(
+          (r) => r !== null && r.node && !r.node.project,
+        ) && (
+          <>
+            <div className="flex items-center justify-between gap-4 w-full pb-4 border-b border-white/20 mt-2">
+              <h1 className="font-bold text-2xl sm:text-3xl pl-2">Blog</h1>
+              <Link className="button" href="/blog">
+                View all{" "}
+                <ArrowRight
+                  size="1.2em"
+                  className="inline-flex group-hover:translate-x-1 transition-transform"
+                />
+              </Link>
+            </div>
+            <ul className="grid gap-4">
+              <BlogPostList props={postProps} />
+            </ul>
+          </>
+        )}
     </div>
   );
 }

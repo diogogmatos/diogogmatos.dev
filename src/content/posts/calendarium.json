@@ -1,0 +1,19 @@
+{
+  "project": "src/content/projects/calendarium.json",
+  "image": "/assets/calendarium/calendarium.png",
+  "alt": "Calendarium Logo",
+  "title": "🗓️ Calendarium",
+  "description": "x",
+  "author": "Diogo Matos",
+  "date": "2025-06-11T16:00:00.000Z",
+  "links": [
+    {
+      "title": "calendarium",
+      "link": "https://calendario.cesium.pt"
+    },
+    {
+      "title": "github",
+      "link": "https://github.com/cesium/calendarium"
+    }
+  ]
+}

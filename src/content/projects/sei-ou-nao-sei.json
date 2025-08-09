@@ -5,6 +5,7 @@
   "link": "https://github.com/cesium/jeopardy",
   "description": "'Jeopardy-like' gameshow platform that was one of the most [engaging](https://google.com) new activities introduced in the 2024 edition of [SEI](https://2024.seium.org).\n",
   "stack": "Next.js TypeScript Tailwind Python",
-  "relevance": 5,
+  "featured": true,
+  "date": "2025-02-17T18:00:00.000Z",
   "post": ""
 }
