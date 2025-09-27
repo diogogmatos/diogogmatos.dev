@@ -98,6 +98,11 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="msapplication-TileColor" content="#000000" />
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="fb03ebd0-a1d8-4467-9f6e-913db2f03250"
+        ></script>
       </head>
       <body
         className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative`}

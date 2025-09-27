@@ -63,6 +63,7 @@ const ProjectCard = ({
                   target: "_blank",
                   rel: "noopener noreferrer",
                 })}
+              data-umami-event={`Project: ${title}`}
             >
               Learn more{" "}
               {slug ? (

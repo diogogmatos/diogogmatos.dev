@@ -80,6 +80,7 @@ export default function BlogPostCard({
                 "button group w-full flex justify-between items-center",
                 !mobileOnly && "md:block md:w-auto",
               )}
+              data-umami-event={`Blog Post: ${post.title}`}
             >
               Read more{" "}
               <ArrowRight
