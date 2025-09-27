@@ -17,6 +17,20 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value:
+              "script-src 'self' https://cloud.umami.is; object-src 'none';",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({
