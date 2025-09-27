@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/navbar";
 import { WidthProvider } from "@/providers/width-provider";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -98,11 +99,11 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="msapplication-TileColor" content="#000000" />
-        <script
+        <Script
           defer
           src="https://cloud.umami.is/script.js"
           data-website-id={process.env.UMAMI_WEBSITE_ID}
-        ></script>
+        />
       </head>
       <body
         className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative`}
