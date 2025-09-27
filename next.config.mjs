@@ -2,6 +2,19 @@ import createMDX from "@next/mdx";
 import rehypeStarryNight from "rehype-starry-night";
 import remarkGfm from "remark-gfm";
 
+const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://cloud.umami.is;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data:;
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;
+`;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Configure `pageExtensions` to include markdown and MDX files
@@ -24,8 +37,7 @@ const nextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value:
-              "script-src 'self' https://cloud.umami.is; object-src 'none';",
+            value: cspHeader.replace(/\n/g, ""),
           },
         ],
       },
