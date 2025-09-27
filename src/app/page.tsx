@@ -127,6 +127,7 @@ export default async function Home() {
                 <a
                   href="mailto:career@diogogmatos.dev"
                   className="hover:underline"
+                  data-umami-event="Email"
                 >
                   career@diogogmatos.dev
                 </a>
@@ -136,6 +137,7 @@ export default async function Home() {
                 <a
                   href="https://github.com/diogogmatos"
                   className="hover:underline"
+                  data-umami-event="GitHub"
                 >
                   diogogmatos
                 </a>
@@ -145,6 +147,7 @@ export default async function Home() {
                 <a
                   href="https://linkedin.com/in/diogo-matos"
                   className="hover:underline"
+                  data-umami-event="LinkedIn"
                 >
                   diogo-matos
                 </a>

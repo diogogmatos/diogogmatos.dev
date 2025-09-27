@@ -31,6 +31,7 @@ const ExperienceList = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`sm:text-lg font-bold ${e.node.link ? "hover:underline" : "cursor-default"}`}
+                    data-umami-event={`Experience: ${e.node.title}`}
                   >
                     {e.node.title}
                     {e.node.link && (
