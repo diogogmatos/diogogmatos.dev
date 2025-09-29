@@ -100,7 +100,7 @@ export default async function Home() {
               </Card>
               <Card className="lg:min-w-96 lg:max-w-96">
                 <CardTitle>
-                  <p className="font-bold text-lg sm:text-xl">
+                  <p className="font-semibold text-lg sm:text-xl">
                     Hi there! I&apos;m Diogo{" "}
                     <HandWaving
                       size={24}

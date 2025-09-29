@@ -1,6 +1,6 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
 import styles from "./styles.module.css";
 import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
 import BottomGradient from "@/components/bottom-gradient";
@@ -105,7 +105,7 @@ export default function RootLayout({
         ></script>
       </head>
       <body
-        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-mono antialiased relative`}
+        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-sans antialiased relative`}
       >
         <WidthProvider>
           <div className="flex flex-col justify-between gap-6 sm:gap-8 px-4 py-6 sm:pt-12 sm:pb-8 sm:px-10 max-w-screen-lg min-h-screen m-auto">
@@ -113,7 +113,7 @@ export default function RootLayout({
             <div className={styles.pattern} />
             <BottomGradient />
             {/* header + body */}
-            <section className="flex flex-col gap-6 sm:gap-8">
+            <section className="flex flex-col gap-4 sm:gap-8">
               <header className="flex flex-col gap-2 sm:gap-4 pl-2">
                 <Link href="/" className="font-bold text-4xl sm:text-5xl">
                   Diogo Matos

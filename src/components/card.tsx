@@ -6,12 +6,14 @@ import clsx from "clsx";
 interface CardProps extends ComponentProps<"div"> {
   children?: ReactNode;
   innerClassName?: string;
+  hoverShadow?: boolean;
 }
 
 const Card = ({
   children,
   className,
   innerClassName,
+  hoverShadow = true,
   ...props
 }: CardProps = {}) => {
   return (
@@ -24,7 +26,21 @@ const Card = ({
     >
       <div className="col-start-1 row-start-1 box-border rounded-2xl border border-white/10" />
       <div
-        className={`col-start-1 row-start-1 ${innerClassName === undefined || !(innerClassName.includes("px") || innerClassName.includes("py") || innerClassName.includes("p")) ? "py-4 px-5" : ""} ${innerClassName}`}
+        className={clsx(
+          "col-start-1 row-start-1",
+          hoverShadow &&
+            "hover:shadow-flush hover:shadow-white/10 transition-all duration-300",
+          {
+            "py-4 px-5":
+              !innerClassName ||
+              !(
+                innerClassName.includes("px") ||
+                innerClassName.includes("py") ||
+                innerClassName.includes("p")
+              ),
+          },
+          innerClassName,
+        )}
       >
         {children}
       </div>

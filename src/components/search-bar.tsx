@@ -34,7 +34,7 @@ export default function SearchBar({
   }, [placeholders]);
 
   return (
-    <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl w-full py-3 px-4">
+    <div className="bg-white/5 hover:bg-white/10 focus-within:bg-white/10 backdrop-blur-md border border-white/10 hover:border-white/20 focus-within:border-white/20 rounded-2xl w-full py-3 px-4 transition-colors">
       <span className="flex items-center gap-2.5 sm:gap-4">
         <MagnifyingGlass className="inline-flex" size="1.2em" />
         <input

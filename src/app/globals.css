@@ -49,3 +49,7 @@ body {
 #markdown a {
   @apply underline;
 }
+
+td > .mdx-img-figure {
+  margin: 0;
+}

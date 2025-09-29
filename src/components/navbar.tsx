@@ -8,7 +8,7 @@ export default function Navbar() {
   const path = usePathname();
 
   return (
-    <nav className="flex gap-4 items-center pb-2">
+    <nav className="flex gap-2 sm:gap-4 items-center pb-2">
       {path !== "/" && path !== "/blog" && <BackButton />}
       <AppLink href="/" active={path === "/"}>
         Home

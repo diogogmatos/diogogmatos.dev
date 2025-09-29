@@ -29,7 +29,7 @@ const ProjectCard = ({
   footer,
 }: ProjectCardProps) => {
   return (
-    <Card innerClassName="p-0 hover:shadow-flush hover:shadow-white/15 transition-all duration-300">
+    <Card innerClassName="p-0">
       {image && (
         <div className="h-40 rounded-t-2xl overflow-hidden">
           <CardImage src={image.src} alt={image.alt} radius="none" />

@@ -63,17 +63,12 @@ export default defineConfig({
             required: true,
           },
           {
-            type: "string",
-            name: "author",
-            label: "Author",
-            required: true,
-          },
-          {
             type: "datetime",
             name: "date",
             label: "Date",
             required: true,
             ui: {
+              dateFormat: "DD/MM/YYYY",
               timeFormat: "HH:mm",
             },
           },
@@ -114,7 +109,7 @@ export default defineConfig({
         },
       },
       {
-        name: "bodys",
+        name: "body",
         label: "Blog Post Bodys",
         path: "src/content/posts",
         format: "mdx",
