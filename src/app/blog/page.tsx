@@ -1,19 +1,28 @@
 import ControlBar from "@/components/blog/controlbar";
 import BlogPostList from "@/components/blog/blog-post-list";
 import { PostDataProvider } from "@/providers/post-data-provider";
-import client from "../../../tina/__generated__/client";
-import { Post } from "../../../tina/__generated__/types";
 import { Suspense } from "react";
+import { fetchBlogPosts } from "../actions";
 
-export default async function Blog() {
-  const postsResponse = await client.queries.postConnection();
-  const posts = (postsResponse.data.postConnection.edges ?? [])
-    .filter((r) => r !== null && r.node)
-    .map((r) => r?.node as Post)
-    .sort((a, b) => (a.date < b.date ? 1 : -1));
+export default async function Blog({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+  const search = (params.search as string) ?? "";
+  const onlyProjects = ((params.onlyProjects as string) ?? "false") === "true";
+  const { posts, hasNextPage } = await fetchBlogPosts(search, 1, onlyProjects);
 
   return (
-    <PostDataProvider posts={posts}>
+    <PostDataProvider
+      initialPosts={posts}
+      initialHasNextPage={hasNextPage}
+      initialOnlyProjects={
+        ((params.onlyProjects as string) ?? "false") === "true"
+      }
+      initialSearchQuery={(params.search as string) ?? ""}
+    >
       <main className="flex flex-col gap-4">
         <Suspense
           fallback={

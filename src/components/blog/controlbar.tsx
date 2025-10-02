@@ -5,19 +5,11 @@ import { useEffect, useLayoutEffect } from "react";
 import clsx from "clsx";
 import SearchBar from "@/components/search-bar";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useControlBar } from "@/providers/post-data-provider";
-
-const placeholders = [
-  "Search by title...",
-  "Search by description...",
-  "Search by topic...",
-  "Search by tag...",
-  "Search by date...",
-];
+import { usePostData } from "@/providers/post-data-provider";
 
 export default function ControlBar() {
   const { searchQuery, setSearchQuery, onlyProjects, setOnlyProjects, posts } =
-    useControlBar();
+    usePostData();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -33,19 +25,14 @@ export default function ControlBar() {
   useEffect(() => {
     const params = new URLSearchParams();
     if (onlyProjects) params.set("onlyProjects", "true");
-    else params.set("onlyProjects", "false");
     if (searchQuery) params.set("search", searchQuery);
     router.replace(`?${params.toString()}`);
   }, [onlyProjects, searchQuery, router]);
 
   return (
     <div className="flex items-center gap-4 w-full">
-      <SearchBar
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        placeholders={placeholders}
-      />
-      {posts.some((p) => !p.project) && (
+      <SearchBar />
+      {posts && posts.some((p) => !p.project) && (
         <button
           onClick={() => setOnlyProjects(!onlyProjects)}
           className={clsx(

@@ -114,7 +114,7 @@ export default async function Home() {
                     Welcome to my tiny little corner of the internet. I use this
                     space to share my thoughts, projects, and experiences.
                   </p>
-                  <p>Feel free to reach out and explore my work ^^.</p>
+                  <p>Feel free to reach out and explore my work ^^</p>
                 </CardBody>
               </Card>
             </div>

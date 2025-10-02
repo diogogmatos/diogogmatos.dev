@@ -2,87 +2,71 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { Post } from "../../tina/__generated__/types";
+import { fetchBlogPosts } from "@/app/actions";
 
 interface PostDataContextData {
+  posts: Post[] | null;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   onlyProjects: boolean;
   setOnlyProjects: (onlyProjects: boolean) => void;
-  filteredPosts: Post[];
-  posts: Post[];
+  hasNextPage: boolean;
+  loadMore: () => void;
 }
 
 const PostDataContext = createContext<PostDataContextData | undefined>(
   undefined,
 );
 
-function searchPosts(posts: Post[], searchQuery: string) {
-  if (
-    searchQuery.length > 0 &&
-    !searchQuery.split("").every((c) => c === " ")
-  ) {
-    const queryWords = searchQuery
-      .toLocaleLowerCase()
-      .split(" ")
-      .filter((w) => w.trim().length > 0);
-
-    // Score posts by number of matching words
-    return posts
-      .map((post) => {
-        const values = [
-          post.title,
-          post.description,
-          post.project ? post.project.description : "",
-          post.project ? post.project.stack : "",
-          post.tags !== null ? post.tags : "",
-          new Date(post.date).toDateString(),
-          new Date(post.date).toLocaleString("pt-PT"),
-        ].map((v) => String(v).toLowerCase());
-
-        // Count how many query words match any value
-        const matchCount = queryWords.reduce((count, word) => {
-          return values.some((value) => value.includes(word))
-            ? count + 1
-            : count;
-        }, 0);
-
-        return { post, matchCount };
-      })
-      .filter(({ matchCount }) => matchCount > 0)
-      .sort((a, b) => b.matchCount - a.matchCount)
-      .map(({ post }) => post);
-  }
-  return posts;
-}
-
 export function PostDataProvider({
-  posts,
+  initialSearchQuery,
+  initialOnlyProjects,
+  initialPosts,
+  initialHasNextPage,
   children,
 }: {
-  posts: Post[];
+  initialSearchQuery: string;
+  initialOnlyProjects: boolean;
+  initialPosts: Post[];
+  initialHasNextPage: boolean;
   children: React.ReactNode;
 }) {
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [onlyProjects, setOnlyProjects] = useState<boolean>(false);
-  const [filteredPosts, setFilteredPosts] = useState<Post[]>(posts);
+  const [posts, setPosts] = useState<Post[] | null>(initialPosts);
+  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
+  const [onlyProjects, setOnlyProjects] =
+    useState<boolean>(initialOnlyProjects);
+  const [currentCursor, setCurrentCursor] = useState<number>(1);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(initialHasNextPage);
+
+  async function loadMore() {
+    const { posts: newPosts, hasNextPage: newHasNextPage } =
+      await fetchBlogPosts(searchQuery, currentCursor + 1, onlyProjects);
+    setPosts((prev) => [...(prev ?? []), ...newPosts]);
+    setHasNextPage(newHasNextPage);
+    setCurrentCursor((prev) => prev + 1);
+  }
 
   useEffect(() => {
-    if (onlyProjects)
-      setFilteredPosts(
-        searchPosts(posts, searchQuery).filter((post) => post.project),
-      );
-    else setFilteredPosts(searchPosts(posts, searchQuery));
-  }, [searchQuery, posts, onlyProjects]);
+    setPosts(null);
+    setCurrentCursor(1);
+    fetchBlogPosts(searchQuery, 1, onlyProjects).then(
+      ({ posts, hasNextPage }) => {
+        setPosts(posts);
+        setHasNextPage(hasNextPage);
+      },
+    );
+  }, [searchQuery, onlyProjects]);
 
   return (
     <PostDataContext.Provider
       value={{
+        posts,
         searchQuery,
         setSearchQuery,
         onlyProjects,
         setOnlyProjects,
-        filteredPosts,
-        posts,
+        hasNextPage,
+        loadMore,
       }}
     >
       {children}
@@ -90,10 +74,10 @@ export function PostDataProvider({
   );
 }
 
-export function useControlBar(): PostDataContextData {
+export function usePostData(): PostDataContextData {
   const context = useContext(PostDataContext);
   if (context === undefined) {
-    throw new Error("useControlBar() must be used within a ControlBarProvider");
+    throw new Error("usePostData() must be used within a PostDataProvider");
   }
   return { ...context };
 }
