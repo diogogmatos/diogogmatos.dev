@@ -6,6 +6,7 @@ import Children from "react-children-utilities";
 import Link from "next/link";
 import { cloneElement, ReactElement, isValidElement } from "react";
 import SkeletonImage from "./components/skeleton-image";
+import clsx from "clsx";
 
 const replaceTextInElement = (
   element: ReactElement,
@@ -39,29 +40,32 @@ const replaceTextInElement = (
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="text-2xl sm:text-3xl font-bold mt-10 mb-4 border-b border-white/20 pb-2 scroll-mt-20">
+      <h1 className="text-3xl sm:text-4xl font-bold mt-8 mb-4 sm:mt-10 border-b border-white/20 pb-2 scroll-mt-20">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-xl sm:text-2xl font-semibold mt-8 mb-2 border-b border-white/20 pb-2 scroll-mt-20">
+      <h2 className="flex items-center text-2xl sm:text-3xl font-semibold mt-6 mb-3 sm:mt-8 sm:mb-4 border-white/20 scroll-mt-20 before:h-6 before:w-1 before:bg-white before:rounded-full before:inline-block before:mr-3">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-lg sm:text-xl font-semibold mt-6 mb-1 scroll-mt-20">
+      <h3 className="text-xl sm:text-2xl font-semibold my-5 sm:mt-6 sm:mb-3 scroll-mt-20">
         {children}
       </h3>
     ),
     p: (props) => (
-      <p className="my-4" key={props.children?.toString()}>
+      <p
+        className="text-sm sm:text-base my-3 sm:my-5"
+        key={props.children?.toString()}
+      >
         {props.children}
       </p>
     ),
     a: ({ children, href }) => (
       <Link
         href={href ?? "/"}
-        className="hover:underline cursor-pointer font-medium px-1 py-0.5 rounded-md transition-colors duration-200 bg-white/10 backdrop-blur-md"
+        className="text-sm sm:text-base hover:underline cursor-pointer font-medium px-1 py-0.5 rounded-md transition-colors duration-200 bg-white/10 backdrop-blur-md"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -73,15 +77,21 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </Link>
     ),
     hr: () => <hr className="border-white/30 my-6" />,
-    img: (props) => <SkeletonImage {...(props as ImageProps)} noFilter />,
-    ul: ({ children }) => <ul className="list-disc pl-6 my-4">{children}</ul>,
+    img: (props) => (
+      <figure className="mdx-img-figure my-6 sm:my-8">
+        <SkeletonImage props={{ ...(props as ImageProps) }} noFilter />
+      </figure>
+    ),
+    ul: ({ children }) => (
+      <ul className="list-disc pl-6 my-4 text-sm sm:text-base">{children}</ul>
+    ),
     ol: ({ children }) => (
       <ol className="list-decimal pl-8 my-4">{children}</ol>
     ),
     li: ({ children }) => <li className="mb-1.5">{children}</li>,
     pre: ({ children }) => (
-      <pre className="flex justify-between gap-2 rounded-md bg-white/10 backdrop-blur-md p-3 w-full overflow-x-auto">
-        <code className="flex items-center text-[0.95em] leading-relaxed whitespace-pre">
+      <pre className="text-sm sm:text-base font-mono flex justify-between gap-2 rounded-md bg-white/10 backdrop-blur-md p-3 w-full overflow-hidden my-6">
+        <code className="flex items-center text-[0.95em] leading-relaxed whitespace-pre overflow-x-scroll">
           {Children.onlyText(children)}
         </code>
         <div className="h-full min-w-fit">
@@ -90,7 +100,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </pre>
     ),
     code: ({ children }) => (
-      <code className="bg-white/10 backdrop-blur-md px-1 py-[1px] rounded-[4px] text-[0.95em]">
+      <code className="bg-white/10 backdrop-blur-md px-1 py-[1px] rounded-[4px] text-sm sm:text-[0.95em] font-mono">
         {children}
       </code>
     ),
@@ -98,12 +108,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const isNote = Children.onlyText(children).includes("[!NOTE]");
       return (
         <blockquote
-          className={
-            (isNote
-              ? "bg-blue-500/20 px-4 rounded-md border-blue-500/30 border my-4"
-              : "border-l-4 border-white/20 pl-4 my-4 text-white/80 italic") +
-            " backdrop-blur-md"
-          }
+          className={clsx(
+            isNote
+              ? "bg-blue-500/20 px-4 rounded-md border-blue-500/30 border"
+              : "border-l-4 border-white/80 bg-gradient-to-r from-white/10 to-transparent text-white/80 italic",
+            "backdrop-blur-md my-6",
+          )}
         >
           {isNote ? (
             <>
@@ -138,11 +148,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <tr className="divide-x divide-white/20">{children}</tr>
     ),
     th: ({ children }) => (
-      <th className="border-b border-white/20 px-3 py-2 text-left font-medium">
+      <th className="border-b border-white/20 px-1 py-0.5 sm:px-2 sm:py-1 text-left font-medium">
         {children}
       </th>
     ),
-    td: ({ children }) => <td className="px-3 py-2 align-top">{children}</td>,
+    td: ({ children }) => <td className="p-1 sm:p-2 align-top">{children}</td>,
     ...components,
   };
 }

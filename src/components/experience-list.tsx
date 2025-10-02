@@ -18,7 +18,7 @@ const ExperienceList = ({
   });
 
   return (
-    <ul className="list-disc pl-4 space-y-2">
+    <ul className="list-disc pl-5 space-y-2">
       {data.experienceConnection.edges &&
         data.experienceConnection.edges.map(
           (e, i) =>
@@ -30,7 +30,7 @@ const ExperienceList = ({
                     href={e.node.link ? e.node.link : ""}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`sm:text-lg font-bold ${e.node.link ? "hover:underline" : "cursor-default"}`}
+                    className={`sm:text-lg font-semibold ${e.node.link ? "hover:underline" : "cursor-default"}`}
                     data-umami-event={`Experience: ${e.node.title}`}
                   >
                     {e.node.title}

@@ -15,7 +15,7 @@ export default function AppLink({
   return (
     <Link
       className={clsx(
-        "relative inline-flex items-center after:absolute after:bottom-0 after:border-b after:transition-all cursor-pointer w-fit text-lg",
+        "relative inline-flex items-center after:absolute after:bottom-0 after:border-b after:transition-all cursor-pointer w-fit sm:text-lg",
         active
           ? "after:w-full after:border-white"
           : "after:w-0 hover:after:w-full after:border-white/50",
