@@ -20,7 +20,7 @@
     "lighthouse": "^12.8.0",
     "markdown-to-jsx": "^7.5.0",
     "motion": "^12.12.1",
-    "next": "^15.1.7",
+    "next": "^15.1.9",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "react": "^18",
