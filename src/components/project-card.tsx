@@ -31,27 +31,14 @@ const ProjectCard = ({
   return (
     <Card innerClassName="p-0">
       {image && (
-        <div className="h-40 rounded-t-2xl overflow-hidden">
+        <div className="h-40 rounded-t-xl overflow-hidden">
           <CardImage src={image.src} alt={image.alt} radius="none" />
         </div>
       )}
       <span className="flex flex-col gap-3 justify-between w-full p-4">
         <div className="flex flex-col gap-3">
-          <h1
-            className={clsx(
-              "text-xl font-bold border-b border-white/20 pb-2 mb-1",
-            )}
-          >
-            {title}
-          </h1>
-          {footer && (
-            <div className="flex flex-wrap gap-2 items-center">
-              {footer.split(" ").map((name, idx) => {
-                return <Tag key={idx} name={name} />;
-              })}
-            </div>
-          )}
-          <span>
+          <h1 className={clsx("text-lg font-semibold")}>{title}</h1>
+          <span className="text-sm text-balance text-neutral-50/90">
             <Markdown>{description}</Markdown>
           </span>
           {(slug || link) && (

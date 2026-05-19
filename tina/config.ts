@@ -242,10 +242,17 @@ export default defineConfig({
             label: "Link",
           },
           {
-            type: "string",
-            name: "relevance",
-            label: "Relevance",
-            required: true,
+            type: "image",
+            name: "image",
+            label: "Logo",
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            ui: {
+              dateFormat: "DD/MM/YYYY",
+            },
           },
         ],
         ui: {

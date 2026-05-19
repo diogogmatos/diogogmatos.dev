@@ -16,9 +16,11 @@ import { useEffect, useState } from "react";
 import extractTextFromAST, { Node } from "@/lib/body-parsing";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 
 export default function BlogPostCard({ post }: { post: Post }) {
   const [readingTimeText, setReadingTimeText] = useState<string>("");
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPostBody = async () => {
@@ -36,25 +38,23 @@ export default function BlogPostCard({ post }: { post: Post }) {
   return (
     <Card
       innerClassName="p-0"
-      className="hover:shadow-flush hover:shadow-white/10 transition-all duration-300 overflow-hidden"
+      className="hover:shadow-flush hover:shadow-white/5 transition-all duration-300 overflow-hidden cursor-pointer"
+      onClick={() => router.push(`/blog/${post._sys.filename}`)}
     >
-      <div className={"flex flex-col items-start w-full md:flex-row md:h-60"}>
-        <SkeletonImage
+      <div className={"flex items-start size-full"}>
+        {/* <SkeletonImage
           props={{
             src: post.project?.image || post.image,
             alt: post.alt,
-            className:
-              "overflow-hidden h-full object-cover max-h-52 md:max-h-none",
+            className: "overflow-hidden h-full object-cover",
           }}
           notRounded
-          className="md:max-w-sm"
-        />
+          className="max-w-56"
+        /> */}
         <span className="flex flex-col gap-3 justify-between h-full w-full p-4 sm:p-5">
           <div className="flex flex-col gap-3">
-            <h1 className="relative text-xl sm:text-2xl font-bold mb-4 scroll-mt-20 max-w-prose after:absolute after:left-0 after:-bottom-1.5 after:w-10 after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-sm">
-              {post.title}
-            </h1>
-            <div className="flex gap-4 flex-wrap items-center text-xs sm:text-sm mb-0.5">
+            <h1 className="relative text-xl font-semibold">{post.title}</h1>
+            <div className="flex gap-4 flex-wrap items-center text-sm">
               <span className="flex items-center">
                 <CalendarBlank size="1.1em" className="mr-1" weight="duotone" />
                 <p>
@@ -79,26 +79,11 @@ export default function BlogPostCard({ post }: { post: Post }) {
                 )}
               </AnimatePresence>
             </div>
-            <span className={"md:line-clamp-2"}>
+            <span className="text-pretty text-sm text-neutral-50/90">
               <Markdown>
                 {post.project?.description || post.description}
               </Markdown>
             </span>
-          </div>
-          <div className="w-full flex justify-end">
-            <Link
-              href={`/blog/${post._sys.filename}`}
-              className={
-                "button group w-full flex justify-between items-center md:block md:w-auto"
-              }
-              data-umami-event={`Blog Post: ${post.title}`}
-            >
-              Read more{" "}
-              <ArrowRight
-                size="1.2em"
-                className="inline-flex group-hover:translate-x-1 transition-transform"
-              />
-            </Link>
           </div>
         </span>
       </div>

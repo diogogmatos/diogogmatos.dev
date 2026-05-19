@@ -48,15 +48,15 @@ export default function SearchBar() {
   }, []);
 
   return (
-    <div className="bg-white/5 hover:bg-white/10 focus-within:bg-white/10 backdrop-blur-md border border-white/10 hover:border-white/20 focus-within:border-white/20 rounded-2xl w-full py-3 px-4 transition-colors">
-      <span className="flex items-center gap-2.5 sm:gap-4">
-        <MagnifyingGlass className="inline-flex" size="1.2em" />
+    <div className="bg-white/5 hover:bg-white/10 focus-within:bg-white/10 backdrop-blur-md rounded-2xl w-full py-3 px-4 transition-colors">
+      <span className="flex items-center gap-2.5">
+        <MagnifyingGlass className="inline-flex" size="1em" />
         <input
           value={visibleSearchQuery}
           onChange={onInputChange}
           type="search"
           className={clsx(
-            "w-full bg-transparent outline-none text-sm sm:text-base placeholder:text-white/50 transition-opacity ease-in-out duration-500",
+            "w-full bg-transparent outline-none text-sm placeholder:text-neutral-50/50 transition-opacity ease-in-out duration-500",
             fadeOut && visibleSearchQuery.length === 0
               ? "opacity-0"
               : "opacity-100",

@@ -2,6 +2,7 @@
 
 import { ReactNode, ComponentProps } from "react";
 import clsx from "clsx";
+import { motion } from "motion/react";
 
 interface CardProps extends ComponentProps<"div"> {
   children?: ReactNode;
@@ -19,19 +20,18 @@ const Card = ({
   return (
     <div
       className={clsx(
-        "grid grid-cols-1 w-full backdrop-blur-md bg-white/5 rounded-2xl shadow-sm",
+        "grid grid-cols-1 w-full bg-white/5 rounded-xl backdrop-blur-md",
         className,
       )}
       {...props}
     >
-      <div className="col-start-1 row-start-1 box-border rounded-2xl border border-white/10" />
       <div
         className={clsx(
-          "col-start-1 row-start-1",
+          "col-start-1 row-start-1 rounded-xl z-10",
           hoverShadow &&
-            "hover:shadow-flush hover:shadow-white/10 transition-all duration-300",
+            "hover:shadow-flush hover:shadow-white/5 transition-all duration-300",
           {
-            "py-4 px-5":
+            "py-3 px-4 sm:py-4 sm:px-5":
               !innerClassName ||
               !(
                 innerClassName.includes("px") ||

@@ -3,10 +3,11 @@
   "title": "YariLabs",
   "positions": [
     {
-      "title": "Frontend Developer (Summer Internship)"
+      "title": "Frontend Developer Intern"
     }
   ],
-  "period": "2024",
+  "period": "Summer 2024",
   "link": "https://www.yarilabs.com/",
-  "relevance": "2"
+  "image": "/images/logos/yarilabs.png",
+  "date": "2024-06-01"
 }

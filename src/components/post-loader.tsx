@@ -15,7 +15,7 @@ export default function PostLoader() {
         >
           <Plus size="1em" />
         </button>
-        <p className="text-sm text-white/50">Load more</p>
+        <p className="text-sm text-neutral-50/50">Load more</p>
       </div>
     );
   }

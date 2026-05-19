@@ -1,12 +1,13 @@
 {
   "isEducation": true,
-  "title": "Università degli Studi di Firenze",
+  "title": "Università di Firenze",
   "positions": [
     {
       "title": "Master's Thesis Research Project"
     }
   ],
-  "period": "Feb 2026 - Present",
+  "period": "2026",
   "link": "https://unifi.it",
-  "relevance": "1"
+  "image": "/images/logos/unifi.png",
+  "date": "2026-02-01"
 }

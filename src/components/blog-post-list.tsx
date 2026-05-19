@@ -4,6 +4,8 @@ import { useTina } from "tinacms/dist/react";
 import { Sdk } from "../../tina/__generated__/types";
 import { Post } from "../../tina/__generated__/types";
 import BlogPostCard from "./blog-post-card";
+import { motion } from "motion/react";
+import { useAnimation } from "@/providers/animation-provider";
 
 export default function BlogPostList({
   props,
@@ -16,8 +18,9 @@ export default function BlogPostList({
     data: props.data,
   });
 
+  const play = useAnimation();
+
   const posts = (data.postConnection.edges ?? [])
-    .filter((r) => r !== null && r.node && !r.node.project)
     .map((r) => r?.node as Post)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 
@@ -25,9 +28,14 @@ export default function BlogPostList({
     <>
       {posts.length > 0 &&
         posts.map((post, idx) => (
-          <li key={idx}>
+          <motion.li
+            initial={play ? { opacity: 0, y: 10 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 + idx * 0.1 }}
+            key={idx}
+          >
             <BlogPostCard post={post} />
-          </li>
+          </motion.li>
         ))}
     </>
   );
