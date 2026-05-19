@@ -1,11 +1,6 @@
-import Card from "@/components/card";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import ExperienceList from "@/components/experience-list";
 import client from "../../tina/__generated__/client";
-import ProjectList from "@/components/project-list";
 import { Metadata } from "next";
-import Link from "next/link";
-import BlogPostList from "@/components/blog-post-list";
 import Posts from "@/components/posts";
 import Header from "@/components/header";
 
@@ -60,9 +55,9 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const experienceProps = await client.queries.experienceConnection();
-  const projectProps = await client.queries.projectConnection({
-    filter: { featured: { eq: true } },
-  });
+  // const projectProps = await client.queries.projectConnection({
+  //   filter: { featured: { eq: true } },
+  // });
   const postProps = await client.queries.postConnection({
     first: 5,
   });

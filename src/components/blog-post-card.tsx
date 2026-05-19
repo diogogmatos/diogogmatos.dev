@@ -1,13 +1,7 @@
 "use client";
 
 import Card from "./card";
-import Link from "next/link";
-import {
-  ArrowRight,
-  Clock,
-  CalendarBlank,
-} from "@phosphor-icons/react/dist/ssr";
-import SkeletonImage from "./skeleton-image";
+import { Clock, CalendarBlank } from "@phosphor-icons/react/dist/ssr";
 import { Post } from "../../tina/__generated__/types";
 import client from "../../tina/__generated__/client";
 import Markdown from "react-markdown";

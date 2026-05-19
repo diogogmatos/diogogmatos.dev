@@ -2,7 +2,6 @@
 
 import { ReactNode, ComponentProps } from "react";
 import clsx from "clsx";
-import { motion } from "motion/react";
 
 interface CardProps extends ComponentProps<"div"> {
   children?: ReactNode;

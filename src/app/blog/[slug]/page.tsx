@@ -2,10 +2,9 @@ import { Metadata } from "next";
 import client from "../../../../tina/__generated__/client";
 import fs from "fs";
 import path from "path";
-import { CalendarBlank, Clock, Link } from "@phosphor-icons/react/dist/ssr";
+import { CalendarBlank, Clock } from "@phosphor-icons/react/dist/ssr";
 import Markdown from "react-markdown";
 import SkeletonImage from "@/components/skeleton-image";
-import Tag from "@/components/tag";
 import readingTime from "reading-time";
 import extractTextFromAST, { Node } from "@/lib/body-parsing";
 

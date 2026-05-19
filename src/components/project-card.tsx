@@ -5,7 +5,6 @@ import CardImage from "./card-image";
 import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import Markdown from "react-markdown";
 import clsx from "clsx";
-import Tag from "./tag";
 import Link from "next/link";
 
 interface ProjectCardProps {
@@ -26,7 +25,6 @@ const ProjectCard = ({
   link,
   slug,
   description,
-  footer,
 }: ProjectCardProps) => {
   return (
     <Card innerClassName="p-0">

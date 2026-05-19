@@ -4,10 +4,8 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import {
   GithubLogo,
-  GraduationCap,
   LinkedinLogo,
   Mailbox,
-  Phone,
 } from "@phosphor-icons/react/dist/ssr";
 import Markdown from "react-markdown";
 

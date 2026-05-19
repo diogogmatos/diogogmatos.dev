@@ -5,7 +5,6 @@ import CopyButton from "./components/copy-button";
 import Children from "react-children-utilities";
 import Link from "next/link";
 import { cloneElement, ReactElement, isValidElement } from "react";
-import SkeletonImage from "./components/skeleton-image";
 import clsx from "clsx";
 import ExpandableImage from "./components/expandable-image";
 
