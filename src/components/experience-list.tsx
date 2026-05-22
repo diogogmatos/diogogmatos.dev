@@ -6,8 +6,8 @@ import { Sdk } from "../../tina/__generated__/types";
 import Image from "next/image";
 import { clsx } from "clsx";
 import Card from "./card";
-import { motion } from "motion/react";
-import { useAnimation } from "@/providers/animation-provider";
+import AppLink from "./app-link";
+import FadeIn from "./animations/fade-in";
 
 const ExperienceList = ({
   props,
@@ -21,14 +21,8 @@ const ExperienceList = ({
     data: props.data,
   });
 
-  const play = useAnimation();
-
   return (
-    <motion.div
-      initial={play ? { opacity: 0, y: 10 } : false}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-    >
+    <FadeIn as="section" delay={0.3}>
       <Card>
         <ul className="space-y-3">
           {data.experienceConnection.edges &&
@@ -57,16 +51,16 @@ const ExperienceList = ({
                             <Image
                               alt={`${e.node.title} Logo`}
                               src={e.node.image}
-                              width={80}
-                              height={80}
+                              width={40}
+                              height={40}
                               className="size-[1.2rem] rounded-full object-cover overflow-hidden max-[385px]:hidden"
                             />
                           )}
-                          <a
+                          <AppLink
+                            className="font-medium"
                             href={e.node.link ? e.node.link : ""}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`font-medium ${e.node.link ? "hover:underline" : "cursor-default"}`}
                             data-umami-event={`Experience: ${e.node.title}`}
                           >
                             {e.node.title}
@@ -74,10 +68,10 @@ const ExperienceList = ({
                               <ArrowUpRight
                                 size={14}
                                 weight="bold"
-                                className="inline-flex -translate-y-0.5 translate-x-0.5"
+                                className="inline-flex translate-x-0.5"
                               />
                             )}
-                          </a>
+                          </AppLink>
                         </span>
                         <p className="text-neutral-50/50 text-sm text-nowrap">
                           {e.node.period}
@@ -98,7 +92,7 @@ const ExperienceList = ({
               )}
         </ul>
       </Card>
-    </motion.div>
+    </FadeIn>
   );
 };
 

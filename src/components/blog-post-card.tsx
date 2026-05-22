@@ -4,13 +4,14 @@ import Card from "./card";
 import { Clock, CalendarBlank } from "@phosphor-icons/react/dist/ssr";
 import { Post } from "../../tina/__generated__/types";
 import client from "../../tina/__generated__/client";
-import Markdown from "react-markdown";
+import Markdown from "./markdown";
 import readingTime from "reading-time";
 import { useEffect, useState } from "react";
 import extractTextFromAST, { Node } from "@/lib/body-parsing";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
+import { popIn } from "@/lib/animations";
 
 export default function BlogPostCard({ post }: { post: Post }) {
   const [readingTimeText, setReadingTimeText] = useState<string>("");
@@ -61,12 +62,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
               </span>
               <AnimatePresence>
                 {readingTimeText !== "" && (
-                  <motion.span
-                    className="flex items-center"
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <motion.span className="flex items-center" {...popIn}>
                     <Clock size="1.1em" className="mr-1" weight="duotone" />
                     <p>{readingTimeText}</p>
                   </motion.span>

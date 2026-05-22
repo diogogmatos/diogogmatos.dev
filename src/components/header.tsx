@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "motion/react";
 import Link from "next/link";
 import {
   GithubLogo,
   LinkedinLogo,
   Mailbox,
 } from "@phosphor-icons/react/dist/ssr";
-import Markdown from "react-markdown";
+import Markdown from "./markdown";
+import FadeIn from "./animations/fade-in";
 
 const contacts = [
   {
@@ -32,26 +32,17 @@ const contacts = [
   //   },
 ];
 
-import { useAnimation } from "@/providers/animation-provider";
-
 export default function Header() {
-  const play = useAnimation();
-
   return (
-    <header className="flex flex-col gap-4 pl-2 mb-12">
-      <motion.div
-        initial={play ? { opacity: 0, y: 10, filter: "blur(6px)" } : false}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 0.5 }}
-      >
+    <section className="flex flex-col gap-4 pl-2 mb-12">
+      <FadeIn as="h1">
         <Link href="/" className="font-primary text-3xl sm:text-4xl">
           Diogo Matos
         </Link>
-      </motion.div>
-      <motion.div
-        initial={play ? { opacity: 0, y: 10, filter: "blur(6px)" } : false}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+      </FadeIn>
+      <FadeIn
+        as="span"
+        delay={0.1}
         className="max-w-md text-balance text-sm text-neutral-50/90"
       >
         <Markdown>
@@ -59,29 +50,29 @@ export default function Header() {
             "Software engineering student at [**UMinho**](https://www.uminho.pt), currently conducting Master's thesis research at [**UNIFI**](https://unifi.it) on the energy efficiency and consumption of Large Language Models (LLMs)."
           }
         </Markdown>
-      </motion.div>
-      <motion.div
-        initial={play ? { opacity: 0, y: 10, filter: "blur(6px)" } : false}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+      </FadeIn>
+      <FadeIn
+        as="ul"
+        delay={0.2}
         className="flex flex-wrap gap-4 w-full text-sm font-medium"
       >
         {contacts.map((contact, idx) => (
-          <a
-            href={contact.href}
-            data-umami-event={contact.name}
-            target="_blank"
-            rel="noopener noreferrer"
-            key={idx}
-            className="group flex space-x-1 items-center justify-center text-neutral-50/90 hover:text-neutral-50 active:scale-95 cursor-pointer transition-all"
-          >
-            {contact.icon}
-            <span className="relative inline-flex after:absolute after:bottom-0 after:border-b after:transition-all after:w-0 group-hover:after:w-full after:border-white">
-              {contact.name}
-            </span>
-          </a>
+          <li key={idx}>
+            <a
+              href={contact.href}
+              data-umami-event={contact.name}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex space-x-1 items-center justify-center text-neutral-50/90 hover:text-neutral-50 active:scale-95 cursor-pointer transition-all"
+            >
+              {contact.icon}
+              <span className="relative inline-flex after:absolute after:bottom-0 after:border-b after:transition-all after:w-0 group-hover:after:w-full after:border-white">
+                {contact.name}
+              </span>
+            </a>
+          </li>
         ))}
-      </motion.div>
-    </header>
+      </FadeIn>
+    </section>
   );
 }

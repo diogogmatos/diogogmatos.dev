@@ -6,7 +6,6 @@ import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
 import BottomGradient from "@/components/bottom-gradient";
 import { Analytics } from "@vercel/analytics/react";
 import { WidthProvider } from "@/providers/width-provider";
-import { AnimationProvider } from "@/providers/animation-provider";
 import localFont from "next/font/local";
 import { clsx } from "clsx";
 import BackButton from "@/components/back-button";
@@ -99,31 +98,29 @@ export default function RootLayout({
           styles.body_bg,
         )}
       >
-        <AnimationProvider>
-          <WidthProvider>
-            <div
-              className={clsx(
-                "flex flex-col justify-between gap-8 sm:gap-10 px-4 pb-8 pt-28 sm:pb-8 sm:px-10 min-h-screen m-auto max-w-prose",
-              )}
-            >
-              <div className={styles.base} />
-              <div className={styles.gradient} />
-              <div className={styles.pattern} />
-              <BottomGradient />
-              {/* header + body */}
-              <section className="flex flex-col gap-8 sm:gap-10">
-                <BackButton />
-                {children}
-              </section>
+        <WidthProvider>
+          <div
+            className={clsx(
+              "flex flex-col justify-between gap-8 sm:gap-10 px-4 pb-8 pt-28 sm:pb-8 sm:px-10 min-h-screen m-auto max-w-prose",
+            )}
+          >
+            <main className="flex flex-col gap-8 sm:gap-10">
+              <BackButton />
+              {children}
+            </main>
 
-              <Analytics />
-            </div>
-            <footer className="text-neutral-50/50 text-sm text-center pt-10 pb-20">
+            <footer className="text-neutral-50/50 text-sm text-center py-12">
               proudly developed and designed by me{" "}
               <PaintBrush size={18} className="inline-flex mb-1" />
             </footer>
-          </WidthProvider>
-        </AnimationProvider>
+
+            <div className={styles.base} />
+            <div className={styles.gradient} />
+            <div className={styles.pattern} />
+            <BottomGradient />
+            <Analytics />
+          </div>
+        </WidthProvider>
       </body>
     </html>
   );

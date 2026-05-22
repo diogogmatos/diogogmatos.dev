@@ -3,10 +3,10 @@ import client from "../../../../tina/__generated__/client";
 import fs from "fs";
 import path from "path";
 import { CalendarBlank, Clock } from "@phosphor-icons/react/dist/ssr";
-import Markdown from "react-markdown";
-import SkeletonImage from "@/components/skeleton-image";
+import Markdown from "@/components/markdown";
 import readingTime from "reading-time";
 import extractTextFromAST, { Node } from "@/lib/body-parsing";
+import Image from "next/image";
 
 export const dynamicParams = false;
 
@@ -91,26 +91,30 @@ export default async function BlogPost({
         .body({
           relativePath: `${slug}.mdx`,
         })
-        .then((res) => res.data.body.body)) as Node,
+        .then((res) => res.data.body.body as string)) as Node,
     ),
   );
 
   return (
-    <article className="flex flex-col justify-start w-full max-w-[560px]">
+    <article className="flex flex-col gap-4 justify-start w-full">
       <section className="flex flex-col gap-4">
         {/* Title */}
         <h1 className="relative text-2xl sm:text-3xl font-primary">
           {postInfo.title}
         </h1>
         {/* Description */}
-        <span className="text-sm text-balance">
-          <Markdown>
-            {postInfo.project?.description || postInfo.description}
-          </Markdown>
-        </span>
+        <Markdown
+          components={{
+            p: ({ children }) => (
+              <p className="text-sm text-balance">{children}</p>
+            ),
+          }}
+        >
+          {postInfo.project?.description || postInfo.description}
+        </Markdown>
         {/* Meta Info */}
-        <div className="flex gap-4 flex-wrap items-center text-sm">
-          <span className="flex items-center">
+        <ul className="flex gap-4 flex-wrap items-center text-sm">
+          <li className="flex items-center">
             <CalendarBlank size="1.1em" className="mr-1" weight="duotone" />
             <p>
               {new Date(postInfo.date).toLocaleString("en-US", {
@@ -119,27 +123,26 @@ export default async function BlogPost({
                 year: "numeric",
               })}
             </p>
-          </span>
-          <span className="flex items-center">
+          </li>
+          <li className="flex items-center">
             <Clock size="1.1em" className="mr-1" weight="duotone" />
             <p>{postStats.text}</p>
-          </span>
-        </div>
+          </li>
+        </ul>
         {/* Image */}
         <figure className="w-full mt-2">
-          <SkeletonImage
-            props={{
-              src: postInfo.project?.image || postInfo.image,
-              alt: postInfo.alt,
-              className:
-                "rounded-lg overflow-hidden w-full object-cover shadow-sm",
-            }}
+          <Image
+            src={postInfo.project?.image || postInfo.image}
+            width={600}
+            height={600}
+            alt={postInfo.alt}
+            className="rounded-lg"
           />
         </figure>
-        {/* Content */}
-        <span className="text-pretty">
-          <Post />
-        </span>
+      </section>
+      {/* Content */}
+      <section className="text-pretty">
+        <Post />
       </section>
     </article>
   );
