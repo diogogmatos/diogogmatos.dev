@@ -1,0 +1,15 @@
+{
+  "place": "Universidade do Minho",
+  "link": "https://www.uminho.pt/",
+  "logo": "/images/logos/uminho.webp",
+  "roles": [
+    {
+      "name": "Master's in Software Engineering"
+    },
+    {
+      "name": "Bachelor's in Software Engineering"
+    }
+  ],
+  "period": "2021 - 2026",
+  "date": "2021-09-01"
+}

@@ -1,0 +1,12 @@
+{
+  "place": "Università di Firenze",
+  "link": "https://unifi.it",
+  "logo": "/images/logos/unifi.webp",
+  "roles": [
+    {
+      "name": "Master's Thesis Research Project"
+    }
+  ],
+  "period": "2026",
+  "date": "2026-02-01"
+}

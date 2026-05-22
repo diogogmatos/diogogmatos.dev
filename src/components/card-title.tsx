@@ -6,10 +6,7 @@ interface CardTitleProps extends ComponentProps<"div"> {
 
 const CardTitle = ({ children, className, ...props }: CardTitleProps) => {
   return (
-    <div
-      className={`font-bold text-lg sm:text-xl pb-2 ${className}`}
-      {...props}
-    >
+    <div className={`font-semibold text-lg pb-2 ${className}`} {...props}>
       {children}
     </div>
   );
