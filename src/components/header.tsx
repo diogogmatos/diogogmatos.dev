@@ -43,7 +43,7 @@ export default function Header() {
       <FadeIn
         as="span"
         delay={0.1}
-        className="max-w-md text-balance text-sm text-neutral-50/90"
+        className="max-w-md text-pretty text-sm text-neutral-50/90"
       >
         <Markdown>
           {

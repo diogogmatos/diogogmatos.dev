@@ -1,5 +1,4 @@
-import ExperienceList from "@/components/experience-list";
-import client from "../../tina/__generated__/client";
+import Experiences from "@/components/experiences";
 import { Metadata } from "next";
 import Posts from "@/components/posts";
 import Header from "@/components/header";
@@ -54,29 +53,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const experienceProps = await client.queries.experienceConnection();
-  // const projectProps = await client.queries.projectConnection({
-  //   filter: { featured: { eq: true } },
-  // });
-  const postProps = await client.queries.postConnection({
-    first: 5,
-  });
-
   return (
     <>
       <Header />
-      {/* Experience & Education */}
-      <ExperienceList props={experienceProps} />
-      {/* Projects */}
-      {/* {projectProps.data.projectConnection.edges &&
-        projectProps.data.projectConnection.edges.length > 0 && (
-          <>
-            <h1 className="font-primary text-2xl sm:text-3xl pl-2">Projects</h1>
-            <ProjectList props={projectProps} />
-          </>
-        )} */}
-      {/* Blog Posts */}
-      {postProps && <Posts postProps={postProps} />}
+      <Experiences />
+      <Posts />
     </>
   );
 }

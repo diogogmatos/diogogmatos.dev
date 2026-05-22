@@ -1,0 +1,18 @@
+{
+  "place": "CeSIUM",
+  "link": "https://cesium.pt",
+  "logo": "/images/logos/cesium.webp",
+  "roles": [
+    {
+      "name": "Secretary · Fiscal Council"
+    },
+    {
+      "name": "Co-Director · Open Source Department"
+    },
+    {
+      "name": "Collaborator · Open Source & Marketing Departments"
+    }
+  ],
+  "period": "2022 - 2026",
+  "date": "2022-01-01"
+}

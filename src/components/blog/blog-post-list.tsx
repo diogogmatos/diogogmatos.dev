@@ -11,10 +11,6 @@ import { popIn } from "@/lib/animations";
 export default function BlogPostList() {
   const { posts } = usePostData();
 
-  if (posts === null) {
-    return;
-  }
-
   return (
     <>
       <AnimatePresence>

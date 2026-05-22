@@ -1,14 +1,8 @@
-"use client";
-
-import BlogPostList from "@/components/blog-post-list";
-import { Sdk } from "../../tina/__generated__/types";
 import FadeIn from "./animations/fade-in";
+import { allPosts } from "content-collections";
+import BlogPostCard from "./blog-post-card";
 
-export default function Posts({
-  postProps,
-}: {
-  postProps: Awaited<ReturnType<Sdk["postConnection"]>>;
-}) {
+export default function Posts() {
   return (
     <section className="flex flex-col gap-8 sm:gap-10">
       <FadeIn
@@ -26,7 +20,11 @@ export default function Posts({
           />
         </Link> */}
       <ul className="grid gap-4">
-        <BlogPostList props={postProps} />
+        {allPosts.map((post, idx) => (
+          <FadeIn as="li" delay={0.6 + idx * 0.1} key={idx}>
+            <BlogPostCard post={post} />
+          </FadeIn>
+        ))}
       </ul>
     </section>
   );

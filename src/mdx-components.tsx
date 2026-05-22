@@ -7,6 +7,10 @@ import { cloneElement, ReactElement, isValidElement } from "react";
 import clsx from "clsx";
 import AppLink from "./components/app-link";
 import Image from "next/image";
+import rehypeStarryNight from "rehype-starry-night";
+import remarkGfm from "remark-gfm";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 const replaceTextInElement = (
   element: ReactElement,
@@ -164,3 +168,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...components,
   };
 }
+
+export const mdxOptions = {
+  remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter],
+  rehypePlugins: [rehypeStarryNight],
+};

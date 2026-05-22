@@ -2,50 +2,21 @@
 
 import Card from "./card";
 import { Clock, CalendarBlank } from "@phosphor-icons/react/dist/ssr";
-import { Post } from "../../tina/__generated__/types";
-import client from "../../tina/__generated__/client";
 import Markdown from "./markdown";
 import readingTime from "reading-time";
-import { useEffect, useState } from "react";
-import extractTextFromAST, { Node } from "@/lib/body-parsing";
-import { AnimatePresence } from "motion/react";
-import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { popIn } from "@/lib/animations";
+import { Post } from "content-collections";
 
 export default function BlogPostCard({ post }: { post: Post }) {
-  const [readingTimeText, setReadingTimeText] = useState<string>("");
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchPostBody = async () => {
-      const body = await client.queries
-        .body({
-          relativePath: `${post._sys.filename}.mdx`,
-        })
-        .then((res) => res.data.body.body);
-
-      setReadingTimeText(readingTime(extractTextFromAST(body as Node)).text);
-    };
-    fetchPostBody();
-  }, [post._sys.filename, setReadingTimeText]);
 
   return (
     <Card
       innerClassName="p-0"
-      className="hover:shadow-flush hover:shadow-white/5 transition-all duration-300 overflow-hidden cursor-pointer"
-      onClick={() => router.push(`/blog/${post._sys.filename}`)}
+      className="hover:shadow-flush hover:shadow-white/5 active:scale-[0.99] hover:scale-[1.01] transition-all duration-300 overflow-hidden cursor-pointer"
+      onClick={() => router.push(`/blog/${post._meta.fileName.split(".")[0]}`)}
     >
-      <div className={"flex items-start size-full"}>
-        {/* <SkeletonImage
-          props={{
-            src: post.project?.image || post.image,
-            alt: post.alt,
-            className: "overflow-hidden h-full object-cover",
-          }}
-          notRounded
-          className="max-w-56"
-        /> */}
+      <div className="flex items-start size-full">
         <span className="flex flex-col gap-3 justify-between h-full w-full p-4 sm:p-5">
           <div className="flex flex-col gap-3">
             <h1 className="relative text-xl font-semibold">{post.title}</h1>
@@ -60,19 +31,13 @@ export default function BlogPostCard({ post }: { post: Post }) {
                   })}
                 </p>
               </span>
-              <AnimatePresence>
-                {readingTimeText !== "" && (
-                  <motion.span className="flex items-center" {...popIn}>
-                    <Clock size="1.1em" className="mr-1" weight="duotone" />
-                    <p>{readingTimeText}</p>
-                  </motion.span>
-                )}
-              </AnimatePresence>
+              <span className="flex items-center">
+                <Clock size="1.1em" className="mr-1" weight="duotone" />
+                <p>{readingTime(post.content).text}</p>
+              </span>
             </div>
             <span className="text-pretty text-sm text-neutral-50/90">
-              <Markdown>
-                {post.project?.description || post.description}
-              </Markdown>
+              <Markdown>{post.summary}</Markdown>
             </span>
           </div>
         </span>

@@ -1,8 +1,11 @@
+"use client";
+
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { debounce } from "@/lib/utils";
 import { usePostData } from "@/providers/post-data-provider";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const placeholders = [
   "Search by title...",
@@ -13,6 +16,8 @@ const placeholders = [
 ];
 
 export default function SearchBar() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const { searchQuery, setSearchQuery } = usePostData();
   const [visibleSearchQuery, setVisibleSearchQuery] =
     useState<string>(searchQuery);
@@ -46,6 +51,19 @@ export default function SearchBar() {
       }, 1000);
     }, 5000);
   }, []);
+
+  // Initialize state based on URL search parameters
+  useLayoutEffect(() => {
+    const search = searchParams.get("search") ?? "";
+    setSearchQuery(search);
+  }, [searchParams, setSearchQuery]);
+
+  // Update URL search parameters when state changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("search", searchQuery);
+    router.replace(`?${params.toString()}`);
+  }, [searchQuery, router]);
 
   return (
     <div className="bg-white/5 hover:bg-white/10 focus-within:bg-white/10 backdrop-blur-md rounded-2xl w-full py-3 px-4 transition-colors">
