@@ -7,6 +7,7 @@ export default function Posts() {
     <section className="flex flex-col gap-8 sm:gap-10">
       <FadeIn
         as="h1"
+        blurred
         delay={0.4}
         className="font-primary text-2xl sm:text-3xl pl-2"
       >

@@ -35,13 +35,14 @@ const contacts = [
 export default function Header() {
   return (
     <section className="flex flex-col gap-4 pl-2 mb-12">
-      <FadeIn as="h1">
+      <FadeIn as="h1" blurred>
         <Link href="/" className="font-primary text-3xl sm:text-4xl">
           Diogo Matos
         </Link>
       </FadeIn>
       <FadeIn
         as="span"
+        blurred
         delay={0.1}
         className="max-w-md text-pretty text-sm text-neutral-50/90"
       >
@@ -53,6 +54,7 @@ export default function Header() {
       </FadeIn>
       <FadeIn
         as="ul"
+        blurred
         delay={0.2}
         className="flex flex-wrap gap-4 w-full text-sm font-medium"
       >
