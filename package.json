@@ -32,14 +32,12 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
     "remark-mdx-frontmatter": "^5.2.0",
-    "sharp": "^0.34.5",
-    "tinacms": "^3.1.1"
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@content-collections/core": "^0.15.0",
     "@content-collections/mdx": "^0.2.2",
     "@content-collections/next": "^0.2.11",
-    "@tinacms/cli": "^2.0.4",
     "@types/node": "^20.17.19",
     "@types/react": "^18",
     "@types/react-dom": "^18",
