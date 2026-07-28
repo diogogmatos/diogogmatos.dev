@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { CalendarBlank, Clock } from "@phosphor-icons/react/dist/ssr";
 import Markdown from "@/components/markdown";
+import MDX from "@/components/mdx";
 import readingTime from "reading-time";
 import Image from "next/image";
 import { allPosts } from "content-collections";
@@ -132,7 +133,7 @@ export default async function BlogPost({
       </section>
       {/* Content */}
       <section className="text-pretty">
-        <Markdown components={customComponents}>{post.content}</Markdown>
+        <MDX code={post.mdx} components={customComponents} />
       </section>
     </article>
   );

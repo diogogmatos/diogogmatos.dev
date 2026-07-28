@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@content-collections/core": "^0.15.0",
+    "@content-collections/mdx": "^0.2.2",
     "@content-collections/next": "^0.2.11",
     "@tinacms/cli": "^2.0.4",
     "@types/node": "^20.17.19",

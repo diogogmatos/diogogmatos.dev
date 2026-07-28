@@ -1,4 +1,6 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
+import { compileMDX } from "@content-collections/mdx";
+import remarkGfm from "remark-gfm";
 import { z } from "zod";
 
 const experiences = defineCollection({
@@ -26,6 +28,7 @@ const posts = defineCollection({
   include: "**/*.mdx",
   parser: "frontmatter",
   schema: z.object({
+    icon: z.string(),
     title: z.string(),
     summary: z.string(),
     date: z.string().transform((str) => new Date(str)),
@@ -34,6 +37,15 @@ const posts = defineCollection({
     tags: z.array(z.string()).optional(),
     content: z.string(),
   }),
+  transform: async (document, context) => {
+    const mdx = await compileMDX(context, document, {
+      remarkPlugins: [remarkGfm],
+    });
+    return {
+      ...document,
+      mdx,
+    };
+  },
 });
 
 export default defineConfig({

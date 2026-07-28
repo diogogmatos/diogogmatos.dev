@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   GithubLogo,
+  GraduationCap,
   LinkedinLogo,
   Mailbox,
 } from "@phosphor-icons/react/dist/ssr";
@@ -25,11 +26,11 @@ const contacts = [
     icon: <Mailbox size={18} weight="duotone" />,
     href: "mailto:career@diogogmatos.dev",
   },
-  //   {
-  //     name: "G. Scholar",
-  //     icon: <GraduationCap size={18} weight="duotone" />,
-  //     href: "https://scholar.google.com/citations?user=MDNLu9YAAAAJ&hl",
-  //   },
+  {
+    name: "G. Scholar",
+    icon: <GraduationCap size={18} weight="duotone" />,
+    href: "https://scholar.google.com/citations?user=MDNLu9YAAAAJ&hl",
+  },
 ];
 
 export default function Header() {
@@ -48,7 +49,7 @@ export default function Header() {
       >
         <Markdown>
           {
-            "Software engineering student at [**UMinho**](https://www.uminho.pt), currently conducting Master's thesis research at [**UNIFI**](https://unifi.it) on the energy efficiency and consumption of Large Language Models (LLMs)."
+            "Software engineering student at [**UMinho**](https://www.uminho.pt), conducting a Master’s thesis at [**UNIFI**](https://unifi.it) on the evolution of energy and intelligence efficiency in local Large Language Models (LLMs)."
           }
         </Markdown>
       </FadeIn>
