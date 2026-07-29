@@ -8,7 +8,7 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import Markdown from "./markdown";
 import AppLink from "./app-link";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { Project } from "content-collections";
 
 export default function ProjectShowoff({ project }: { project: Project }) {
@@ -30,7 +30,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
           }}
           plugins={[
             Autoplay({
-              delay: 5000,
+              delay: 20000 / project.media.length,
             }),
           ]}
         >
@@ -48,6 +48,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
                   <CarouselVideo
                     src={media.src}
                     addPadding={media.addPadding}
+                    cover={media.cover}
                   />
                 )}
               </CarouselItem>
@@ -61,11 +62,19 @@ export default function ProjectShowoff({ project }: { project: Project }) {
             data-umami-event={`Project: ${project.title}`}
           >
             Learn more
-            <ArrowRight
-              size={14}
-              weight="bold"
-              className="inline-flex translate-x-0.5 group-hover:translate-x-1 transition-transform"
-            />
+            {project.link.includes("https://") ? (
+              <ArrowUpRight
+                size={14}
+                weight="bold"
+                className="inline-flex translate-x-0.5 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform"
+              />
+            ) : (
+              <ArrowRight
+                size={14}
+                weight="bold"
+                className="inline-flex translate-x-0.5 group-hover:translate-x-1 transition-transform"
+              />
+            )}
           </AppLink>
         </div>
       </div>

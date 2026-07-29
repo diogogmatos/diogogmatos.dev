@@ -251,7 +251,7 @@ const CarouselImage = ({
     <Image
       className={cn(
         cover ? "object-cover" : "object-contain",
-        "w-full h-full bg-white/5 rounded-lg backdrop-blur-md",
+        "size-full bg-white/5 rounded-lg backdrop-blur-md",
         addPadding && "p-4",
         className,
       )}
@@ -267,14 +267,17 @@ const CarouselImage = ({
 const CarouselVideo = ({
   src,
   addPadding,
+  cover,
 }: {
   src: string;
   addPadding?: boolean;
+  cover?: boolean;
 }) => {
   return (
     <video
       className={cn(
-        "object-cover w-full h-full bg-white/5 rounded-lg backdrop-blur-md overflow-hidden",
+        cover ? "object-cover" : "object-contain",
+        "size-full bg-white/5 rounded-lg backdrop-blur-md overflow-hidden",
         addPadding && "p-4",
       )}
       src={src}
