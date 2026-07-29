@@ -48,6 +48,27 @@ const posts = defineCollection({
   },
 });
 
+const projects = defineCollection({
+  name: "projects",
+  directory: "src/content/projects",
+  include: "**/*.json",
+  parser: "json",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    media: z.array(
+      z.object({
+        src: z.string(),
+        type: z.enum(["image", "video"]),
+        alt: z.string().optional(),
+        addPadding: z.boolean().optional(),
+        cover: z.boolean().optional(),
+      }),
+    ),
+    link: z.string(),
+  }),
+});
+
 export default defineConfig({
-  content: [posts, experiences],
+  content: [posts, projects, experiences],
 });

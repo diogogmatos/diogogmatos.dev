@@ -2,6 +2,7 @@ import Experiences from "@/components/experiences";
 import { Metadata } from "next";
 import Posts from "@/components/posts";
 import Header from "@/components/header";
+import Projects from "@/components/projects";
 
 const ogImageUrl = `/api/og?title=${encodeURIComponent("Diogo Matos")}&&description=${encodeURIComponent("diogogmatos.dev")}`;
 
@@ -57,6 +58,7 @@ export default async function Home() {
     <>
       <Header />
       <Experiences />
+      <Projects />
       <Posts />
     </>
   );

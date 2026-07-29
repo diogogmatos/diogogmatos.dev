@@ -102,7 +102,7 @@ export default async function BlogPost({
           {post.summary}
         </Markdown>
         {/* Meta Info */}
-        <ul className="flex gap-4 flex-wrap items-center text-sm">
+        <ul className="flex gap-4 flex-wrap items-center text-xs sm:text-sm">
           <li className="flex items-center">
             <CalendarBlank size="1.1em" className="mr-1" weight="duotone" />
             <p>
