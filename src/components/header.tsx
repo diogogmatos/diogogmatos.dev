@@ -41,13 +41,16 @@ export default function Header() {
           Diogo Matos
         </Link>
       </FadeIn>
-      <FadeIn
-        as="span"
-        blurred
-        delay={0.1}
-        className="max-w-md text-pretty text-sm text-neutral-50/90"
-      >
-        <Markdown>
+      <FadeIn as="span" blurred delay={0.1} className="max-w-md">
+        <Markdown
+          components={{
+            p: ({ children }) => (
+              <p className="text-pretty text-sm text-neutral-50/90">
+                {children}
+              </p>
+            ),
+          }}
+        >
           {
             "Software engineering student at [**UMinho**](https://www.uminho.pt), conducting a Master’s thesis at [**UNIFI**](https://unifi.it) on the evolution of energy and intelligence efficiency in local Large Language Models (LLMs)."
           }

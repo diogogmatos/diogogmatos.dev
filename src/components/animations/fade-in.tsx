@@ -3,6 +3,17 @@
 import { motion } from "motion/react";
 import { useLayoutEffect, useState } from "react";
 
+let isPopStateNavigation = false;
+
+if (typeof window !== "undefined") {
+  window.addEventListener("popstate", () => {
+    isPopStateNavigation = true;
+    setTimeout(() => {
+      isPopStateNavigation = false;
+    }, 100);
+  });
+}
+
 const fadeIn = {
   initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0 },
@@ -33,7 +44,10 @@ export default function FadeIn<T extends React.ElementType = "div">({
     const navEntry = performance?.getEntriesByType("navigation")?.[0] as
       | PerformanceNavigationTiming
       | undefined;
-    setIsNavigating(navEntry?.type !== "navigate");
+    const isHardBackOrReload = navEntry?.type !== "navigate";
+    if (isHardBackOrReload || isPopStateNavigation) {
+      setIsNavigating(true);
+    }
   }, []);
 
   const Tag = as || "div";

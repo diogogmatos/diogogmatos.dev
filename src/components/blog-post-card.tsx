@@ -21,7 +21,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
     >
       <div className="flex items-start size-full">
         <span className="relative flex gap-4 items-start h-full w-full p-4 sm:p-5">
-          <div className="min-w-fit h-full">
+          <div className="min-w-[74px] min-h-[74px] h-full">
             <div className="flex items-center justify-center aspect-square h-full">
               <DynamicIcon
                 weight="duotone"
@@ -32,7 +32,10 @@ export default function BlogPostCard({ post }: { post: Post }) {
 
           <div className="flex flex-col gap-0.5 sm:gap-1">
             <div className="flex justify-between items-start">
-              <h1 className="relative text-lg font-semibold line-clamp-1">
+              <h1
+                title={post.title}
+                className="relative text-lg font-semibold line-clamp-1"
+              >
                 {post.title}
               </h1>
               <div className="flex gap-4 flex-wrap items-center justify-end text-xs text-neutral-50/90 min-w-fit">
@@ -46,9 +49,17 @@ export default function BlogPostCard({ post }: { post: Post }) {
                 </span>
               </div>
             </div>
-            <span className="text-pretty text-sm text-neutral-50/90 line-clamp-2 mb-0.5">
-              <Markdown>{post.summary}</Markdown>
-            </span>
+            <Markdown
+              components={{
+                p: ({ children }) => (
+                  <p className="text-pretty text-sm text-neutral-50/90 line-clamp-2 mb-0.5">
+                    {children}
+                  </p>
+                ),
+              }}
+            >
+              {post.summary}
+            </Markdown>
           </div>
         </span>
       </div>

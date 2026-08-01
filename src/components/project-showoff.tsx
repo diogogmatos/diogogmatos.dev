@@ -18,9 +18,17 @@ export default function ProjectShowoff({ project }: { project: Project }) {
         <span className="flex justify-between items-center">
           <h1 className="font-semibold text-lg">{project.title}</h1>
         </span>
-        <span className="text-sm text-neutral-50/90 text-pretty">
-          <Markdown>{project.description}</Markdown>
-        </span>
+        <Markdown
+          components={{
+            p: ({ children }) => (
+              <p className="text-sm text-neutral-50/90 text-pretty">
+                {children}
+              </p>
+            ),
+          }}
+        >
+          {project.description}
+        </Markdown>
       </div>
       <div className="flex flex-col gap-4 sm:gap-5">
         <Carousel
@@ -30,7 +38,12 @@ export default function ProjectShowoff({ project }: { project: Project }) {
           }}
           plugins={[
             Autoplay({
-              delay: 20000 / project.media.length,
+              delay: (snapList) =>
+                snapList.map(
+                  (_, idx) =>
+                    (project.media[idx].duration ?? 5 + Math.random() * 3) *
+                    1000,
+                ),
             }),
           ]}
         >
@@ -39,6 +52,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
               <CarouselItem key={idx}>
                 {media.type === "image" ? (
                   <CarouselImage
+                    key={idx}
                     src={media.src}
                     alt={media.alt ?? project.title + " image " + idx}
                     addPadding={media.addPadding}
@@ -57,7 +71,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
         </Carousel>
         <div className="w-full flex justify-end pr-2">
           <AppLink
-            className="font-medium text-sm group after:-bottom-[1px] text-neutral-50/90 hover:text-white transition-colors"
+            className="font-medium text-sm group text-neutral-50/90 hover:text-white"
             href={project.link}
             data-umami-event={`Project: ${project.title}`}
           >

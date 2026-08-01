@@ -26,4 +26,11 @@ const nextConfig = {
 
 const withMDX = createMDX({});
 
-export default withMDX(withContentCollections(nextConfig));
+const finalConfig = withMDX(withContentCollections(nextConfig));
+
+if (finalConfig.experimental?.turbo) {
+  finalConfig.turbopack = {};
+  delete finalConfig.experimental.turbo;
+}
+
+export default finalConfig;

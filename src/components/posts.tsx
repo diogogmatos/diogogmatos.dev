@@ -8,21 +8,25 @@ export default function Posts() {
       <FadeIn
         as="h1"
         blurred
-        delay={0.6 + allProjects.length * 0.1}
+        delay={1.1 + allProjects.length * 0.1}
         className="font-primary text-2xl sm:text-3xl pl-2"
       >
         Posts
       </FadeIn>
       <ul className="grid gap-4">
-        {allPosts.map((post, idx) => (
-          <FadeIn
-            as="li"
-            delay={0.7 + allProjects.length * 0.1 + idx * 0.1}
-            key={idx}
-          >
-            <BlogPostCard post={post} />
-          </FadeIn>
-        ))}
+        {allPosts
+          .sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+          )
+          .map((post, idx) => (
+            <FadeIn
+              as="li"
+              delay={1.4 + allProjects.length * 0.1 + idx * 0.1}
+              key={idx}
+            >
+              <BlogPostCard post={post} />
+            </FadeIn>
+          ))}
       </ul>
     </section>
   );

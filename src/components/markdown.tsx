@@ -16,6 +16,9 @@ export default function Markdown({ components, ...props }: MarkdownProps) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
+        strong: ({ children }) => (
+          <strong className="font-semibold">{children}</strong>
+        ),
         a: ({ children, href }) => (
           <AppLink href={href ?? "#"} target="_blank" rel="noopener noreferrer">
             {children}

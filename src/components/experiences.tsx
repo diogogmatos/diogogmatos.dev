@@ -8,7 +8,7 @@ import { allExperiences } from "content-collections";
 
 export default function Experiences() {
   return (
-    <FadeIn as="section" delay={0.3}>
+    <FadeIn as="section" delay={0.5}>
       <Card>
         <ul className="space-y-3">
           {allExperiences

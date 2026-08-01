@@ -1,18 +1,25 @@
 {
     "title": "Paper — The Green Side of the Lua",
-    "description": "Empirical study evaluating Lua's runtime performance and energy efficiency across 25 official interpreter versions and JIT compilers. Published in [**SANER 2026**](https://conf.researchr.org/home/saner-2026).",
+    "description": "**Empirical study** evaluating Lua's runtime **performance** and **energy efficiency** across 25 official interpreter versions and JIT compilers. Published in [**SANER 2026**](https://conf.researchr.org/home/saner-2026).",
     "media": [
         {
-            "src": "/assets/the-green-side-of-the-lua/laptop.webp",
-            "alt": "The Green Side of the Lua PDF Paper Screenshot in a Laptop Mockup",
+            "src": [
+                "/assets/the-green-side-of-the-lua/laptop.webp"
+            ],
+            "alt": "Screenshort of the paper 'The Green Side of the Lua' in a laptop",
             "type": "image",
             "addPadding": true
         },
         {
-            "src": "/assets/the-green-side-of-the-lua/highlight.mp4",
+            "src": [
+                "/assets/the-green-side-of-the-lua/highlight.webm",
+                "/assets/the-green-side-of-the-lua/highlight_h265.mp4",
+                "/assets/the-green-side-of-the-lua/highlight_h264.mp4"
+            ],
             "type": "video",
-            "cover": true
+            "cover": true,
+            "duration": 15
         }
     ],
-    "link": "https://ieeexplore.ieee.org/document/11500263"
+    "link": "/blog/the-green-side-of-the-lua"
 }

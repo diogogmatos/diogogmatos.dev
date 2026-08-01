@@ -3,10 +3,41 @@
     "description": "Case study of an academic resource sharing platform developed as part of a Web Engineering course, with features like resource submission, upvoting/downvoting, commenting, and user profiles.",
     "media": [
         {
-            "src": "/assets/unishare/comment.webp",
-            "alt": "UniShare Screenshot",
+            "src": [
+                "/assets/unishare/showcase.webm",
+                "/assets/unishare/showcase_h265.mp4",
+                "/assets/unishare/showcase_h264.mp4"
+            ],
+            "alt": "UniShare Showcase Video",
+            "type": "video",
+            "cover": true,
+            "duration": 20
+        },
+        {
+            "src": [
+                "/assets/unishare/laptop.webp"
+            ],
+            "alt": "UniShare Platform on Laptop",
             "type": "image",
-            "cover": true
+            "addPadding": true
+        },
+        {
+            "src": [
+                "/assets/unishare/phone-main.webp",
+                "/assets/unishare/phone-main-dark.webp"
+            ],
+            "alt": "UniShare Platform on Mobile",
+            "type": "image",
+            "addPadding": true
+        },
+        {
+            "src": [
+                "/assets/unishare/phone-profile.webp",
+                "/assets/unishare/phone-resource.webp"
+            ],
+            "alt": "UniShare Platform on Mobile",
+            "type": "image",
+            "addPadding": true
         }
     ],
     "link": "/blog/unishare"

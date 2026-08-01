@@ -1,0 +1,53 @@
+{
+    "title": "Grafit",
+    "description": "**Award-winning startup idea** for a mobile app that makes it effortless to manage and share your wardrobe and daily outfits. **Snap a photo, add it to Grafit, you’re done**. No manual tagging thanks to **AI-powered outfit recognition**.",
+    "media": [
+        {
+            "src": [
+                "/assets/grafit/showcase.webm",
+                "/assets/grafit/showcase_h265.mp4",
+                "/assets/grafit/showcase_h264.mp4"
+            ],
+            "alt": "Grafit showcase video",
+            "type": "video",
+            "cover": true,
+            "duration": 40
+        },
+        {
+            "src": [
+                "/assets/grafit/startup-point.webp"
+            ],
+            "alt": "Grafit team winning honorable mention at Startup Point 2025",
+            "type": "image",
+            "cover": true
+        },
+        {
+            "src": [
+                "/assets/grafit/outfit-b.webp",
+                "/assets/grafit/outfit-open.webp"
+            ],
+            "alt": "Grafit app outfit view",
+            "type": "image",
+            "addPadding": true
+        },
+        {
+            "src": [
+                "/assets/grafit/explore.webp",
+                "/assets/grafit/diary.webp"
+            ],
+            "alt": "Grafit app explore and diary views",
+            "type": "image",
+            "addPadding": true
+        },
+        {
+            "src": [
+                "/assets/grafit/profile.webp",
+                "/assets/grafit/outfit-g.webp"
+            ],
+            "alt": "Grafit app profile and outfit views",
+            "type": "image",
+            "addPadding": true
+        }
+    ],
+    "link": "/blog/grafit"
+}

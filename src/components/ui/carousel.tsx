@@ -240,7 +240,7 @@ const CarouselImage = ({
   priority,
   className,
 }: {
-  src: string;
+  src: string[];
   alt: string;
   addPadding?: boolean;
   cover?: boolean;
@@ -248,19 +248,25 @@ const CarouselImage = ({
   className?: string;
 }) => {
   return (
-    <Image
+    <div
       className={cn(
-        cover ? "object-cover" : "object-contain",
-        "size-full bg-white/5 rounded-lg backdrop-blur-md",
-        addPadding && "p-4",
+        "flex size-full bg-white/5 rounded-xl backdrop-blur-md overflow-hidden",
+        addPadding && "p-3 sm:p-5",
         className,
       )}
-      src={src}
-      alt={alt}
-      width={500}
-      height={500}
-      priority={priority}
-    />
+    >
+      {src.map((source, idx) => (
+        <Image
+          key={idx}
+          className={cn(cover ? "object-cover" : "object-contain", "size-full")}
+          src={source}
+          alt={alt}
+          width={500}
+          height={500}
+          priority={priority}
+        />
+      ))}
+    </div>
   );
 };
 
@@ -269,7 +275,7 @@ const CarouselVideo = ({
   addPadding,
   cover,
 }: {
-  src: string;
+  src: string[];
   addPadding?: boolean;
   cover?: boolean;
 }) => {
@@ -277,15 +283,28 @@ const CarouselVideo = ({
     <video
       className={cn(
         cover ? "object-cover" : "object-contain",
-        "size-full bg-white/5 rounded-lg backdrop-blur-md overflow-hidden",
-        addPadding && "p-4",
+        "size-full bg-white/5 rounded-xl backdrop-blur-md overflow-hidden",
+        addPadding && "p-3 sm:p-5",
       )}
-      src={src}
       autoPlay
       loop
       muted
       playsInline
-    />
+    >
+      {src.map((source, idx) => (
+        <source
+          key={idx}
+          src={source}
+          type={`video/${source.split(".").pop()}; codecs=${
+            source.includes("webm")
+              ? "vp9"
+              : source.includes("h265")
+                ? "hevc"
+                : "avc"
+          }`}
+        />
+      ))}
+    </video>
   );
 };
 
