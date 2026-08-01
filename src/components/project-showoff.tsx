@@ -38,6 +38,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
           }}
           plugins={[
             Autoplay({
+              stopOnInteraction: false,
               delay: (snapList) =>
                 snapList.map(
                   (_, idx) =>
