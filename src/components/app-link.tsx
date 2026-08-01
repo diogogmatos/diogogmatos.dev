@@ -5,20 +5,21 @@ export default function AppLink({
   href,
   children,
   active,
-  props,
+  className,
+  ...props
 }: {
   href: string;
   children: React.ReactNode;
   active?: boolean;
-  props?: React.HTMLProps<HTMLAnchorElement>;
-}) {
+} & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
     <Link
       className={clsx(
-        "relative inline-flex items-center after:absolute after:bottom-0 after:border-b after:transition-all cursor-pointer w-fit sm:text-lg",
+        "inline bg-gradient-to-r from-white to-white bg-no-repeat bg-left-bottom transition-all duration-150 cursor-pointer",
         active
-          ? "after:w-full after:border-white"
-          : "after:w-0 hover:after:w-full after:border-white/50",
+          ? "bg-[size:100%_1px]"
+          : "bg-[size:0%_1px] hover:bg-[size:100%_1px]",
+        className,
       )}
       href={href}
       {...props}

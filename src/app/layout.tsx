@@ -4,11 +4,48 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import styles from "./styles.module.css";
 import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
 import BottomGradient from "@/components/bottom-gradient";
-import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
-import Navbar from "@/components/navbar";
 import { WidthProvider } from "@/providers/width-provider";
+import localFont from "next/font/local";
+import { clsx } from "clsx";
+import BackButton from "@/components/back-button";
 
+const editorialNew = localFont({
+  display: "swap",
+  variable: "--font-editorial-new",
+  src: [
+    {
+      path: "./fonts/PPEditorialNew-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/PPEditorialNew-Italic.otf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/PPEditorialNew-Ultrabold.otf",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "./fonts/PPEditorialNew-UltraboldItalic.otf",
+      weight: "800",
+      style: "italic",
+    },
+    {
+      path: "./fonts/PPEditorialNew-Ultralight.otf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "./fonts/PPEditorialNew-UltralightItalic.otf",
+      weight: "200",
+      style: "italic",
+    },
+  ],
+});
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -23,7 +60,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://diogogmatos.dev"),
   openGraph: {
-    siteName: "Diogo Matos | Software Engineer",
+    siteName: "Diogo Matos",
     type: "website",
     locale: "en_US",
   },
@@ -53,38 +90,34 @@ export default function RootLayout({
         ></script>
       </head>
       <body
-        className={`${inter.variable} ${jetbrains.variable} text-neutral-50 font-sans antialiased relative`}
+        className={clsx(
+          inter.variable,
+          jetbrains.variable,
+          editorialNew.variable,
+          "text-neutral-50 font-sans antialiased relative",
+          styles.body_bg,
+        )}
       >
         <WidthProvider>
-          <div className="flex flex-col justify-between gap-6 sm:gap-8 px-4 py-6 sm:pt-12 sm:pb-8 sm:px-10 max-w-screen-lg min-h-screen m-auto">
-            <div className={styles.gradient} />
-            <div className={styles.pattern} />
-            <BottomGradient />
-            {/* header + body */}
-            <section className="flex flex-col gap-4 sm:gap-8">
-              <header className="flex flex-col gap-2 sm:gap-4 pl-2">
-                <Link href="/" className="font-bold text-4xl sm:text-5xl">
-                  Diogo Matos
-                </Link>
-                <p className="sm:text-lg">
-                  software engineering @{" "}
-                  <a
-                    className="font-bold hover:underline"
-                    href="https://www.uminho.pt"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    uminho
-                  </a>
-                </p>
-                <Navbar />
-              </header>
+          <div
+            className={clsx(
+              "flex flex-col justify-between gap-8 sm:gap-10 px-4 pb-8 pt-28 sm:pb-8 sm:px-10 min-h-screen m-auto max-w-prose",
+            )}
+          >
+            <main className="flex flex-col gap-8 sm:gap-10">
+              <BackButton />
               {children}
-            </section>
-            <footer className="text-white/50 text-sm sm:text-base text-center z-50">
+            </main>
+
+            <footer className="text-neutral-50/50 text-sm text-center py-12">
               proudly developed and designed by me{" "}
               <PaintBrush size={18} className="inline-flex mb-1" />
             </footer>
+
+            <div className={styles.base} />
+            <div className={styles.gradient} />
+            <div className={styles.pattern} />
+            <BottomGradient />
             <Analytics />
           </div>
         </WidthProvider>

@@ -1,0 +1,87 @@
+"use client";
+
+import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import clsx from "clsx";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { debounce } from "@/lib/utils";
+import { usePostData } from "@/providers/post-data-provider";
+import { useRouter, useSearchParams } from "next/navigation";
+
+const placeholders = [
+  "Search by title...",
+  "Search by description...",
+  "Search by topic...",
+  "Search by tag...",
+  "Search by date...",
+];
+
+export default function SearchBar() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { searchQuery, setSearchQuery } = usePostData();
+  const [visibleSearchQuery, setVisibleSearchQuery] =
+    useState<string>(searchQuery);
+  const [placeholderText, setPlaceholderText] = useState<string>(
+    placeholders[0],
+  );
+  const [fadeOut, setFadeOut] = useState<boolean>(false);
+
+  const debouncedSearch = useMemo(
+    () => debounce(setSearchQuery, 300),
+    [setSearchQuery],
+  );
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVisibleSearchQuery(e.target.value);
+    debouncedSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    setInterval(() => {
+      setFadeOut(true);
+      setTimeout(() => {
+        setPlaceholderText((prev) => {
+          const currentIndex = placeholders.indexOf(prev);
+          const nextIndex =
+            currentIndex === placeholders.length - 1 ? 0 : currentIndex + 1;
+          return placeholders[nextIndex];
+        });
+      }, 500);
+      setTimeout(() => {
+        setFadeOut(false);
+      }, 1000);
+    }, 5000);
+  }, []);
+
+  // Initialize state based on URL search parameters
+  useLayoutEffect(() => {
+    const search = searchParams.get("search") ?? "";
+    setSearchQuery(search);
+  }, [searchParams, setSearchQuery]);
+
+  // Update URL search parameters when state changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("search", searchQuery);
+    router.replace(`?${params.toString()}`);
+  }, [searchQuery, router]);
+
+  return (
+    <div className="bg-white/5 hover:bg-white/10 focus-within:bg-white/10 backdrop-blur-md rounded-2xl w-full py-3 px-4 transition-colors">
+      <span className="flex items-center gap-2.5">
+        <MagnifyingGlass className="inline-flex" size="1em" />
+        <input
+          value={visibleSearchQuery}
+          onChange={onInputChange}
+          type="search"
+          className={clsx(
+            "w-full bg-transparent outline-none text-sm placeholder:text-neutral-50/50 transition-opacity ease-in-out duration-500",
+            fadeOut && visibleSearchQuery.length === 0
+              ? "opacity-0"
+              : "opacity-100",
+          )}
+          placeholder={placeholderText}
+        />
+      </span>
+    </div>
+  );
+}

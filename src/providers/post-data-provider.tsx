@@ -1,15 +1,12 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { Post } from "../../tina/__generated__/types";
-import { fetchBlogPosts } from "@/app/actions";
+import { allPosts, Post } from "content-collections";
 
 interface PostDataContextData {
-  posts: Post[] | null;
+  posts: Post[];
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-  onlyProjects: boolean;
-  setOnlyProjects: (onlyProjects: boolean) => void;
   hasNextPage: boolean;
   loadMore: () => void;
 }
@@ -18,44 +15,87 @@ const PostDataContext = createContext<PostDataContextData | undefined>(
   undefined,
 );
 
+const POSTS_PER_PAGE = parseInt(process.env.POSTS_PER_PAGE || "10", 10);
+
+function searchPosts(posts: Post[], searchQuery: string) {
+  if (
+    searchQuery.length > 0 &&
+    !searchQuery.split("").every((c) => c === " ")
+  ) {
+    const queryWords = searchQuery
+      .toLocaleLowerCase()
+      .split(" ")
+      .filter((w) => w.trim().length > 0);
+
+    // Score posts by number of matching words
+    return posts
+      .map((post) => {
+        const values = [
+          post.title,
+          post.summary,
+          post.tags !== null ? post.tags : "",
+          new Date(post.date).toDateString(),
+          new Date(post.date).toLocaleString("pt-PT"),
+        ].map((v) => String(v).toLowerCase());
+
+        // Count how many query words match any value
+        const matchCount = queryWords.reduce((count, word) => {
+          return values.some((value) => value.includes(word))
+            ? count + 1
+            : count;
+        }, 0);
+
+        return { post, matchCount };
+      })
+      .filter(({ matchCount }) => matchCount > 0)
+      .sort((a, b) => b.matchCount - a.matchCount)
+      .map(({ post }) => post);
+  }
+  return posts;
+}
+
+const getPosts = (searchQuery: string, cursor: number) => {
+  const filteredPosts = searchPosts(allPosts, searchQuery);
+  const posts = filteredPosts.slice(
+    (cursor - 1) * POSTS_PER_PAGE,
+    cursor * POSTS_PER_PAGE,
+  );
+  const hasNextPage = filteredPosts.length > cursor * POSTS_PER_PAGE;
+  return { posts, hasNextPage };
+};
+
 export function PostDataProvider({
   initialSearchQuery,
-  initialOnlyProjects,
-  initialPosts,
-  initialHasNextPage,
   children,
 }: {
   initialSearchQuery: string;
-  initialOnlyProjects: boolean;
-  initialPosts: Post[];
-  initialHasNextPage: boolean;
   children: React.ReactNode;
 }) {
-  const [posts, setPosts] = useState<Post[] | null>(initialPosts);
-  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
-  const [onlyProjects, setOnlyProjects] =
-    useState<boolean>(initialOnlyProjects);
-  const [currentCursor, setCurrentCursor] = useState<number>(1);
+  const { posts: initialPosts, hasNextPage: initialHasNextPage } = getPosts(
+    initialSearchQuery,
+    1,
+  );
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [hasNextPage, setHasNextPage] = useState<boolean>(initialHasNextPage);
+  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
+  const [currentCursor, setCurrentCursor] = useState<number>(1);
 
   async function loadMore() {
-    const { posts: newPosts, hasNextPage: newHasNextPage } =
-      await fetchBlogPosts(searchQuery, currentCursor + 1, onlyProjects);
+    const { posts: newPosts, hasNextPage: newHasNextPage } = await getPosts(
+      searchQuery,
+      currentCursor + 1,
+    );
     setPosts((prev) => [...(prev ?? []), ...newPosts]);
     setHasNextPage(newHasNextPage);
     setCurrentCursor((prev) => prev + 1);
   }
 
   useEffect(() => {
-    setPosts(null);
     setCurrentCursor(1);
-    fetchBlogPosts(searchQuery, 1, onlyProjects).then(
-      ({ posts, hasNextPage }) => {
-        setPosts(posts);
-        setHasNextPage(hasNextPage);
-      },
-    );
-  }, [searchQuery, onlyProjects]);
+    const { posts, hasNextPage } = getPosts(searchQuery, 1);
+    setPosts(posts);
+    setHasNextPage(hasNextPage);
+  }, [searchQuery]);
 
   return (
     <PostDataContext.Provider
@@ -63,8 +103,6 @@ export function PostDataProvider({
         posts,
         searchQuery,
         setSearchQuery,
-        onlyProjects,
-        setOnlyProjects,
         hasNextPage,
         loadMore,
       }}
