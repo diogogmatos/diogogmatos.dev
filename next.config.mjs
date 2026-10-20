@@ -22,6 +22,15 @@ const nextConfig = {
     };
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "github.com",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 const withMDX = createMDX({});

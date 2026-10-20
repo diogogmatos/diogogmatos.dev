@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Posts from "@/components/posts";
 import Header from "@/components/header";
 import Projects from "@/components/projects";
+import Aurora from "@/components/animations/aurora";
 
 const ogImageUrl = `/api/og?title=${encodeURIComponent("Diogo Matos")}&&description=${encodeURIComponent("diogogmatos.dev")}`;
 
@@ -56,6 +57,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   return (
     <>
+      <Aurora />
       <Header />
       <Experiences />
       <Projects />

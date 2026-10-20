@@ -36,12 +36,12 @@ const contacts = [
 export default function Header() {
   return (
     <section className="flex flex-col gap-4 pl-2 mb-12">
-      <FadeIn as="h1" blurred>
-        <Link href="/" className="font-primary text-3xl sm:text-4xl">
+      <FadeIn as="h1" blurred delay={0.1}>
+        <Link href="/" className="font-primary text-3xl sm:text-3xl">
           Diogo Matos
         </Link>
       </FadeIn>
-      <FadeIn as="span" blurred delay={0.1} className="max-w-md">
+      <FadeIn as="span" blurred delay={0.2} className="max-w-md">
         <Markdown
           components={{
             p: ({ children }) => (
@@ -59,7 +59,7 @@ export default function Header() {
       <FadeIn
         as="ul"
         blurred
-        delay={0.2}
+        delay={0.3}
         className="flex flex-wrap gap-4 w-full text-sm font-medium"
       >
         {contacts.map((contact, idx) => (
@@ -69,7 +69,7 @@ export default function Header() {
               data-umami-event={contact.name}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex space-x-1 items-center justify-center text-neutral-50/90 hover:text-neutral-50 active:scale-95 cursor-pointer transition-all"
+              className="group flex space-x-1 items-center justify-center text-neutral-50/85 hover:text-neutral-50 active:scale-95 cursor-pointer transition-all"
             >
               {contact.icon}
               <span className="relative inline-flex after:absolute after:bottom-0 after:border-b after:transition-all after:w-0 group-hover:after:w-full after:border-white">

@@ -15,10 +15,10 @@ export default function AppLink({
   return (
     <Link
       className={clsx(
-        "inline bg-gradient-to-r from-white to-white bg-no-repeat bg-left-bottom transition-all duration-150 cursor-pointer",
+        "inline bg-gradient-to-r from-white/70 to-white/70 bg-no-repeat bg-left-bottom transition-all duration-150 cursor-pointer",
         active
-          ? "bg-[size:100%_1px]"
-          : "bg-[size:0%_1px] hover:bg-[size:100%_1px]",
+          ? "bg-[size:100%_var(--underline-thickness,1px)]"
+          : "bg-[size:0%_var(--underline-thickness,1px)] hover:bg-[size:100%_var(--underline-thickness,1px)]",
         className,
       )}
       href={href}

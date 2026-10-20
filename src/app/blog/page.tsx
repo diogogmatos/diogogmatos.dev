@@ -1,21 +1,18 @@
 import BlogPostList from "@/components/blog/blog-post-list";
-import { PostDataProvider } from "@/providers/post-data-provider";
 import SearchBar from "@/components/blog/search-bar";
+import { connection } from "next/server";
 
-export default async function Blog({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const params = await searchParams;
-  const search = (params.search as string) ?? "";
+// Read on the server, since non-NEXT_PUBLIC env vars aren't available on the client
+const POSTS_PER_PAGE = parseInt(process.env.POSTS_PER_PAGE || "10", 10);
+
+export default async function Blog() {
+  // Render on each request, so results for ?search= are in the server-rendered HTML
+  await connection();
 
   return (
-    <PostDataProvider initialSearchQuery={search}>
-      <main className="flex flex-col gap-4">
-        <SearchBar />
-        <BlogPostList />
-      </main>
-    </PostDataProvider>
+    <main className="flex flex-col gap-4">
+      <SearchBar />
+      <BlogPostList postsPerPage={POSTS_PER_PAGE} />
+    </main>
   );
 }

@@ -8,7 +8,6 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import Markdown from "./markdown";
 import AppLink from "./app-link";
-import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { Project } from "content-collections";
 
 export default function ProjectShowoff({ project }: { project: Project }) {
@@ -72,24 +71,11 @@ export default function ProjectShowoff({ project }: { project: Project }) {
         </Carousel>
         <div className="w-full flex justify-end pr-2">
           <AppLink
-            className="font-medium text-sm group text-neutral-50/90 hover:text-white"
+            className="font-medium text-sm group text-neutral-50/85 hover:text-neutral-50"
             href={project.link}
             data-umami-event={`Project: ${project.title}`}
           >
-            Learn more
-            {project.link.includes("https://") ? (
-              <ArrowUpRight
-                size={14}
-                weight="bold"
-                className="inline-flex translate-x-0.5 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform"
-              />
-            ) : (
-              <ArrowRight
-                size={14}
-                weight="bold"
-                className="inline-flex translate-x-0.5 group-hover:translate-x-1 transition-transform"
-              />
-            )}
+            Learn more {project.link.includes("https://") ? "↗" : "→"}
           </AppLink>
         </div>
       </div>

@@ -20,39 +20,34 @@ export default function BlogPostCard({ post }: { post: Post }) {
       onClick={() => router.push(`/blog/${post._meta.fileName.split(".")[0]}`)}
     >
       <div className="flex items-start size-full">
-        <span className="relative flex gap-4 items-start h-full w-full p-4 sm:p-5">
-          <div className="min-w-[74px] min-h-[74px] h-full">
+        <span className="relative flex gap-3 items-start h-full w-full p-4">
+          <div className="min-w-[70px] min-h-[70px] h-full">
             <div className="flex items-center justify-center aspect-square h-full">
               <DynamicIcon
                 weight="duotone"
-                className="text-white/90 text-4xl sm:text-5xl"
+                className="text-neutral-50/90 text-4xl"
               />
             </div>
           </div>
 
-          <div className="flex flex-col gap-0.5 sm:gap-1">
-            <div className="flex justify-between items-start">
+          <div className="flex flex-col gap-0.5">
+            <div className="flex gap-6 justify-between items-start">
               <h1
                 title={post.title}
-                className="relative text-lg font-semibold line-clamp-1"
+                className="relative font-semibold line-clamp-1"
               >
                 {post.title}
               </h1>
-              <div className="flex gap-4 flex-wrap items-center justify-end text-xs text-neutral-50/90 min-w-fit">
+              <div className="text-xs text-neutral-50/80 min-w-fit">
                 <span className="flex items-center">
-                  <PhosphorIcons.Clock
-                    size="1.1em"
-                    className="mr-1"
-                    weight="duotone"
-                  />
-                  <p>{readingTime(post.content).text}</p>
+                  <p>{Math.round(readingTime(post.content, {}).minutes)} min</p>
                 </span>
               </div>
             </div>
             <Markdown
               components={{
                 p: ({ children }) => (
-                  <p className="text-pretty text-sm text-neutral-50/90 line-clamp-2 mb-0.5">
+                  <p className="text-pretty text-sm text-neutral-50/90 line-clamp-2 mb-0.5 pr-10">
                     {children}
                   </p>
                 ),

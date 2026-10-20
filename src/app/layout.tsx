@@ -9,6 +9,7 @@ import { WidthProvider } from "@/providers/width-provider";
 import localFont from "next/font/local";
 import { clsx } from "clsx";
 import BackButton from "@/components/back-button";
+import UnderlineThickness from "@/components/underline-thickness";
 
 const editorialNew = localFont({
   display: "swap",
@@ -118,6 +119,7 @@ export default function RootLayout({
             <div className={styles.gradient} />
             <div className={styles.pattern} />
             <BottomGradient />
+            <UnderlineThickness />
             <Analytics />
           </div>
         </WidthProvider>

@@ -2,10 +2,9 @@
 
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { debounce } from "@/lib/utils";
-import { usePostData } from "@/providers/post-data-provider";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const placeholders = [
   "Search by title...",
@@ -17,18 +16,27 @@ const placeholders = [
 
 export default function SearchBar() {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const { searchQuery, setSearchQuery } = usePostData();
-  const [visibleSearchQuery, setVisibleSearchQuery] =
-    useState<string>(searchQuery);
+  const [visibleSearchQuery, setVisibleSearchQuery] = useState<string>(
+    searchParams.get("search") ?? "",
+  );
   const [placeholderText, setPlaceholderText] = useState<string>(
     placeholders[0],
   );
   const [fadeOut, setFadeOut] = useState<boolean>(false);
 
+  // Updates the URL without a server round trip, which updates the post list
   const debouncedSearch = useMemo(
-    () => debounce(setSearchQuery, 300),
-    [setSearchQuery],
+    () =>
+      debounce((query: string) => {
+        window.history.replaceState(
+          null,
+          "",
+          query
+            ? `?search=${encodeURIComponent(query)}`
+            : window.location.pathname,
+        );
+      }, 300),
+    [],
   );
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVisibleSearchQuery(e.target.value);
@@ -36,7 +44,7 @@ export default function SearchBar() {
   };
 
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       setFadeOut(true);
       setTimeout(() => {
         setPlaceholderText((prev) => {
@@ -50,20 +58,8 @@ export default function SearchBar() {
         setFadeOut(false);
       }, 1000);
     }, 5000);
+    return () => clearInterval(interval);
   }, []);
-
-  // Initialize state based on URL search parameters
-  useLayoutEffect(() => {
-    const search = searchParams.get("search") ?? "";
-    setSearchQuery(search);
-  }, [searchParams, setSearchQuery]);
-
-  // Update URL search parameters when state changes
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (searchQuery) params.set("search", searchQuery);
-    router.replace(`?${params.toString()}`);
-  }, [searchQuery, router]);
 
   return (
     <div className="bg-white/5 hover:bg-white/10 focus-within:bg-white/10 backdrop-blur-md rounded-2xl w-full py-3 px-4 transition-colors">

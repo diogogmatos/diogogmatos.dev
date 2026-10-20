@@ -27,6 +27,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const slug = (await params).slug;
   const post = allPosts.find((p) => p._meta.fileName.split(".")[0] === slug);
+  const ogImageUrl = `/api/og?title=${encodeURIComponent(post?.title || slug)}&description=${encodeURIComponent("diogogmatos.dev/blog")}${post?.cover ? `&image=${encodeURIComponent(post.cover)}` : ""}`;
 
   return {
     metadataBase: new URL("https://diogogmatos.dev"),
@@ -42,27 +43,27 @@ export async function generateMetadata({
       authors: ["Diogo Matos"],
       publishedTime: post?.date ? new Date(post.date).toISOString() : undefined,
       tags: post?.tags,
-      images: post?.cover
-        ? [
-            {
-              url: post?.cover,
-              alt: post?.coverAlt || post?.title,
-            },
-          ]
-        : undefined,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post?.coverAlt || post?.title || slug,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${post?.title || slug} | Diogo Matos' Blog`,
       description: post?.summary || undefined,
-      images: post?.cover
-        ? [
-            {
-              url: post?.cover,
-              alt: post?.coverAlt || post?.title,
-            },
-          ]
-        : undefined,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post?.coverAlt || post?.title || slug,
+        },
+      ],
     },
     alternates: {
       canonical: `/blog/${slug}`,
@@ -95,7 +96,9 @@ export default async function BlogPost({
         <Markdown
           components={{
             p: ({ children }) => (
-              <p className="text-sm text-balance">{children}</p>
+              <p className="text-sm text-balance text-neutral-50/90">
+                {children}
+              </p>
             ),
           }}
         >
@@ -132,7 +135,7 @@ export default async function BlogPost({
         )}
       </section>
       {/* Content */}
-      <section className="text-pretty">
+      <section className="text-justify">
         <MDX code={post.mdx} components={customComponents} />
       </section>
     </article>

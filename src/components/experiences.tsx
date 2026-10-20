@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import { clsx } from "clsx";
 import Card from "./card";
@@ -8,7 +7,7 @@ import { allExperiences } from "content-collections";
 
 export default function Experiences() {
   return (
-    <FadeIn as="section" delay={0.5}>
+    <FadeIn as="section" delay={0.6}>
       <Card>
         <ul className="space-y-3">
           {allExperiences
@@ -39,12 +38,7 @@ export default function Experiences() {
                       rel="noopener noreferrer"
                       data-umami-event={`Experience: ${exp.place}`}
                     >
-                      {exp.place}
-                      <ArrowUpRight
-                        size={14}
-                        weight="bold"
-                        className="inline-flex translate-x-0.5"
-                      />
+                      {exp.place} ↗
                     </AppLink>
                   </span>
                   <p className="text-neutral-50/50 text-sm text-nowrap">

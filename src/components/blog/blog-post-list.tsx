@@ -1,15 +1,27 @@
 "use client";
 
-import { usePostData } from "@/providers/post-data-provider";
 import BlogPostCard from "../blog-post-card";
 import { motion } from "motion/react";
-import { TextAlignLeft } from "@phosphor-icons/react/dist/ssr";
-import PostLoader from "../post-loader";
+import { Plus, TextAlignLeft } from "@phosphor-icons/react/dist/ssr";
 import { AnimatePresence } from "framer-motion";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { popIn } from "@/lib/animations";
+import { searchPosts } from "@/lib/search-posts";
 
-export default function BlogPostList() {
-  const { posts } = usePostData();
+export default function BlogPostList({
+  postsPerPage,
+}: {
+  postsPerPage: number;
+}) {
+  // The URL is the source of truth for the search, it's updated by the search bar
+  const search = useSearchParams().get("search") ?? "";
+  const results = useMemo(() => searchPosts(search), [search]);
+
+  // Pages loaded for the current search, so a new search starts back at the first page
+  const [loaded, setLoaded] = useState({ search, pages: 1 });
+  const pages = loaded.search === search ? loaded.pages : 1;
+  const posts = results.slice(0, pages * postsPerPage);
 
   return (
     <>
@@ -33,18 +45,24 @@ export default function BlogPostList() {
       </AnimatePresence>
 
       <ul className="grid gap-4">
-        {posts.length > 0 &&
-          posts
-            .map((post, idx) => (
-              <motion.li key={idx} {...popIn(idx * 0.1)}>
-                <BlogPostCard post={post} />
-              </motion.li>
-            ))
-            .concat(
-              <motion.li key="post-loader" {...popIn(posts.length * 0.1)}>
-                <PostLoader />
-              </motion.li>,
-            )}
+        {posts.map((post, idx) => (
+          <motion.li key={idx} {...popIn(idx * 0.1)}>
+            <BlogPostCard post={post} />
+          </motion.li>
+        ))}
+        {posts.length < results.length && (
+          <motion.li key="load-more" {...popIn(posts.length * 0.1)}>
+            <div className="flex flex-col gap-1.5 items-center w-full mt-2">
+              <button
+                className="p-3 bg-white/10 backdrop-blur-md hover:scale-105 active:scale-95 hover:bg-white/15 transition-all rounded-full w-fit"
+                onClick={() => setLoaded({ search, pages: pages + 1 })}
+              >
+                <Plus size="1em" />
+              </button>
+              <p className="text-sm text-neutral-50/50">Load more</p>
+            </div>
+          </motion.li>
+        )}
       </ul>
     </>
   );

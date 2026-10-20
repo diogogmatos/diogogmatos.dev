@@ -1,4 +1,4 @@
-import { ArrowUpRight, Info } from "@phosphor-icons/react/dist/ssr";
+import { Info } from "@phosphor-icons/react/dist/ssr";
 import type { MDXComponents } from "mdx/types";
 import type { ImageProps } from "next/image";
 import CopyButton from "./components/copy-button";
@@ -11,6 +11,9 @@ import rehypeStarryNight from "rehype-starry-night";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import Person from "./components/mdx/person";
+import Video from "./components/mdx/video";
+import ContainedImage from "./components/mdx/contained-image";
 
 const replaceTextInElement = (
   element: ReactElement,
@@ -42,6 +45,9 @@ const replaceTextInElement = (
 };
 
 export const customComponents: MDXComponents = {
+  Person,
+  Video,
+  ContainedImage,
   h1: ({ children }) => (
     <h1 className="text-2xl font-bold mt-8 mb-4 border-b border-white/20 pb-2 scroll-mt-20">
       {children}
@@ -56,7 +62,10 @@ export const customComponents: MDXComponents = {
     <h3 className="text-lg font-semibold mt-6 mb-4 scroll-mt-20">{children}</h3>
   ),
   p: (props) => (
-    <p className="text-sm mt-4 mb-6" key={props.children?.toString()}>
+    <p
+      className="text-sm mt-4 mb-6 text-neutral-50/95"
+      key={props.children?.toString()}
+    >
       {props.children}
     </p>
   ),
@@ -64,19 +73,14 @@ export const customComponents: MDXComponents = {
     <strong className="font-semibold">{children}</strong>
   ),
   a: ({ children, href }) => (
-    <span className="px-1 py-0.5 rounded-md transition-colors duration-200 bg-white/10 backdrop-blur-md">
+    <span className="px-1.5 py-[1px] rounded-full transition-colors duration-200 bg-white/10 backdrop-blur-md">
       <AppLink
         href={href ?? "/"}
         className="font-medium"
         target="_blank"
         rel="noopener noreferrer"
       >
-        {children}
-        <ArrowUpRight
-          size="1em"
-          weight="bold"
-          className="inline-flex translate-x-0.5"
-        />
+        {children} ↗
       </AppLink>
     </span>
   ),
@@ -96,7 +100,7 @@ export const customComponents: MDXComponents = {
   ol: ({ children }) => <ol className="list-decimal pl-8 my-4">{children}</ol>,
   li: ({ children }) => <li className="mb-1.5">{children}</li>,
   pre: ({ children }) => (
-    <pre className="text-sm font-mono flex justify-between gap-2 rounded-md bg-white/10 backdrop-blur-md p-3 w-full overflow-hidden my-6">
+    <pre className="text-sm font-mono flex justify-between gap-2 rounded-lg bg-white/10 backdrop-blur-md p-3 w-full overflow-hidden my-6">
       <code className="flex items-center text-[0.95em] leading-relaxed whitespace-pre overflow-x-scroll no-scrollbar">
         {Children.onlyText(children)}
       </code>
@@ -117,7 +121,7 @@ export const customComponents: MDXComponents = {
         className={clsx(
           isNote
             ? "bg-blue-500/20 px-4 py-0.5 rounded-md"
-            : "border-l-4 border-white/80 bg-gradient-to-r from-white/10 to-transparent text-neutral-50/80 italic",
+            : "border-l-4 border-white/80 pl-2 py-0.5 bg-gradient-to-r from-white/10 to-transparent text-neutral-50/80 italic",
           "backdrop-blur-md my-6",
         )}
       >
@@ -141,7 +145,7 @@ export const customComponents: MDXComponents = {
             )}
           </>
         ) : (
-          children
+          <span className="text-sm">{Children.onlyText(children)}</span>
         )}
       </blockquote>
     );

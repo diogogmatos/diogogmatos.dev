@@ -8,7 +8,7 @@ export default function Posts() {
       <FadeIn
         as="h1"
         blurred
-        delay={1.1 + allProjects.length * 0.1}
+        delay={1.2 + allProjects.length * 0.1}
         className="font-primary text-2xl sm:text-3xl pl-2"
       >
         Posts
@@ -21,7 +21,7 @@ export default function Posts() {
           .map((post, idx) => (
             <FadeIn
               as="li"
-              delay={1.4 + allProjects.length * 0.1 + idx * 0.1}
+              delay={1.5 + allProjects.length * 0.1 + idx * 0.1}
               key={idx}
             >
               <BlogPostCard post={post} />
