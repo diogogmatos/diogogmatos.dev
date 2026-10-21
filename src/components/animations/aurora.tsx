@@ -249,7 +249,7 @@ export default function Aurora() {
     >
       <canvas
         ref={setCanvas}
-        className="block mx-auto h-[26rem] w-full -translate-y-1/3 max-w-6xl opacity-85 [image-rendering:pixelated]"
+        className="block mx-auto h-[20rem] w-full -translate-y-1/3 max-w-6xl opacity-85 [image-rendering:pixelated]"
       />
     </FadeIn>
   );
