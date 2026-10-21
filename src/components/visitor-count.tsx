@@ -17,7 +17,7 @@ let visitorRequest: Promise<Visitor | null> | undefined;
 
 function greet({ number, returning }: Visitor) {
   const formatted = number.toLocaleString("en-US");
-  if (returning) return `Welcome back, visitor ${formatted}!`;
+  if (returning) return `Welcome back, visitor ${formatted} ;)`;
   return GREETINGS[Math.floor(Math.random() * GREETINGS.length)](formatted);
 }
 
@@ -37,7 +37,7 @@ export default function VisitorCount() {
     <motion.p
       initial={{ opacity: 0 }}
       animate={{ opacity: greeting ? 1 : 0 }}
-      className="min-h-4 text-xs text-neutral-50/30"
+      className="min-h-4 text-xs text-neutral-50/45"
     >
       {greeting}
     </motion.p>

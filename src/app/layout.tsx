@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import styles from "./styles.module.css";
-import { PaintBrush } from "@phosphor-icons/react/dist/ssr";
 import BottomGradient from "@/components/bottom-gradient";
 import { Analytics } from "@vercel/analytics/react";
 import { WidthProvider } from "@/providers/width-provider";
@@ -113,11 +112,8 @@ export default function RootLayout({
               {children}
             </main>
 
-            <footer className="flex flex-col items-center gap-3 text-neutral-50/50 text-sm text-center py-12">
-              <p>
-                proudly developed and designed by me{" "}
-                <PaintBrush size={18} className="inline-flex align-text-top" />
-              </p>
+            <footer className="flex flex-col items-center gap-3 text-neutral-50/55 text-sm text-center py-12">
+              <p>{"proudly developed and designed by me :P"}</p>
               <VisitorCount />
             </footer>
 
