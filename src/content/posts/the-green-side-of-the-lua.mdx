@@ -1,0 +1,104 @@
+---
+icon: "Moon"
+title: "Paper — The Green Side of the Lua"
+summary: "How I co-authored and presented a paper on Lua's runtime **performance** and **energy efficiency** at [**SANER 2026**](https://conf.researchr.org/home/saner-2026)."
+date: "2026-03-20"
+cover: "/assets/the-green-side-of-the-lua/lua.webp"
+coverAlt: "Introductory slide of the presentation of the paper 'The Green Side of the Lua' at SANER 2026"
+---
+
+[**Read full paper**](https://doi.org/10.1109/SANER-C67878.2026.00033)
+
+Lua is small, fast and loved: it has ranked among the four fastest-growing languages on GitHub. Yet in the most cited ranking of programming languages by **energy efficiency**, it places **23rd out of 27**, using almost **46× more energy than C**.
+
+But that ranking only measured a single version of Lua's interpreter. So, together with <Person username="brandao07" name="André Brandão" />, <Person username="miguel-amg" name="Miguel Guimarães" />, <Person username="simaocunha71" name="Simão Cunha" /> and <Person username="joaoSaraiva" name="João Saraiva" />, we asked a simple question: what happens when you measure *all* of it?
+
+The answer became *The Green Side of the Lua*, which I presented at [SANER 2026](https://conf.researchr.org/home/saner-2026), and an extended version that's currently under review for a journal. The full talk is at the end of this post!
+
+## The Questions
+
+<Features>
+  <Feature icon="ClockCounterClockwise" title="Has Lua gotten greener?">How have its runtime and energy use evolved across releases?</Feature>
+  <Feature icon="Lightning" title="Does JIT help?">How does just-in-time compilation compare to the interpreter?</Feature>
+  <Feature icon="Scales" title="How does it stack up?">How does Lua compare to C and other languages today?</Feature>
+</Features>
+
+## How We Measured
+
+<Stack items={["Lua", "LuaJIT", "C", "Intel RAPL", "GPS-UP"]} />
+
+<Pipeline>
+  <Step icon="Stack" title="Line up the contenders" tech="LuaJIT" href="https://luajit.org/">All 17 official Lua interpreters, from 5.3.0 to 5.5.0, plus 7 LuaJIT releases and the LuaJIT Remake project.</Step>
+  <Step icon="Code" title="Pick the workload" tech="LuaAOT benchmarks" href="https://github.com/hugomg/lua-aot-5.4">Seven classic programs, like *binary-trees*, *n-body* and *spectral-norm*, with equivalent C versions as a baseline.</Step>
+  <Step icon="Lightning" title="Measure the energy" tech="Intel RAPL">Each program runs 10 times while the CPU reports the energy used by the processor and the memory.</Step>
+  <Step icon="Thermometer" title="Keep it fair">Before every run, the CPU has to cool back down to its idle temperature, and outliers are filtered out.</Step>
+  <Step icon="ChartLine" title="Score it" tech="GPS-UP">Speedup, Greenup and Powerup tell us how much faster and greener each version is, and whether it draws more power to get there.</Step>
+</Pipeline>
+
+## What We Found
+
+<Features>
+  <Feature icon="Leaf" title="Newer is greener">Energy use trended down across releases, with the biggest drop at Lua 5.4.0, which cut it by a third. Lua 5.4.7 is the greenest interpreter of all.</Feature>
+  <Feature icon="Timer" title="Time is energy">Runtime and energy are almost perfectly correlated, so the fastest versions were also the greenest.</Feature>
+  <Feature icon="Lightning" title="JIT changes everything">Every LuaJIT release beat every interpreter. The best, LuaJIT 2.0.4, used about 7× less energy and ran 7× faster than Lua 5.4.7.</Feature>
+</Features>
+
+## Climbing the Ranking
+
+Back to that energy ranking. With LuaJIT 2.0.4, Lua needs only **5.63× the energy** of C and runs **7.85× slower**, instead of the 38.04× and 54.74× of Lua 5.4.7. That's enough to climb past several languages:
+
+<Stats items={[{ value: "+5", label: "places in energy with LuaJIT" }, { value: "+9", label: "places in runtime with LuaJIT" }]} />
+
+It's an indicative comparison, since the original ranking was measured on different hardware, but the message is clear: Lua's poor standing comes from the interpreter, not the language.
+
+## Running on Empty
+
+Electric cars are rated by how far they can go on a full charge, so we did the same with a laptop: charge it to 100%, run the same program in a loop until the battery dies, and count. If every run were a kilometer, C would drive 604 km, LuaJIT 109 km, and the Lua interpreter just 19 km.
+
+<Bars
+  title="Fibonacci(48) runs on a full battery"
+  subtitle="The same program in a loop, from 100% until the battery died"
+  unit="runs"
+  items={[
+    { label: "C", value: 604, detail: "16.6 s each, battery lasted 2.77 h" },
+    { label: "LuaJIT 2.0.4", value: 109, detail: "88.2 s each, battery lasted 2.65 h" },
+    { label: "Lua 5.4.7", value: 19, detail: "488.2 s each, battery lasted 2.44 h" },
+    { label: "LuaAOT", value: 18, detail: "422.3 s each, battery lasted 2.03 h" },
+  ]}
+/>
+
+## The Extended Version
+
+The conference paper was just the beginning. In the extended version, where I share first authorship with **André** and **Miguel**, we took the study a lot further:
+
+<Stats items={[{ value: "26", label: "Lua environments" }, { value: "30", label: "programs" }, { value: "5", label: "benchmark suites" }]} />
+
+Besides Lua 5.5.0 and LuaJIT 2.1, we added a third way of running Lua: **ahead-of-time** compilation, with LuaAOT. And since speed-tuned benchmarks don't look much like everyday Lua, we added four suites built on popular Lua libraries, covering linear algebra, functional pipelines, data structures and object-oriented code:
+
+<Stack items={["LuaMatrix", "LuaFun", "Penlight Collections", "Penlight OO Classes"]} />
+
+Measuring everything took over 11 hours of execution, and more than a day once you count the cool-downs between runs. Here's what came out of it:
+
+<Features columns={2}>
+  <Feature icon="Trophy" title="LuaJIT 2.1 takes the crown">Across all 30 programs, it ran 6.3× faster and used 6.6× less energy than Lua 5.4.7.</Feature>
+  <Feature icon="Path" title="AOT is a middle ground">LuaAOT was 1.5× faster and greener than the best interpreter, but still about 4× behind LuaJIT 2.1.</Feature>
+  <Feature icon="FunnelSimple" title="No free fusion">Not even LuaJIT merges chained *map* and *filter* calls into a single pass, so fusing them by hand is still the fastest option.</Feature>
+  <Feature icon="Cube" title="Objects level the field">On object-oriented code, the gap shrinks: JIT helps a lot less when every call has to walk a chain of metatables.</Feature>
+</Features>
+
+> The poor standing of Lua in global energy rankings is largely an artifact of evaluating legacy interpreters.
+
+Every chart and table is in its [online appendix](https://the-green-side-of-the-lua.wasmer.app/).
+
+## The Talk
+
+I presented the paper at the *1st International Workshop on Green Software Evolution*, part of SANER 2026, in Limassol, Cyprus. Here's the full talk:
+
+<Video src={["/assets/the-green-side-of-the-lua/the-green-side-of-the-lua_h265.mp4", "/assets/the-green-side-of-the-lua/the-green-side-of-the-lua.webm", "/assets/the-green-side-of-the-lua/the-green-side-of-the-lua_h264.mp4"]} controls poster="/assets/the-green-side-of-the-lua/lua-ppt.webp" />
+
+## Read More
+
+- [Paper on IEEE Xplore](https://doi.org/10.1109/SANER-C67878.2026.00033)
+- [Paper's data](https://doi.org/10.6084/m9.figshare.29336132)
+- [Extended version's online appendix](https://the-green-side-of-the-lua.wasmer.app/)
+- [Extended version's replication package](https://doi.org/10.5281/zenodo.22114323)

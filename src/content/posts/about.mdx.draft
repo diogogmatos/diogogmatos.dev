@@ -1,0 +1,8 @@
+---
+icon: "Question"
+title: "About this website"
+summary: "How I designed and hand-built my own personal portfolio website using Next.js, Tailwind CSS, and MDX."
+date: "2025-02-17"
+cover: "/assets/sei-ou-nao-sei/cover.webp"
+coverAlt: "SEI ou não SEI's Logo"
+---

@@ -1,0 +1,41 @@
+---
+icon: "Joystick"
+title: "SEI ou não SEI — Gameshow Platform"
+summary: "Project overview of a *Jeopardy*-style gameshow platform I co-built with [**Rui Oliveira**](https://github.com/ruioliveira02) for the 2024 edition of UMinho's Software Engineering Week ([**SEI**](https://2024.seium.org))."
+date: "2025-02-17"
+cover: "/assets/sei-ou-nao-sei/cover.webp"
+coverAlt: "SEI ou não SEI's Logo"
+---
+
+[**GitHub**](https://github.com/cesium/jeopardy) [**SEI'24**](https://2024.seium.org)
+
+**SEI** (*Semana da Engenharia Informática*, or Software Engineering Week) is the University of Minho's yearly software engineering week, organized by [CeSIUM](https://cesium.pt), the Software Engineering students' center, which I was a part of. It's a week packed with talks, workshops, challenges and contests, all run by student volunteers.
+
+![The SEI 2024 team](/assets/sei-ou-nao-sei/sei24-team.webp)
+
+As part of SEI's **tech team**, I helped build the platform for something new in 2024: ***SEI ou não SEI***, a *Jeopardy*-style gameshow. The name is a pun, since *sei ou não sei* is Portuguese for "do I know it or not?"
+
+<iframe className="rounded-lg overflow-hidden" width="100%" height="315" src="https://www.youtube.com/embed/HWFYgotEPRM?si=vT_kdALhjjjCdnk0&amp;start=496" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/>
+
+## How It Works
+
+<Pipeline>
+  <Step icon="SquaresFour" title="Pick a question">The selecting team picks a category and a value from the board: six categories, from algorithms and security to AI and acronyms, with questions worth 100 to 500 points.</Step>
+  <Step icon="Bell" title="Buzz in">Teams race to hit the red button on their **PlayStation Buzz!** controller. Buzz in too early, and you're locked out for a moment.</Step>
+  <Step icon="CheckCircle" title="Answer">A right answer wins the question's points, while a wrong one takes them away.</Step>
+  <Step icon="Handshake" title="Split or Steal" tech="Added in 2025">In the finale, each team secretly chooses to split or steal with their buttons, before the choices are revealed.</Step>
+</Pipeline>
+
+Every team gets its own controller, the same ones from the classic *Buzz!* quiz games:
+
+![](/assets/sei-ou-nao-sei/buzz-game.webp)
+
+## How It Was Built
+
+<Stack items={["Next.js", "React", "Python", "FastAPI", "WebSockets"]} />
+
+I co-built it with <Person username="ruioliveira02" name="Rui Oliveira" /> and <Person username="lumafepe" name="Luís Pereira" />. The game's brain is a **Python** backend built with FastAPI, which holds the whole game state. After every action, like a buzz, a question pick or an answer, it broadcasts the new state over **WebSockets** to every screen. A small script reads the Buzz! controllers over USB, sending every press to the backend and lighting up the buzzers of the teams that can answer.
+
+The screens are a **Next.js** app, where I did most of my work. The audience's big screen, the host's view and the staff panel all listen to the same game state, and each one shows the matching scene, from the question board and the countdown to the Split or Steal reveal and the final scores, with smooth transitions in between. The big screen is where the show comes to life, with the **original theme and walk-in songs**, made by the talented <Person username="Carlos-oficial" name="Carlos Ribeiro" />, and the sound effects. The host also sees the answers, and the staff panel drives the game: picking questions, opening the buzzers, and marking each answer as right or wrong.
+
+Since it's a live show, mistakes had to be fixable on the spot: every action is saved, so the staff can roll the game back or correct the scores at any moment.

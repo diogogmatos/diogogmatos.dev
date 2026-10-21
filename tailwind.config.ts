@@ -15,6 +15,7 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
+        primary: ["var(--font-editorial-new)", ...fontFamily.serif],
         sans: ["var(--font-inter)", ...fontFamily.sans],
         mono: ["var(--font-jetbrains)", ...fontFamily.mono],
       },

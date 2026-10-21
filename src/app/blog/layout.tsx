@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export function generateMetadata(): Metadata {
+  const ogImageUrl = `/api/og?title=${encodeURIComponent("Blog | Diogo Matos")}&description=${encodeURIComponent("diogogmatos.dev/blog")}`;
   return {
-    metadataBase: new URL("https://diogogmatos.dev"),
     title: "Blog | Diogo Matos",
     description: "Check out blog posts about my projects and other topics.",
     keywords: [
@@ -20,7 +20,7 @@ export function generateMetadata(): Metadata {
       description: "Check out blog posts about my projects and other topics.",
       images: [
         {
-          url: "/images/og.jpg",
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: "diogogmatos.dev",
@@ -33,7 +33,7 @@ export function generateMetadata(): Metadata {
       description: "Check out blog posts about my projects and other topics.",
       images: [
         {
-          url: "/images/og.jpg",
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: "diogogmatos.dev",
