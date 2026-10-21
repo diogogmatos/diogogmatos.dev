@@ -72,6 +72,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
                 ) : (
                   <CarouselVideo
                     src={media.src}
+                    poster={media.poster}
                     addPadding={media.addPadding}
                     cover={media.cover}
                     respect={media.respect}

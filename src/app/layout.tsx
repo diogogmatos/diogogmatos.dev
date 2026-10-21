@@ -112,8 +112,8 @@ export default function RootLayout({
               {children}
             </main>
 
-            <footer className="flex flex-col items-center gap-3 text-neutral-50/55 text-sm text-center py-12">
-              <p>{"proudly developed and designed by me :P"}</p>
+            <footer className="flex flex-col items-center gap-4 text-neutral-50/55 text-sm text-center py-12">
+              <p>{"Proudly developed and designed by me :)"}</p>
               <VisitorCount />
             </footer>
 

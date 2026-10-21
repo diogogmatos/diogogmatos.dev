@@ -3,6 +3,7 @@ import { createHash } from "crypto";
 
 // The Redis commands used by the visitor counter and the reactions
 interface Store {
+  get<T>(key: string): Promise<T | null>;
   incr(key: string): Promise<number>;
   expire(key: string, seconds: number): Promise<0 | 1>;
   set<T>(key: string, value: T, opts: { get: true }): Promise<T | "OK" | null>;
@@ -22,6 +23,9 @@ function memoryStore(): Store {
   };
 
   return {
+    async get<T>(key: string) {
+      return (values.get(key) ?? null) as T | null;
+    },
     async incr(key) {
       const value = ((values.get(key) as number) ?? 0) + 1;
       values.set(key, value);

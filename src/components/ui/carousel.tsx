@@ -9,6 +9,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import Image from "next/image";
+import AutoplayVideo from "../autoplay-video";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -272,42 +273,28 @@ const CarouselImage = ({
 
 const CarouselVideo = ({
   src,
+  poster,
   addPadding,
   cover,
   respect,
 }: {
   src: string[];
+  poster?: string;
   addPadding?: boolean;
   cover?: boolean;
   respect?: boolean;
 }) => {
   return (
-    <video
+    <AutoplayVideo
+      src={src}
+      poster={poster}
       className={cn(
         cover ? "object-cover" : "object-contain",
         respect ? "w-full h-auto" : "size-full",
         "bg-white/5 rounded-xl backdrop-blur-md overflow-hidden",
         addPadding && "p-3 sm:p-5",
       )}
-      autoPlay
-      loop
-      muted
-      playsInline
-    >
-      {src.map((source, idx) => (
-        <source
-          key={idx}
-          src={source}
-          type={`video/${source.split(".").pop()}; codecs=${
-            source.includes("webm")
-              ? "vp9"
-              : source.includes("h265")
-                ? "hevc"
-                : "avc"
-          }`}
-        />
-      ))}
-    </video>
+    />
   );
 };
 

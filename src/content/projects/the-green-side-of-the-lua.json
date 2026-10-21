@@ -12,11 +12,12 @@
         },
         {
             "src": [
-                "/assets/the-green-side-of-the-lua/highlight.webm",
                 "/assets/the-green-side-of-the-lua/highlight_h265.mp4",
+                "/assets/the-green-side-of-the-lua/highlight.webm",
                 "/assets/the-green-side-of-the-lua/highlight_h264.mp4"
             ],
             "type": "video",
+            "poster": "/assets/the-green-side-of-the-lua/highlight-poster.webp",
             "cover": true,
             "duration": 15
         }

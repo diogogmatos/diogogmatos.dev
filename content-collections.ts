@@ -71,6 +71,8 @@ const projects = defineCollection({
         cover: z.boolean().optional(),
         // Videos only: the carousel takes this video's aspect ratio, so it's never cropped
         respect: z.boolean().optional(),
+        // Videos only: shown until it plays
+        poster: z.string().optional(),
         duration: z.number().optional(),
       }),
     ),

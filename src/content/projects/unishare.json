@@ -4,12 +4,13 @@
     "media": [
         {
             "src": [
-                "/assets/unishare/showcase.webm",
                 "/assets/unishare/showcase_h265.mp4",
+                "/assets/unishare/showcase.webm",
                 "/assets/unishare/showcase_h264.mp4"
             ],
             "alt": "UniShare Showcase Video",
             "type": "video",
+            "poster": "/assets/unishare/showcase-poster.webp",
             "cover": true,
             "respect": true,
             "duration": 20

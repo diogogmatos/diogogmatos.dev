@@ -4,12 +4,13 @@
     "media": [
         {
             "src": [
-                "/assets/grafit/showcase.webm",
                 "/assets/grafit/showcase_h265.mp4",
+                "/assets/grafit/showcase.webm",
                 "/assets/grafit/showcase_h264.mp4"
             ],
             "alt": "Grafit showcase video",
             "type": "video",
+            "poster": "/assets/grafit/showcase-poster.webp",
             "cover": true,
             "duration": 40
         },

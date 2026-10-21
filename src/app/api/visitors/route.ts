@@ -26,9 +26,16 @@ export async function POST(request: NextRequest) {
     ? number
     : (await store.incr(storeKey("visitors"))) + VISITORS_BEFORE_COUNTER;
   const since = known && Number.isFinite(firstSeen) ? firstSeen : Date.now();
+  // Everyone counted so far. New visitors were just counted, so it's their own number
+  const total = known
+    ? ((await store.get<number>(storeKey("visitors"))) ?? 0) +
+      VISITORS_BEFORE_COUNTER
+    : visitor;
 
   const response = NextResponse.json({
     number: visitor,
+    // Never less than their own number, like if the counter was reset after they got it
+    total: Math.max(total, visitor),
     returning: Date.now() - since > VISIT_LENGTH,
   });
   // Set again on every page, so it only expires a year after their last visit

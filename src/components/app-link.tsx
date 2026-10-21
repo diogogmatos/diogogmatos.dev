@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import clsx from "clsx";
 
@@ -6,12 +8,20 @@ export default function AppLink({
   children,
   active,
   className,
+  onClick,
+  "data-umami-event": event,
   ...props
 }: {
   href: string;
   children: React.ReactNode;
   active?: boolean;
+  // The Umami event sent when it's clicked
+  "data-umami-event"?: string;
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  // Umami follows links with this attribute itself, loading the whole site again, so links to this
+  // site's pages send their event from here instead and go to the page without leaving the site
+  const internal = href.startsWith("/") || href.startsWith("#");
+
   return (
     <Link
       className={clsx(
@@ -22,6 +32,16 @@ export default function AppLink({
         className,
       )}
       href={href}
+      data-umami-event={internal ? undefined : event}
+      onClick={(clickEvent) => {
+        if (internal && event) {
+          const { umami } = window as Window & {
+            umami?: { track: (event: string) => void };
+          };
+          umami?.track(event);
+        }
+        onClick?.(clickEvent);
+      }}
       {...props}
     >
       {children}
