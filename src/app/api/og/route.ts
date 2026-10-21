@@ -3,6 +3,13 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
+// sharp draws text with the fonts fontconfig finds, and Vercel's servers have none, so it gets
+// the ones in fonts.conf. Fontconfig reads this the first time text is drawn
+process.env.FONTCONFIG_FILE = path.join(
+  process.cwd(),
+  "src/app/api/og/fonts.conf",
+);
+
 const escapeXml = (str: string) =>
   str
     .replace(/&/g, "&amp;")
