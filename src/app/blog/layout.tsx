@@ -3,7 +3,6 @@ import { Metadata } from "next";
 export function generateMetadata(): Metadata {
   const ogImageUrl = `/api/og?title=${encodeURIComponent("Blog | Diogo Matos")}&description=${encodeURIComponent("diogogmatos.dev/blog")}`;
   return {
-    metadataBase: new URL("https://diogogmatos.dev"),
     title: "Blog | Diogo Matos",
     description: "Check out blog posts about my projects and other topics.",
     keywords: [

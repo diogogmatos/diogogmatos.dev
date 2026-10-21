@@ -1,14 +1,13 @@
-import Experiences from "@/components/experiences";
+import Experiences from "@/components/home/experiences";
 import { Metadata } from "next";
-import Posts from "@/components/posts";
-import Header from "@/components/header";
-import Projects from "@/components/projects";
+import Posts from "@/components/home/posts";
+import Header from "@/components/home/header";
+import Projects from "@/components/home/projects";
 import Aurora from "@/components/animations/aurora";
 
 const ogImageUrl = `/api/og?title=${encodeURIComponent("Diogo Matos")}&&description=${encodeURIComponent("diogogmatos.dev")}`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://diogogmatos.dev"),
   title: "Diogo Matos",
   description: "Diogo Matos Portfolio & Blog: Software Engineer",
   keywords: [

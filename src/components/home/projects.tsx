@@ -1,7 +1,7 @@
 "use client";
 
-import FadeIn from "./animations/fade-in";
-import ProjectShowoff from "./project-showoff";
+import FadeIn from "@/components/animations/fade-in";
+import ProjectShowoff from "@/components/project-showoff";
 import { allProjects } from "content-collections";
 
 export default function Projects() {

@@ -7,8 +7,8 @@ import {
   LinkedinLogo,
   Mailbox,
 } from "@phosphor-icons/react/dist/ssr";
-import Markdown from "./markdown";
-import FadeIn from "./animations/fade-in";
+import Markdown from "@/components/markdown";
+import FadeIn from "@/components/animations/fade-in";
 
 const contacts = [
   {

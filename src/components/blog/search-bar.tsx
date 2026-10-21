@@ -10,7 +10,6 @@ const placeholders = [
   "Search by title...",
   "Search by description...",
   "Search by topic...",
-  "Search by tag...",
   "Search by date...",
 ];
 

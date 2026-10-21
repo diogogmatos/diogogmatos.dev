@@ -1,5 +1,5 @@
 {
-    "title": "UniShare",
+    "title": "UniShare — Resource Sharing Platform",
     "description": "Case study of an academic resource sharing platform developed as part of a Web Engineering course, with features like resource submission, upvoting/downvoting, commenting, and user profiles.",
     "media": [
         {
@@ -11,6 +11,7 @@
             "alt": "UniShare Showcase Video",
             "type": "video",
             "cover": true,
+            "respect": true,
             "duration": 20
         },
         {

@@ -8,8 +8,11 @@ import { Analytics } from "@vercel/analytics/react";
 import { WidthProvider } from "@/providers/width-provider";
 import localFont from "next/font/local";
 import { clsx } from "clsx";
-import BackButton from "@/components/back-button";
+import Breadcrumbs from "@/components/breadcrumbs";
+import VisitorCount from "@/components/visitor-count";
 import UnderlineThickness from "@/components/underline-thickness";
+import { getSiteUrl } from "@/lib/site-url";
+import { pageTitles } from "@/lib/page-titles";
 
 const editorialNew = localFont({
   display: "swap",
@@ -59,7 +62,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://diogogmatos.dev"),
+  metadataBase: getSiteUrl(),
   openGraph: {
     siteName: "Diogo Matos",
     type: "website",
@@ -102,17 +105,20 @@ export default function RootLayout({
         <WidthProvider>
           <div
             className={clsx(
-              "flex flex-col justify-between gap-8 sm:gap-10 px-4 pb-8 pt-28 sm:pb-8 sm:px-10 min-h-screen m-auto max-w-prose",
+              "flex flex-col justify-between gap-8 sm:gap-10 px-4 pb-8 pt-20 sm:pt-28 sm:pb-8 sm:px-10 min-h-screen m-auto max-w-prose",
             )}
           >
             <main className="flex flex-col gap-8 sm:gap-10">
-              <BackButton />
+              <Breadcrumbs titles={pageTitles} />
               {children}
             </main>
 
-            <footer className="text-neutral-50/50 text-sm text-center py-12">
-              proudly developed and designed by me{" "}
-              <PaintBrush size={18} className="inline-flex mb-1" />
+            <footer className="flex flex-col items-center gap-3 text-neutral-50/50 text-sm text-center py-12">
+              <p>
+                proudly developed and designed by me{" "}
+                <PaintBrush size={18} className="inline-flex align-text-top" />
+              </p>
+              <VisitorCount />
             </footer>
 
             <div className={styles.base} />

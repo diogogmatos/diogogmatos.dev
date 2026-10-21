@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { clsx } from "clsx";
-import Card from "./card";
-import AppLink from "./app-link";
-import FadeIn from "./animations/fade-in";
+import Card from "@/components/card";
+import AppLink from "@/components/app-link";
+import FadeIn from "@/components/animations/fade-in";
 import { allExperiences } from "content-collections";
 
 export default function Experiences() {

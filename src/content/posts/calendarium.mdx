@@ -1,7 +1,7 @@
 ---
 icon: "CalendarBlank"
 title: "Calendarium"
-summary: "Project overview of a tool I helped build to help students manage their academic schedules."
+summary: "How I became the main maintainer of Calendarium, the calendar and schedule planner of UMinho's Software Engineering students."
 date: "2025-06-11"
 cover: "/assets/calendarium/calendarium.webp"
 coverAlt: "Calendarium's Logo"
@@ -9,66 +9,79 @@ coverAlt: "Calendarium's Logo"
 
 [**Calendarium**](https://calendario.cesium.uminho.pt) [**GitHub**](https://github.com/cesium/calendarium)
 
-**Calendarium** is an open-source Next.js web app that aims to provide students in the Bachelor's or Master's programs in Software Engineering at [UMinho](https://www.uminho.pt) with **easy access to information on academic events (like exams and other due dates), class schedules, and extracurricular activities organized by the student center.**
+When's the next exam? Which room is that class in again? For Software Engineering students at the [University of Minho](https://www.uminho.pt), the answer has long been a click away on **Calendarium**: an open-source web app that brings exams, due dates, class schedules and the student center's activities together in one place.
 
-The project was started in 2022 by some colleagues at [CeSIUM](https://cesium.pt) (University of Minho's Software Engineering Student Center), and I had the opportunity to pick it up at a very early stage in September of that same year. Since then, I have grown very close to the project and have become its main maintainer and contributor, implementing **over 40 new features** and improvements.
+The project was started in 2022 by some colleagues at [CeSIUM](https://cesium.pt), the Software Engineering students' center, and I picked it up at a very early stage, in September of that same year. I stayed close to it for years, and became its main maintainer and contributor along the way.
 
-The platform is loved by students of all years, frequently reaching **over a thousand views per day** and having had a total of **24k views** just in February 2025.
+<Stats items={[{ value: "40+", label: "features I've shipped" }, { value: "1,000+", label: "views on a busy day" }, { value: "24k", label: "views in February 2025 alone" }]} />
 
-## 🕹️ Main Functionality
+![Calendarium's events view, with exams and due dates for the selected subjects](/assets/calendarium/events.webp)
 
-### Sidebar
+## No More Circling Shifts
 
-The sidebar is a central feature of the platform, allowing users to manage all their preferences and navigate the app. Here, they can switch between the Events and Schedule views.
+Building your weekly schedule used to be a ritual. The university publishes one giant table with every class and every shift, in a course where some classes have **up to 12 shifts**. So students went through it by hand, circling the shifts they were enrolled in, just to finally see what their week looked like.
 
-### Events View
+Calendarium turns that into a few clicks:
 
-![](</assets/calendarium/Screen Shot 2025-02-20 at 17.06.02.webp>)
+| UMinho's schedule | Calendarium |
+| - | - |
+| ![The official schedule, with every shift of every class](/assets/calendarium/schedule-uminho.webp) | ![The same week in Calendarium, with only the selected shifts](/assets/calendarium/schedule-week.webp) |
 
-The main objective of this view is to provide the student with an easy-to-use calendar where they can view events relevant to them, like their exams and due dates, and events relevant to any student, like holiday periods and the start/end of the semester.
+## How It Works
 
-To make this view a personalized experience, the student can select the subjects they are attending from the collapsible menus in the sidebar:
+Everything is personalized from the sidebar, where you tell Calendarium what you're taking:
 
-![](</assets/calendarium/Screen Shot 2025-02-20 at 17.10.27-2.webp>)
+<Pipeline>
+  <Step icon="ListChecks" title="Pick your subjects">Choose them by year and semester, and their exams, projects and due dates show up in the events calendar, along with the dates every student cares about, like holidays and the start and end of each semester.</Step>
+  <Step icon="CalendarCheck" title="Pick your shifts">Switch to the schedule view and choose the shifts you're enrolled in, and your classes fill up the week.</Step>
+  <Step icon="Clock" title="Get the details">Tap any event or class to see when and where it is, and anything else worth knowing.</Step>
+</Pipeline>
 
-Clicking an event will give you a dialog with detailed information:
+![Choosing subjects in the sidebar](/assets/calendarium/sidebar-subjects.webp)
 
-![](</assets/calendarium/Screen Shot 2025-02-20 at 17.47.28.webp>)
+| An event | A class |
+| - | - |
+| ![The details of an event](/assets/calendarium/event-details.webp) | ![The details of a class](/assets/calendarium/class-details.webp) |
 
-### &#x20;Schedule View
+## Make It Yours
 
-![](</assets/calendarium/Screen Shot 2025-02-20 at 17.07.37.webp>)
+<Features columns={3}>
+  <Feature icon="Palette" title="Custom themes">Pick your own color for every subject.</Feature>
+  <Feature icon="Export" title="Export anywhere">Subscribe to your events or schedule from Google, Apple or Outlook Calendar, or download them as an iCal file.</Feature>
+  <Feature icon="ShareNetwork" title="Share codes">Send your selections to a friend as a code, so they don't have to pick everything again.</Feature>
+  <Feature icon="Bell" title="Notifications">Stay up to date with announcements and last-minute changes.</Feature>
+  <Feature icon="DeviceMobile" title="Installable">Add it to your phone's home screen and open it like any other app.</Feature>
+  <Feature icon="Moon" title="Dark mode">For late-night study sessions, of course.</Feature>
+</Features>
 
-The schedule view is especially popular among our students because it provides an interactive experience for schedule building, in a course where having more than 10 different shifts for a single class is a common occurrence.
+![Creating a custom theme](/assets/calendarium/themes.webp)
 
-The official schedule view provided by UMinho only offers a single view of all classes and shifts, which can be confusing and overwhelming. Students would go over the giant document by hand and circle the shifts they are enrolled in to only then be able to see their final and unique schedule.
+| Export | Share |
+| - | - |
+| ![Exporting to an external calendar](/assets/calendarium/export.webp) | ![Sharing selections with a code](/assets/calendarium/share.webp) |
 
-| UMinho Schedule View                                              | Calendarium                                                           |
-| ----------------------------------------------------------------- | --------------------------------------------------------------------- |
-| ![](</assets/calendarium/Screen Shot 2025-02-20 at 17.34.25.webp>) | ![](</assets/calendarium/Screen Shot 2025-02-20 at 17.07.37-sch.webp>) |
+Since exports are feeds rather than one-off files, any change in Calendarium, like an exam moving to another day, shows up in your calendar app on its own.
 
-In a similar fashion to how the Events view works, students simply select the shifts they are enrolled in from the collapsible menus of the sidebar and watch the corresponding class appear in the weekly view of the calendar.
+## Behind the Scenes
 
-Clicking a class will give you a dialog with detailed information:
+<Stack items={["Next.js", "React", "TypeScript", "Tailwind CSS", "React Big Calendar", "Google Sheets API", "Python", "Selenium", "GitHub Actions"]} />
 
-![](</assets/calendarium/Screen Shot 2025-02-20 at 17.50.07.webp>)
+Keeping a calendar like this up to date is most of the work, so a lot of Calendarium is about making that easy:
 
-## 🚀 Popular Features
+<Pipeline>
+  <Step icon="Table" title="Events live in a spreadsheet" tech="Google Sheets API">Exams, due dates and notifications are kept in a Google Sheet, so anyone at CeSIUM can add or fix an event without touching the code.</Step>
+  <Step icon="Robot" title="Schedules update themselves" tech="Selenium">Every week, a GitHub Action runs a Python scraper on the university's schedule portal to pick up any changes.</Step>
+  <Step icon="GitPullRequest" title="A pull request lands">The changes come in as a pull request, with a review requested from the project's most active contributor. Which, to this day, is still me.</Step>
+</Pipeline>
 
-### Custom Themes
+## Passing the Torch
 
-Users can create custom themes for the calendar, customizing the colors of their selected subjects.
+Calendarium started out serving every Software Engineering student, from the Bachelor's to the Master's. But we wanted to take the idea behind it even further, so we teamed up with the board of the Bachelor's degree, and CeSIUM built a new platform: [Pombo](https://pombo.cesium.pt).
 
-![](</assets/calendarium/Screen Shot 2025-02-20 at 18.44.09.webp>)
+Pombo works hand in hand with the degree itself. It's the official place where students check their schedules, and it's even where their shifts are assigned at the start of each year. Every student has their own account, can see exactly which shifts they were given, and can swap them with their colleagues. Some of Calendarium's features made the move too, like the events calendar. I made a small contribution to it, but Pombo was mainly built by other very talented people at CeSIUM.
 
-### Export to External Calendar
+Today, Bachelor's students use Pombo, while Calendarium is still the place to go for Master's students, until they eventually move to Pombo as well.
 
-Users can export their selected events or schedules to their favorite calendar app, using Calendarium's export API, or even download them as an iCal file.
+As for me, I no longer actively maintain Calendarium. With my degree coming to an end, I've gradually handed my responsibilities over to CeSIUM's new tech team, and the project is in good hands. It's still open source, though, so if you spot something missing, the repository has a guide to help you add it yourself.
 
-### ![](</assets/calendarium/Screen Shot 2025-02-20 at 18.42.12.webp>)
-
-### Share Selections
-
-Users can share their selected events or schedules with their friends by sending a generated share code, saving them the hassle of manually selecting them again.
-
-![](</assets/calendarium/Screen Shot 2025-02-20 at 18.42.24.webp>)
+> **Calendarium will forever be my baby** \<3. Working on it for all those years, and seeing so many people use it to make their lives a little easier, has been one of the most rewarding things I've ever done.

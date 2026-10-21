@@ -1,5 +1,7 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
+import { fromMarkdown } from "mdast-util-from-markdown";
+import { toString } from "mdast-util-to-string";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
 
@@ -44,6 +46,10 @@ const posts = defineCollection({
     return {
       ...document,
       mdx,
+      // The summary without its Markdown, for places that show plain text, like link previews
+      plainSummary: toString(fromMarkdown(document.summary))
+        .replace(/\s+/g, " ")
+        .trim(),
     };
   },
 });
@@ -63,6 +69,8 @@ const projects = defineCollection({
         alt: z.string().optional(),
         addPadding: z.boolean().optional(),
         cover: z.boolean().optional(),
+        // Videos only: the carousel takes this video's aspect ratio, so it's never cropped
+        respect: z.boolean().optional(),
         duration: z.number().optional(),
       }),
     ),

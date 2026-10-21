@@ -274,16 +274,19 @@ const CarouselVideo = ({
   src,
   addPadding,
   cover,
+  respect,
 }: {
   src: string[];
   addPadding?: boolean;
   cover?: boolean;
+  respect?: boolean;
 }) => {
   return (
     <video
       className={cn(
         cover ? "object-cover" : "object-contain",
-        "size-full bg-white/5 rounded-xl backdrop-blur-md overflow-hidden",
+        respect ? "w-full h-auto" : "size-full",
+        "bg-white/5 rounded-xl backdrop-blur-md overflow-hidden",
         addPadding && "p-3 sm:p-5",
       )}
       autoPlay

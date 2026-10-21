@@ -9,8 +9,13 @@ import Autoplay from "embla-carousel-autoplay";
 import Markdown from "./markdown";
 import AppLink from "./app-link";
 import { Project } from "content-collections";
+import { cn } from "@/lib/utils";
 
 export default function ProjectShowoff({ project }: { project: Project }) {
+  const respectsVideo = project.media.some(
+    (media) => media.type === "video" && media.respect,
+  );
+
   return (
     <div className="flex flex-col gap-5 sm:gap-6">
       <div className="flex flex-col gap-1 sm:gap-1.5 px-2">
@@ -49,7 +54,13 @@ export default function ProjectShowoff({ project }: { project: Project }) {
         >
           <CarouselContent>
             {project.media.map((media, idx) => (
-              <CarouselItem key={idx}>
+              <CarouselItem
+                key={idx}
+                className={cn(
+                  respectsVideo && "max-h-none",
+                  respectsVideo && !media.respect && "[contain:size]",
+                )}
+              >
                 {media.type === "image" ? (
                   <CarouselImage
                     key={idx}
@@ -63,6 +74,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
                     src={media.src}
                     addPadding={media.addPadding}
                     cover={media.cover}
+                    respect={media.respect}
                   />
                 )}
               </CarouselItem>

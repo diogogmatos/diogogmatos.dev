@@ -5,7 +5,7 @@ const postsByDate = [...allPosts].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
 );
 
-// Ranks posts by how many of the query's words match their title, summary, tags or date
+// Ranks posts by how many of the query's words match their title, summary or date
 export function searchPosts(query: string) {
   const words = query.toLowerCase().split(" ").filter(Boolean);
   if (words.length === 0) return postsByDate;
@@ -14,8 +14,7 @@ export function searchPosts(query: string) {
     .map((post) => {
       const values = [
         post.title,
-        post.summary,
-        post.tags?.join(" ") ?? "",
+        post.plainSummary,
         new Date(post.date).toDateString(),
         new Date(post.date).toLocaleString("pt-PT"),
       ].map((value) => value.toLowerCase());

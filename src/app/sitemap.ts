@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
+import { PRODUCTION_URL } from "@/lib/site-url";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = fs.readdirSync(path.join("src/content/posts"));
@@ -11,14 +12,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const links = postsSlugs
     ? postsSlugs.map((p) => {
         return {
-          url: `https://diogogmatos.dev/blog/${p}`,
+          url: `${PRODUCTION_URL}/blog/${p}`,
         };
       })
     : [];
 
   return [
     {
-      url: "https://diogogmatos.dev",
+      url: PRODUCTION_URL,
     },
     ...links,
   ];

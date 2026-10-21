@@ -14,6 +14,12 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import Person from "./components/mdx/person";
 import Video from "./components/mdx/video";
 import ContainedImage from "./components/mdx/contained-image";
+import Stack from "./components/mdx/stack";
+import { Pipeline, Step } from "./components/mdx/pipeline";
+import Stats from "./components/mdx/stats";
+import { Features, Feature } from "./components/mdx/features";
+import Blend from "./components/mdx/blend";
+import Bars from "./components/mdx/bars";
 
 const replaceTextInElement = (
   element: ReactElement,
@@ -48,6 +54,14 @@ export const customComponents: MDXComponents = {
   Person,
   Video,
   ContainedImage,
+  Stack,
+  Pipeline,
+  Step,
+  Stats,
+  Features,
+  Feature,
+  Blend,
+  Bars,
   h1: ({ children }) => (
     <h1 className="text-2xl font-bold mt-8 mb-4 border-b border-white/20 pb-2 scroll-mt-20">
       {children}
@@ -73,7 +87,9 @@ export const customComponents: MDXComponents = {
     <strong className="font-semibold">{children}</strong>
   ),
   a: ({ children, href }) => (
-    <span className="px-1.5 py-[1px] rounded-full transition-colors duration-200 bg-white/10 backdrop-blur-md">
+    // No backdrop blur on inline elements: when they wrap onto a second line, the blur
+    // covers the whole box around both lines and blurs the text next to them
+    <span className="px-1.5 py-[1px] rounded-full transition-colors duration-200 bg-white/10">
       <AppLink
         href={href ?? "/"}
         className="font-medium"
@@ -110,7 +126,7 @@ export const customComponents: MDXComponents = {
     </pre>
   ),
   code: ({ children }) => (
-    <code className="bg-white/10 backdrop-blur-md px-1 py-[1px] rounded-[4px] text-sm font-mono">
+    <code className="bg-white/10 px-1 py-[1px] rounded-[4px] text-sm font-mono">
       {children}
     </code>
   ),
@@ -121,7 +137,7 @@ export const customComponents: MDXComponents = {
         className={clsx(
           isNote
             ? "bg-blue-500/20 px-4 py-0.5 rounded-md"
-            : "border-l-4 border-white/80 pl-2 py-0.5 bg-gradient-to-r from-white/10 to-transparent text-neutral-50/80 italic",
+            : "border-l-4 border-white/80 pl-2.5 py-0.5 bg-gradient-to-r from-white/10 to-transparent text-neutral-50/80 italic",
           "backdrop-blur-md my-6",
         )}
       >
