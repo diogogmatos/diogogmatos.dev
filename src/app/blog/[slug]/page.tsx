@@ -11,6 +11,7 @@ import { customComponents } from "@/mdx-components";
 import ReactionPicker from "@/components/reaction-picker";
 import Reactions from "@/components/reactions";
 import { ReactionsProvider } from "@/components/reactions-provider";
+import ShareButton from "@/components/share-button";
 
 export const dynamicParams = false;
 
@@ -126,7 +127,8 @@ export default async function BlogPost({
               <Clock size="1.1em" className="mr-1" weight="fill" />
               <p>{postStats.text}</p>
             </li>
-            <li>
+            <li className="flex items-center gap-1.5">
+              <ShareButton title={post.title} />
               <ReactionPicker />
             </li>
           </ul>
