@@ -1,10 +1,8 @@
 import { Metadata } from "next";
 import fs from "fs";
 import path from "path";
-import { CalendarBlank, Clock } from "@phosphor-icons/react/dist/ssr";
 import Markdown from "@/components/markdown";
 import MDX from "@/components/mdx";
-import readingTime from "reading-time";
 import Image from "next/image";
 import { allPosts } from "content-collections";
 import { customComponents } from "@/mdx-components";
@@ -86,8 +84,6 @@ export default async function BlogPost({
     return null;
   }
 
-  const postStats = readingTime(post.content);
-
   return (
     <ReactionsProvider slug={slug}>
       <article className="flex flex-col gap-2 justify-start w-full">
@@ -100,7 +96,7 @@ export default async function BlogPost({
           <Markdown
             components={{
               p: ({ children }) => (
-                <p className="text-sm text-balance text-neutral-50/90">
+                <p className="text-sm text-pretty text-neutral-50/90">
                   {children}
                 </p>
               ),
@@ -110,23 +106,6 @@ export default async function BlogPost({
           </Markdown>
           {/* Meta Info */}
           <ul className="flex gap-3 sm:gap-4 flex-wrap items-center text-xs sm:text-sm text-neutral-50/90">
-            <li className="flex items-center">
-              <CalendarBlank size="1.1em" className="mr-1" weight="fill" />
-              <p>
-                {new Date(post.date).toLocaleString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year:
-                    new Date().getFullYear() > new Date(post.date).getFullYear()
-                      ? "numeric"
-                      : undefined,
-                })}
-              </p>
-            </li>
-            <li className="flex items-center">
-              <Clock size="1.1em" className="mr-1" weight="fill" />
-              <p>{postStats.text}</p>
-            </li>
             <li className="flex items-center gap-1.5">
               <ShareButton title={post.title} />
               <ReactionPicker />

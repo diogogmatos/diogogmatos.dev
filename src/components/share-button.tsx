@@ -39,18 +39,19 @@ export default function ShareButton({ title }: { title: string }) {
         title="Share this post"
         data-umami-event="Share post"
         className={clsx(
-          "flex items-center justify-center size-7 rounded-full backdrop-blur-md cursor-pointer transition-colors",
+          "flex items-center justify-center h-7 px-2.5 rounded-full backdrop-blur-md cursor-pointer transition-all active:scale-95",
           copied
             ? "bg-white/15 text-neutral-50"
             : "bg-white/5 hover:bg-white/10 text-neutral-50/80 hover:text-neutral-50",
         )}
       >
+        Share{" "}
         <motion.span
           key={String(copied)}
           initial={copied ? { scale: 0.5 } : false}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 500, damping: 12 }}
-          className="flex"
+          className="ml-1"
         >
           {copied ? (
             <Check size={16} weight="bold" />
