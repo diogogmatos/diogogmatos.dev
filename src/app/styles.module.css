@@ -16,10 +16,42 @@
   initial-value: rgb(29 78 216 / 0.1);
 }
 
+@property --edge {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 45%;
+}
+
+/* Safari fills its status bar, the area below the page and the overscroll with this color,
+   since pages can't draw there. So it's the background's color along the edge that's showing:
+   the gradient over the dark pattern, from its average along the top to its average along the
+   bottom as the page scrolls */
 .body_bg {
   --c1: rgb(29 78 216 / 0.7);
-  background-color: rgb(from var(--c1) r g b / 1);
+  background-color: color-mix(
+    in srgb,
+    rgb(from var(--c1) r g b / 1) var(--edge),
+    rgb(5 5 5)
+  );
   animation: rainbow 60s infinite linear;
+}
+
+@supports (animation-timeline: scroll()) {
+  .body_bg {
+    animation:
+      rainbow 60s infinite linear,
+      edge linear both;
+    animation-timeline: auto, scroll(root);
+  }
+}
+
+@keyframes edge {
+  from {
+    --edge: 45%;
+  }
+  to {
+    --edge: 15%;
+  }
 }
 
 .base {
@@ -38,6 +70,31 @@
   );
   animation: rainbow 60s infinite linear;
   @apply absolute top-0 left-0 size-full -z-10;
+}
+
+/* That color is solid, so next to the gradient it looks like it goes the other way. On iOS the
+   gradient fades into it at the top and bottom of the page, the same colors as the body's at each
+   end of the scroll, with holes so the pattern's dots show through */
+.edges {
+  @apply absolute top-0 left-0 size-full -z-10 hidden;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .edges {
+    --c1: rgb(29 78 216 / 0.7);
+    display: block;
+    background: linear-gradient(
+        color-mix(in srgb, rgb(from var(--c1) r g b / 1) 45%, rgb(5 5 5)),
+        transparent 8rem
+      ),
+      linear-gradient(
+        to top,
+        color-mix(in srgb, rgb(from var(--c1) r g b / 1) 15%, rgb(5 5 5)),
+        transparent 8rem
+      );
+    mask: radial-gradient(transparent 0.5px, black 0.5px) 0 0 / 20px 20px;
+    animation: rainbow 60s infinite linear;
+  }
 }
 
 @keyframes rainbow {

@@ -65,6 +65,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
                   <CarouselImage
                     key={idx}
                     src={media.src}
+                    dimensions={media.dimensions}
                     alt={media.alt ?? project.title + " image " + idx}
                     addPadding={media.addPadding}
                     cover={media.cover}
@@ -73,6 +74,7 @@ export default function ProjectShowoff({ project }: { project: Project }) {
                   <CarouselVideo
                     src={media.src}
                     poster={media.poster}
+                    dimensions={media.dimensions[0]}
                     addPadding={media.addPadding}
                     cover={media.cover}
                     respect={media.respect}

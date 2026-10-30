@@ -3,7 +3,15 @@ import { compileMDX } from "@content-collections/mdx";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { toString } from "mdast-util-to-string";
 import remarkGfm from "remark-gfm";
+import sharp from "sharp";
+import path from "node:path";
 import { z } from "zod";
+
+// An image's size as it's shown, after the rotation some photos are saved with
+async function imageSize(src: string) {
+  const { autoOrient } = await sharp(path.join("public", src)).metadata();
+  return { width: autoOrient.width, height: autoOrient.height };
+}
 
 const experiences = defineCollection({
   name: "experiences",
@@ -71,12 +79,28 @@ const projects = defineCollection({
         cover: z.boolean().optional(),
         // Videos only: the carousel takes this video's aspect ratio, so it's never cropped
         respect: z.boolean().optional(),
-        // Videos only: shown until it plays
+        // Videos only: shown until it plays. It's the video's first frame, so the same size
         poster: z.string().optional(),
         duration: z.number().optional(),
       }),
     ),
     link: z.string(),
+  }),
+  transform: async (project) => ({
+    ...project,
+    media: await Promise.all(
+      project.media.map(async (media) => ({
+        ...media,
+        // Each image's size, or the video's from its poster, so the carousel has the right height
+        // before they load
+        dimensions:
+          media.type === "image"
+            ? await Promise.all(media.src.map(imageSize))
+            : media.poster
+              ? [await imageSize(media.poster)]
+              : [],
+      })),
+    ),
   }),
 });
 

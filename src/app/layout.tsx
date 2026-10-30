@@ -119,6 +119,7 @@ export default function RootLayout({
 
             <div className={styles.base} />
             <div className={styles.gradient} />
+            <div className={styles.edges} />
             <div className={styles.pattern} />
             <BottomGradient />
             <UnderlineThickness />
