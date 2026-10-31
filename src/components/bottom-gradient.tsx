@@ -28,9 +28,11 @@ const BottomGradient = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Hidden on iOS, where Safari paints a solid color below fixed elements at the bottom edge,
+  // covering the background behind its toolbar. That toolbar already blurs what's under it
   return (
     <div
-      className={`${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full pointer-events-none"} transition-all duration-300 ease-in-out fixed bottom-0 left-0 right-0 h-32 sm:h-40 md:h-48 pointer-events-none [backdrop-filter:blur(2px)] [mask:linear-gradient(transparent,black_70%)] z-40`}
+      className={`${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full pointer-events-none"} transition-all duration-300 ease-in-out fixed bottom-0 left-0 right-0 h-32 sm:h-40 md:h-48 pointer-events-none [backdrop-filter:blur(2px)] [mask:linear-gradient(transparent,black_70%)] z-40 supports-[-webkit-touch-callout:none]:hidden`}
     />
   );
 };

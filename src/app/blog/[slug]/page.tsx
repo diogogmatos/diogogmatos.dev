@@ -1,18 +1,19 @@
 import { Metadata } from "next";
 import fs from "fs";
 import path from "path";
-import { CalendarBlank, Clock } from "@phosphor-icons/react/dist/ssr";
 import Markdown from "@/components/markdown";
 import MDX from "@/components/mdx";
-import readingTime from "reading-time";
 import Image from "next/image";
 import { allPosts } from "content-collections";
 import { customComponents } from "@/mdx-components";
 import ReactionPicker from "@/components/reaction-picker";
 import Reactions from "@/components/reactions";
 import { ReactionsProvider } from "@/components/reactions-provider";
+import ShareButton from "@/components/share-button";
 
 export const dynamicParams = false;
+
+const COVER_WIDTH = 600;
 
 export async function generateStaticParams() {
   const posts = fs.readdirSync(path.join("src/content/posts"));
@@ -85,8 +86,6 @@ export default async function BlogPost({
     return null;
   }
 
-  const postStats = readingTime(post.content);
-
   return (
     <ReactionsProvider slug={slug}>
       <article className="flex flex-col gap-2 justify-start w-full">
@@ -99,7 +98,7 @@ export default async function BlogPost({
           <Markdown
             components={{
               p: ({ children }) => (
-                <p className="text-sm text-balance text-neutral-50/90">
+                <p className="text-sm text-pretty text-neutral-50/90">
                   {children}
                 </p>
               ),
@@ -109,36 +108,29 @@ export default async function BlogPost({
           </Markdown>
           {/* Meta Info */}
           <ul className="flex gap-3 sm:gap-4 flex-wrap items-center text-xs sm:text-sm text-neutral-50/90">
-            <li className="flex items-center">
-              <CalendarBlank size="1.1em" className="mr-1" weight="fill" />
-              <p>
-                {new Date(post.date).toLocaleString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year:
-                    new Date().getFullYear() > new Date(post.date).getFullYear()
-                      ? "numeric"
-                      : undefined,
-                })}
-              </p>
-            </li>
-            <li className="flex items-center">
-              <Clock size="1.1em" className="mr-1" weight="fill" />
-              <p>{postStats.text}</p>
-            </li>
-            <li>
+            <li className="flex items-center gap-1.5">
+              <ShareButton title={post.title} />
               <ReactionPicker />
             </li>
           </ul>
           {/* Image */}
-          {post.cover && (
+          {post.cover && post.coverDimensions && (
             <figure className="w-full mt-2">
               <Image
                 src={post.cover}
-                width={600}
-                height={600}
+                // The width it's asked for in, which sets the sizes it's downloaded in, and the
+                // height that keeps its shape, so it takes up the right space before it loads.
+                // Not rounded, since that would change its shape a little
+                width={COVER_WIDTH}
+                height={
+                  (COVER_WIDTH * post.coverDimensions.height) /
+                  post.coverDimensions.width
+                }
                 alt={post.coverAlt || post.title}
                 className="rounded-lg"
+                // It's at the top of the post, usually the biggest thing on screen when it opens
+                loading="eager"
+                fetchPriority="high"
               />
             </figure>
           )}

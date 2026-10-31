@@ -233,8 +233,12 @@ function CarouselNext({
   );
 }
 
+// The width the images are asked for in, which sets the sizes they're downloaded in
+const IMAGE_WIDTH = 500;
+
 const CarouselImage = ({
   src,
+  dimensions,
   alt,
   addPadding,
   cover,
@@ -242,6 +246,9 @@ const CarouselImage = ({
   className,
 }: {
   src: string[];
+  // Each image's size, so it takes up the right space before it loads. Going back to a page
+  // makes them load again, and they'd be square until then, making the page jump
+  dimensions: { width: number; height: number }[];
   alt: string;
   addPadding?: boolean;
   cover?: boolean;
@@ -262,8 +269,11 @@ const CarouselImage = ({
           className={cn(cover ? "object-cover" : "object-contain", "size-full")}
           src={source}
           alt={alt}
-          width={500}
-          height={500}
+          width={IMAGE_WIDTH}
+          // Not rounded, since that would change its shape a little
+          height={
+            (IMAGE_WIDTH * dimensions[idx].height) / dimensions[idx].width
+          }
           priority={priority}
         />
       ))}
@@ -274,12 +284,14 @@ const CarouselImage = ({
 const CarouselVideo = ({
   src,
   poster,
+  dimensions,
   addPadding,
   cover,
   respect,
 }: {
   src: string[];
   poster?: string;
+  dimensions?: { width: number; height: number };
   addPadding?: boolean;
   cover?: boolean;
   respect?: boolean;
@@ -288,6 +300,7 @@ const CarouselVideo = ({
     <AutoplayVideo
       src={src}
       poster={poster}
+      dimensions={dimensions}
       className={cn(
         cover ? "object-cover" : "object-contain",
         respect ? "w-full h-auto" : "size-full",
