@@ -270,9 +270,10 @@ const CarouselImage = ({
           src={source}
           alt={alt}
           width={IMAGE_WIDTH}
-          height={Math.round(
-            (IMAGE_WIDTH * dimensions[idx].height) / dimensions[idx].width,
-          )}
+          // Not rounded, since that would change its shape a little
+          height={
+            (IMAGE_WIDTH * dimensions[idx].height) / dimensions[idx].width
+          }
           priority={priority}
         />
       ))}

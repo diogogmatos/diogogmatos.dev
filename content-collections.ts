@@ -58,6 +58,10 @@ const posts = defineCollection({
       plainSummary: toString(fromMarkdown(document.summary))
         .replace(/\s+/g, " ")
         .trim(),
+      // So the post leaves the right space for its cover before it loads
+      coverDimensions: document.cover
+        ? await imageSize(document.cover)
+        : undefined,
     };
   },
 });

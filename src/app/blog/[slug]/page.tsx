@@ -13,6 +13,8 @@ import ShareButton from "@/components/share-button";
 
 export const dynamicParams = false;
 
+const COVER_WIDTH = 600;
+
 export async function generateStaticParams() {
   const posts = fs.readdirSync(path.join("src/content/posts"));
   return posts
@@ -112,14 +114,23 @@ export default async function BlogPost({
             </li>
           </ul>
           {/* Image */}
-          {post.cover && (
+          {post.cover && post.coverDimensions && (
             <figure className="w-full mt-2">
               <Image
                 src={post.cover}
-                width={600}
-                height={600}
+                // The width it's asked for in, which sets the sizes it's downloaded in, and the
+                // height that keeps its shape, so it takes up the right space before it loads.
+                // Not rounded, since that would change its shape a little
+                width={COVER_WIDTH}
+                height={
+                  (COVER_WIDTH * post.coverDimensions.height) /
+                  post.coverDimensions.width
+                }
                 alt={post.coverAlt || post.title}
                 className="rounded-lg"
+                // It's at the top of the post, usually the biggest thing on screen when it opens
+                loading="eager"
+                fetchPriority="high"
               />
             </figure>
           )}
