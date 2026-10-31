@@ -1,7 +1,8 @@
 import AutoplayVideo from "../autoplay-video";
 import { videoType } from "@/lib/video";
 
-const className = "w-full bg-white/5 rounded-lg backdrop-blur-md overflow-hidden";
+const className =
+  "w-full bg-white/5 rounded-lg backdrop-blur-md overflow-hidden";
 
 export default function Video({
   src,
