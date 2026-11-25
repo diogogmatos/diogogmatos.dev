@@ -113,7 +113,9 @@ export const customComponents: MDXComponents = {
   ul: ({ children }) => (
     <ul className="list-disc pl-6 my-4 text-sm">{children}</ul>
   ),
-  ol: ({ children }) => <ol className="list-decimal pl-8 my-4">{children}</ol>,
+  ol: ({ children }) => (
+    <ol className="list-decimal pl-6 my-4 text-sm">{children}</ol>
+  ),
   li: ({ children }) => <li className="mb-1.5">{children}</li>,
   pre: ({ children }) => (
     <pre className="text-sm font-mono flex justify-between gap-2 rounded-lg bg-white/10 backdrop-blur-md p-3 w-full overflow-hidden my-6">

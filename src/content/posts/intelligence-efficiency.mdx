@@ -1,0 +1,72 @@
+---
+icon: "Brain"
+title: "Thesis — The Evolution of Intelligence Efficiency in Local, Open LLMs"
+summary: "My Master's thesis on how the **accuracy** and **energy consumption** of open LLMs have evolved over the past few years, which I defended with a grade of **20/20**."
+date: "2026-11-25"
+cover: "/assets/intelligence-efficiency/uminho.webp"
+coverAlt: "Diogo holding his thesis and a bouquet of flowers in front of the University of Minho sign at the Braga campus"
+---
+
+[**Download thesis**](/assets/intelligence-efficiency/thesis.pdf) [**Download presentation**](/assets/intelligence-efficiency/presentation.pdf)
+
+Today I defended my Master's thesis in Software Engineering, *The Evolution of Intelligence Efficiency in Local, Open LLMs: A Controlled Empirical Study*, and I'm so incredibly happy and honored to share that I received the highest possible grade of **20/20**! 🥹
+
+LLMs are used by hundreds of millions of people every week, and new models come out at a rapid pace, which makes their energy consumption a growing concern. Yet existing studies compare the models available at a single moment, change the hardware along with the models, or leave accuracy out of the picture. None measures both the energy *and* the accuracy of successive releases on the same hardware.
+
+So I asked: **is energy efficiency improving with each release, or is it being compromised in favor of raw performance?**
+
+## Intelligence Efficiency
+
+To answer it, I measured each model's **intelligence efficiency**: the accuracy it delivers for the energy it consumes. Splitting that energy into how many tokens a model writes per question and how much energy each token costs traces every change back to where it came from:
+
+![Intelligence efficiency equals accuracy divided by tokens per question times energy per token](/assets/intelligence-efficiency/intelligence-efficiency.webp)
+
+## How I Measured
+
+Open models, unlike closed ones, can run locally, so every one of them can be measured under the same conditions. I picked successive releases from six families, published between July 2023 and March 2026:
+
+<Stats items={[{ value: "47", label: "models" }, { value: "20", label: "releases" }, { value: "6", label: "families" }]} />
+
+<Stack items={["Mistral", "Gemma", "Llama", "Phi", "DeepSeek", "Qwen"]} />
+
+Each model answered the same 372 questions from MMLU-Pro, 10 times and in random order, on a single NVIDIA L40S with vLLM, while Intel RAPL and NVML measured the energy. The whole pipeline is automated, so it can be rerun as new models come out. All in all, the experiment took:
+
+<Stats items={[{ value: "≈ 50", label: "days of runtime" }, { value: "342", label: "kWh of GPU energy" }, { value: "≈ 1,810", label: "km in an electric car" }]} />
+
+## What I Found
+
+![Diogo presenting the slide 'Intelligence efficiency did not improve for released models' during the thesis defense](/assets/intelligence-efficiency/defense.webp)
+
+<Features columns={2}>
+  <Feature icon="ChartLineUp" title="Smarter, not greener">Accuracy rose by about **20 points per year**, but **responses grew longer** while each token cost the same. Of 18 successive releases, **17 became more accurate**, yet **only 8 became more efficient**.</Feature>
+  <Feature icon="Wallet" title="A budget goes further">The same energy now buys **a lot more accuracy**: the best within 2 kJ per question rose from **25% to 65%** between 2023 and 2025.</Feature>
+  <Feature icon="Cpu" title="Size sets the price">**Active parameters** explain **98%** of the energy of a token. Sparse activation gave the **energy of a small model**, but **not the accuracy of a large one**.</Feature>
+  <Feature icon="Lightbulb" title="Thinking is expensive">Reasoning used **2.6 to 19.6× the energy** of the instruct version, for a median gain of **just 3.2 accuracy points**.</Feature>
+</Features>
+
+The families followed a common trajectory, but took different paths to get there: Gemma adopted sparse activation and the least costly reasoning mode, Phi shortened its responses, and Qwen lengthened them the most.
+
+> The gains in efficiency were reinvested in accuracy.
+
+## Building Greener Models
+
+From these results, I put together four recommendations for building more energy-efficient LLMs:
+
+1. Treat **response length** as a design target, and report the tokens generated per answer.
+2. Make **reasoning** proportional to the question.
+3. Develop and select **small models**: the smallest one that attains the required accuracy.
+4. Compare models **within an energy budget**, not by accuracy alone.
+
+## Thank You
+
+Working on this dissertation has been a beautiful journey that took me all the way to Florence, Italy, where I had the pleasure of meeting my amazing co-supervisor <Person username="robertoverdecchia" name="Roberto Verdecchia" />, **Dr. Imad Zaza**, and so many incredible human beings with whom I shared memories I will never forget.
+
+Seeing the effort I've put into this work over the past year recognized so generously was deeply moving. I want to thank my supervisor <Person username="joaoSaraiva" name="João Saraiva" /> for making all of this possible, and Roberto for being the best mentor I could have asked for. Thank you both for all your support, guidance and kind words.
+
+A special thank you also to all my friends and family. Thank you for all your love and care, and for being such a beautiful part of my life. It wouldn't be worth it without you&nbsp;❤️
+
+## Read More
+
+- [Thesis (PDF, 10 MB)](/assets/intelligence-efficiency/thesis.pdf)
+- [Presentation (PDF, 2 MB)](/assets/intelligence-efficiency/presentation.pdf)
+- [Replication package](https://github.com/diogogmatos/eco-evolution-of-llms)
