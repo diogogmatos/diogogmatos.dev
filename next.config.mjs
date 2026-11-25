@@ -22,12 +22,14 @@ const nextConfig = {
     };
     return config;
   },
-  // The OG image's fonts, which it finds through fonts.conf, so they aren't picked up on their own
+  // The OG image's fonts, which it finds through fonts.conf, and the libvips library sharp's
+  // native addon links against, since neither is require()d and so isn't picked up on its own
   outputFileTracingIncludes: {
     "/api/og": [
       "./src/app/api/og/fonts.conf",
       "./src/app/fonts/Inter-Variable.ttf",
       "./src/app/fonts/PPEditorialNew-Regular.otf",
+      "./node_modules/@img/sharp-libvips-linux-x64/lib/libvips-cpp.so.*",
     ],
   },
   images: {
